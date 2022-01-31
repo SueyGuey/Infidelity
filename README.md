@@ -7,6 +7,7 @@ Investing, without the money
 Frontend
 - React
 - TypeScript
+
 Backend
 - Java
 - Spring boot
