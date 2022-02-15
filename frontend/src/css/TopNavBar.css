@@ -7,7 +7,7 @@
 }
 
 .insideHeader {
-  width: 90%;
+  width: 95%;
   height: 100%;
   display: flexbox;
   margin: 0 auto;
@@ -20,7 +20,7 @@
 }
 
 .name {
-  color: azure;
+  color: #fefdfd;
   display: inline-block;
   position: absolute;
 }
@@ -42,7 +42,7 @@
 .nav li {
   font-family: "Montserrat", sans-serif;
   font-weight: 100;
-  color: azure;
+  color: #fefdfd;
   font-size: 25px;
   margin-left: 50px;
   display: inline-block;

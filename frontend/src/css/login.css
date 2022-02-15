@@ -1,0 +1,16 @@
+.login-container {
+	width: 200px;
+	height: 400px;
+	border-radius: 10px;
+	background-color: #636363;
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+}
+
+.text-input{
+	margin: 10px;
+	border-radius: 5px;
+	padding: 5px;
+	outline: none;
+}

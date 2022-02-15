@@ -1,12 +1,17 @@
 import React from 'react';
-import LandingPage from './components/LandingPage';
 import TopNavBar from './components/TopNavBar';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import Home from './components/home';
 
 function App() {
   return (
     <div className="App">
-      <TopNavBar/>
-      <LandingPage/>
+      <Router>
+        <Routes>
+          <TopNavBar/>
+          <Route path='/' element={<Home/>}/>
+        </Routes>
+      </Router>
     </div>
   );
 }
