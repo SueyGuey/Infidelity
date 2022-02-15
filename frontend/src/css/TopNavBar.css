@@ -2,17 +2,48 @@
   width: 100%;
   height: 100px;
   display: block;
-  background-color: aliceblue;
+  text-decoration: none;
+  background-color: #3500d3;
 }
 
 .insideHeader {
   width: 90%;
   height: 100%;
-  display: block;
+  display: flexbox;
   margin: 0 auto;
+  position: relative;
 }
 
 .logo {
   width: 100px;
   height: auto;
+}
+
+.name {
+  color: azure;
+  display: inline-block;
+  position: absolute;
+}
+
+.name p {
+  font-size: 80px;
+  margin-top: 10px;
+  font-family: Garamond, serif;
+  font-weight: 600;
+}
+
+.nav {
+  margin-top: 40px;
+  position: relative;
+  float: right;
+  display: inline;
+}
+
+.nav li {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 100;
+  color: azure;
+  font-size: 25px;
+  margin-left: 50px;
+  display: inline-block;
 }

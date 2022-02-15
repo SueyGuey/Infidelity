@@ -11,34 +11,16 @@ class TopNavBar extends Component{
                 <div className='name' >
                     <p>Infidelity</p>
                 </div>
-                <ul style={styling.nav}>
-                    <li style={styling.links}>About</li>
-                    <li style={styling.links}>Product</li>
-                    <li style={styling.links}>Features</li>
-                    <li style={styling.links}>Nav4</li>
-                    <li style={styling.links}>Nav5</li>
+                <ul className='nav'>
+                    <li>About</li>
+                    <li>Product</li>
+                    <li>Features</li>
+                    <li>Nav4</li>
+                    <li>Nav5</li>
                 </ul>
             </div>
         </div>
         );
-    }
-}
-
-var styling = {
-    name: {
-        fontFamily: "\"Montserrat\"",
-        fontSize: "50px",
-        display: "inline-block",
-        height: "100%",
-        backgroundColor: "yellow"
-    },
-    nav: {
-        listStyleType: "none",
-        display: "inline-block",
-    },
-    links: {
-        verticalAlign: "middle",
-        display: "inline-block",
     }
 }
 
