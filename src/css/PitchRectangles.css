@@ -23,7 +23,7 @@
 
 /*Identical styling for each of the pitch rectangles*/
 span + span{
-    margin-left: 5rem; 
+    margin-left: 2vw; 
 }
 .pitches{
     /*position: inherit;*/
@@ -38,23 +38,20 @@ span + span{
 
 }
 
-/** TRYING TO FIGURE OUT EVEN PADDING BETWEEN SPANS 
+/** TRYING TO FIGURE OUT EVEN PADDING BETWEEN SPANS **/
 .pitchRectangleOne{
-    left: 0rem; 
+    margin-left: 2vw; 
 }
 .pitchRectangleTwo{
-    left: 48rem; 
-   
+
 }
 
 .pitchRectangleThree{
-    left: 96rem;
-   
+    margin-right: 2vw;   
 }
-**/
+
 .rectangleText{
-    padding-left: 7%;
-    padding-right: 7%;
+
 }
 
 .pitchImages{
@@ -63,16 +60,20 @@ span + span{
 }
 
 .rectangleTextHeader{
+    padding-left: 5%;
+    padding-right: 5%;
     font-family: Arsenal-Bold;
     font-style: normal;
     font-weight: normal;
-    font-size: 55px;
+    font-size: min(2.5vw, 55px);
     font-weight: bold;
     line-height: 45px;
     text-align: center;
 }
 
 .rectangleTextParagraph{
+    padding-left: 7%;
+    padding-right: 7%;
     padding-top: 5%;
     align-content: center;
     font-family: Arsenal;
