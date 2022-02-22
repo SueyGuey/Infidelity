@@ -16,17 +16,17 @@
     position: absolute;
     top: 53rem;
     width: 100%;
-    align-items: center;
-    flex-wrap: wrap;
-    flex: content;
-    align-content: center;
-
+    display: flex;
+    justify-content: center;
+    /*display: flexbox;*/
 }
 
 /*Identical styling for each of the pitch rectangles*/
+span + span{
+    margin-left: 3rem;
+}
 .pitches{
-    position: inherit;
-    margin-left: 5%;
+    /*position: inherit;*/
     width: 45rem;
     height: 22rem;
     background: #E1E1E1;

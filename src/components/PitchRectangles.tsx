@@ -6,9 +6,9 @@ import logo from "./logo.png";
 class PitchRectangles extends Component{
     render(){
         return(
-            /**MAIN SPAN-- CONTAINS ALL RECTANGLE SPANS*/
+            /**MAIN DIV-- CONTAINS ALL RECTANGLE SPANS*/
 
-        <span className = 'parent'>
+        <div className = 'parent'>
             {/* == Pitch 01 -- "Save Your Dollars" == */}
             <span className='pitches pitchRectangleOne'>
                 <img src= {logo} className='pitchImages'/>
@@ -35,7 +35,7 @@ class PitchRectangles extends Component{
                     <p className = 'rectangleTextParagraph'>Remember, Infidelity is a market trading simulator. Fine-tune your strategies, your portfolio composition-- try new things and see what happens. Develop your tradesense on your own, without losing your money. </p>
                 </div>
             </span>
-        </span>
+        </div>
         /* End of Pitch Rectangles Main Span */
         );
     }
