@@ -4,6 +4,7 @@
   display: block;
   text-decoration: none;
   background-color: #3500d3;
+  margin-bottom: 30px;
 }
 
 .insideHeader {
@@ -15,7 +16,7 @@
 }
 
 .logo {
-  width: 100px;
+  width: 90px;
   height: auto;
 }
 

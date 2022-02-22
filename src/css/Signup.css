@@ -1,9 +1,9 @@
 .login-container {
   width: 200px;
-  height: 400px;
+  height: 300px;
   border-radius: 10px;
   background-color: #636363;
-  margin: 20px;
+  margin: 10px;
   display: flex;
   flex-direction: column;
 }
