@@ -43,7 +43,7 @@ span + span{
     margin-left: 2vw; 
 }
 .pitchRectangleTwo{
-
+    text-shadow: none; /*Just here so I don't have to comment them out all the time to get rid of warnings.*/
 }
 
 .pitchRectangleThree{
@@ -51,7 +51,7 @@ span + span{
 }
 
 .rectangleText{
-
+    text-shadow: none; /*Just here so I don't have to comment them out all the time to get rid of warnings.*/
 }
 
 .pitchImages{
