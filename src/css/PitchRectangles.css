@@ -14,7 +14,7 @@
 .parent{
     align-self: center;
     position: absolute;
-    top: 53rem;
+    top: 52rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -23,41 +23,43 @@
 
 /*Identical styling for each of the pitch rectangles*/
 span + span{
-    margin-left: 3rem;
+    margin-left: 5rem; 
 }
 .pitches{
     /*position: inherit;*/
-    width: 50rem;
-    height: 25rem;
-    background: #E1E1E1;
-    box-shadow: 5.91064px 7.88086px 15.7617px rgba(0, 0, 0, 0.25);
-    border-radius: 25px;
+    width: 46rem;
+    height: auto;
+    padding-bottom: min(1.3vw,2rem);
+    background: #e0e0e0;
+    box-shadow: 6px 86px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
     display:flexbox;
+    text-align: center;
+
 }
 
-/** TRYING TO FIGURE OUT EVEN PADDING BETWEEN SPANS **/
+/** TRYING TO FIGURE OUT EVEN PADDING BETWEEN SPANS 
 .pitchRectangleOne{
-    left: 0rem; /*NO SPACING NEEDED HERE*/
+    left: 0rem; 
 }
 .pitchRectangleTwo{
     left: 48rem; 
-    /*At current size 2-3 rem spacing between each seems appropriate*/
+   
 }
 
 .pitchRectangleThree{
     left: 96rem;
-    /*Totals to 4-6rem of extra space here*/
+   
 }
-
+**/
 .rectangleText{
     padding-left: 7%;
     padding-right: 7%;
 }
 
 .pitchImages{
-    padding-left: 19rem;
-    width: 100px;
-    height: 100px;
+    width: min(120px, 20vw);
+    height: auto;
 }
 
 .rectangleTextHeader{
@@ -76,7 +78,7 @@ span + span{
     font-family: Arsenal;
     font-style: normal;
     font-weight: normal;
-    font-size: 25.0332px;
-    line-height: 38px;
+    font-size: max(1vw,20px);
+    line-height: max(1.5vw,25px);
     text-align: left;
 }
