@@ -7,11 +7,9 @@ class PitchRectangles extends Component{
     render(){
         return(
             /**MAIN SPAN-- CONTAINS ALL RECTANGLE SPANS*/
-        <span className = 'parent'>
 
-            /******************************************/
-            /* == Pitch 01 -- "Save Your Dollars" == */
-            /*****************************************/
+        <span className = 'parent'>
+            {/* == Pitch 01 -- "Save Your Dollars" == */}
             <span className='pitches pitchRectangleOne'>
                 <img src= {logo} className='pitchImages'/>
                 <div className = 'rectangleText'>
@@ -20,9 +18,7 @@ class PitchRectangles extends Component{
                 </div>
             </span>
 
-            /*********************************************/
-            /* == Pitch 02 - "Almost the Real Market" == */
-            /*********************************************/
+            {/* == Pitch 02 -- "Almost the Real Market" == */}
             <span className='pitches pitchRectangleTwo'>
                 <img src= {logo} className='pitchImages'/>
                 <div className = 'rectangleText'>
@@ -31,9 +27,7 @@ class PitchRectangles extends Component{
                 </div>
             </span>
 
-            /*************************************************/
-            /* == Pitch 03 -- "Just Like the Simulations" == */
-            /*************************************************/
+            {/* == Pitch 03 -- "Just Like the Simulations" == */}
             <span className='pitches pitchRectangleThree'>
                 <img src= {logo} className='pitchImages'/>
                 <div className = 'rectangleText'>
