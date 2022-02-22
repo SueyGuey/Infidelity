@@ -4,8 +4,11 @@ import { validateEmail, validatePassword } from '../textUtils';
 import UserPool from '../authentication/userPool';
 import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js';
 import { AccountContext } from '../authentication/accounts';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup(): ReactElement {
+	const navigate = useNavigate();
+
 	const [email, setEmail] = useState('');
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
@@ -61,6 +64,8 @@ export default function Signup(): ReactElement {
 						setCognitoUser(data.user);
 						setSignUpPressed(true);
 						setUserId(data.userSub);
+						navigate('/onboarding');
+						// window.location.reload();
 					} else {
 						console.error('Error creating user');
 					}
@@ -70,13 +75,15 @@ export default function Signup(): ReactElement {
 	}
 
 	return (
-		<div className="sign-up-form">
+		<div className="signup-container">
+			<h3>Sign Up</h3>
 			<div id="username">
 				<p className="signup-input-label">Username</p>
 				<input
-					className="signup-input"
+					className="text-input"
 					type="username"
 					id="username"
+					placeholder="username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 				/>
@@ -84,7 +91,7 @@ export default function Signup(): ReactElement {
 			<div id="email">
 				<p className="signup-input-label">Email</p>
 				<input
-					className="signup-input"
+					className="text-input"
 					type="email"
 					id="email"
 					value={email}
@@ -94,7 +101,7 @@ export default function Signup(): ReactElement {
 			<div id="password">
 				<p className="signup-input-label">Password</p>
 				<input
-					className="signup-input"
+					className="text-input"
 					type={showPassword ? 'text' : 'password'}
 					id="password"
 					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -117,7 +124,7 @@ export default function Signup(): ReactElement {
 					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 					required={true}
-					className="signup-input"
+					className="text-input"
 					spellCheck={false}
 					id="password"
 					value={conPassword}
