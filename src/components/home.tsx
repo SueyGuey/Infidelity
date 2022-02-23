@@ -1,5 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import Login from '../components/login';
+import PitchRectangles from './PitchRectangles';
 import Signup from './Signup';
 import TopNavBar from './TopNavBar';
 import '../css/home.css';
@@ -28,14 +29,12 @@ export default function Home(): ReactElement {
 					<div className={tabNumber === 1 ? "content  active-content" : "content"}>
 						<Login />
 					</div>
-
-					<div
-					className={tabNumber === 2 ? "content  active-content" : "content"}
-					>
+					<div className={tabNumber === 2 ? "content  active-content" : "content"}>
 						<Signup/>
 					</div>
 				</div>
 			</div>
+      <PitchRectangles/>
 		</div>
 	);
 }

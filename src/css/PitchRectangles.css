@@ -1,0 +1,85 @@
+@font-face { font-family: Arsenal; 
+    src: url('../fonts/Arsenal-Regular.ttf'); 
+} 
+@font-face { font-family: Arsenal-Bold; 
+    src: url('../fonts/Arsenal-Bold.ttf'); 
+} 
+/**Imported Arsenal and Arsenal Bold
+*  ==> You can change fonts later <==
+* It's just easier to look at the Figma 
+* model and gauge similarity this way
+**/
+
+/*Parent contains all Rectangle Spans*/
+.parent{
+    align-self: center;
+    position: absolute;
+    top: 52rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /*display: flexbox;*/
+}
+
+/*Identical styling for each of the pitch rectangles*/
+span + span{
+    margin-left: 2vw; 
+}
+.pitches{
+    /*position: inherit;*/
+    width: 46rem;
+    height: auto;
+    padding-bottom: min(1.3vw,2rem);
+    background: #e0e0e0;
+    box-shadow: 6px 86px 16px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    display:flexbox;
+    text-align: center;
+
+}
+
+/** TRYING TO FIGURE OUT EVEN PADDING BETWEEN SPANS **/
+.pitchRectangleOne{
+    margin-left: 2vw; 
+}
+.pitchRectangleTwo{
+    text-shadow: none; /*Just here so I don't have to comment them out all the time to get rid of warnings.*/
+}
+
+.pitchRectangleThree{
+    margin-right: 2vw;   
+}
+
+.rectangleText{
+    text-shadow: none; /*Just here so I don't have to comment them out all the time to get rid of warnings.*/
+}
+
+.pitchImages{
+    width: min(120px, 20vw);
+    height: auto;
+}
+
+.rectangleTextHeader{
+    padding-left: 5%;
+    padding-right: 5%;
+    font-family: Arsenal-Bold;
+    font-style: normal;
+    font-weight: normal;
+    font-size: min(2.5vw, 55px);
+    font-weight: bold;
+    line-height: 45px;
+    text-align: center;
+}
+
+.rectangleTextParagraph{
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-top: 5%;
+    align-content: center;
+    font-family: Arsenal;
+    font-style: normal;
+    font-weight: normal;
+    font-size: max(1vw,20px);
+    line-height: max(1.5vw,25px);
+    text-align: left;
+}
