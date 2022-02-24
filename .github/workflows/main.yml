@@ -34,7 +34,8 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+        #Linter Setup         
+      - name: Super-Linter
+        uses: github/super-linter@v4.9.0
           
- #Linter Setup         
-- name: Super-Linter
-  uses: github/super-linter@v4.9.0
+ 
