@@ -33,3 +33,10 @@
 	background: none;
 	border: none;
 }
+
+.login-error-message {
+	background-color: rgb(255, 122, 122);
+	color: black;
+	width: fit-content;
+	border-radius: 3px;
+}
