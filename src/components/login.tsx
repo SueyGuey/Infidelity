@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Account, AccountContext } from '../authentication/accounts';
 import userPool from '../authentication/userPool';
 import '../css/login.css';
-import { SignupVerification } from './signup';
+import { SignupVerification } from './Signup';
 
 function Login(): ReactElement {
 	const [errStatus, setErrStatus] = useState('');

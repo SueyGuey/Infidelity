@@ -1,10 +1,9 @@
-import {Component} from 'react';
+import {ReactElement} from 'react';
 import logo from '../images/logo.png';
 import '../css/TopNavBar.css';
 
-class TopNavBar extends Component{
-    render(){
-        return(
+export default function TopNavBar(): ReactElement {
+    return(
         <div className='header'>
             <div className='insideHeader'>
                 <img src= {logo} className='logo' />
@@ -20,8 +19,5 @@ class TopNavBar extends Component{
                 </ul>
             </div>
         </div>
-        );
-    }
+    );
 }
-
-export default TopNavBar

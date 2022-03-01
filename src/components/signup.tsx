@@ -6,7 +6,6 @@ import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito
 import { AccountContext } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
 
-
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
 	userId?: string;
@@ -262,8 +261,6 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 		</div>
 	);
 }
-
-
 
 export default function Signup(): ReactElement {
 	const [username, setUsername] = useState('');
