@@ -19,7 +19,6 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 	const [verificationErrStatus, setVerificationErrStatus] = useState('');
 	const [code, setCode] = useState('');
 	const navigate = useNavigate();
-	const cogUser = props.cognitoUser;
 
 	const context: any = useContext(AccountContext);
 	const authenticate: any = context.authenticate;
@@ -30,16 +29,15 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 
 	function validateVerificationCode(event: FormEvent) {
 		event.preventDefault();
-		if (cogUser) {
-			cogUser.confirmRegistration(code, true, (err?: Error, _result?: any) => {
-				if (err && err.message !== 'User cannot be confirmed. Current status is CONFIRMED') {
+		if (props.cognitoUser) {
+			props.cognitoUser.confirmRegistration(code, true, (err?: Error, _result?: any) => {
+				if (err && !err.message.includes('Current status is CONFIRMED')) {
 					console.error(err);
 					setVerificationErrStatus('Verification provided is incorrect.');
 				} else {
 					authenticate(props.username, props.password)
 						.then((_data: any) => {
 							navigate('/dashboard');
-							// window.location.reload();
 						})
 						.catch((err: Error) => {
 							console.error('Failed to login!', err);
@@ -128,10 +126,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(false);
-	const navigate = useNavigate();
-
 	const [showConPassword, setShowConPassword] = useState(false);
-	
 
 	function toggleShowPassword() {
 		setShowPassword(!showPassword);
@@ -179,8 +174,6 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 						props.setCognitoUser(data.user);
 						props.setUserId(data.userSub);
 						props.setSignUpPressed(true);
-						// navigate('/dashboard');
-						// window.location.reload();
 					} else {
 						console.error('Error creating user');
 					}
@@ -193,7 +186,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 		<div className="signup-container">
 			<h3>Sign Up</h3>
 			<div id="username">
-				<p className="signup-input-label">Username</p>
+				<p>Username</p>
 				<input
 					className="text-input"
 					type="username"
@@ -204,7 +197,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				/>
 			</div>
 			<div id="email">
-				<p className="signup-input-label">Email</p>
+				<p>Email</p>
 				<input
 					className="text-input"
 					type="email"
@@ -214,7 +207,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				/>
 			</div>
 			<div id="password">
-				<p className="signup-input-label">Password</p>
+				<p>Password</p>
 				<input
 					className="text-input"
 					type={showPassword ? 'text' : 'password'}
@@ -233,7 +226,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				</button>
 			</div>
 			<div id="password">
-				<p className="signup-input-label">Confirm Password</p>
+				<p>Confirm Password</p>
 				<input
 					type={showConPassword ? 'text' : 'password'}
 					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"

@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import Login from '../components/login';
+import Login from './login';
 import Signup from './signup';
 import TopNavBar from './TopNavBar';
 
