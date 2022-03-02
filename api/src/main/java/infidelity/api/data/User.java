@@ -25,6 +25,7 @@ public class User {
     @Column(name = "id", nullable = false)
     private String id;
     private String email;
+    private String username;
 
     /**
      * Converts this User to a UserData object that can be passed as a JSON object to the frontend.
@@ -35,6 +36,7 @@ public class User {
         return UserData.builder()
                 .id(getId())
                 .email(getEmail())
+                .username(getUsername())
                 .build();
     }
 }

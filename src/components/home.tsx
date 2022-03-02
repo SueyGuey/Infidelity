@@ -1,7 +1,10 @@
+// import React, { ReactElement } from 'react';
 import React, { ReactElement, useState } from 'react';
-import Login from '../components/login';
-import PitchRectangles from './PitchRectangles';
+import Login from './login';
 import Signup from './Signup';
+// import Login from '../components/login';
+import PitchRectangles from './PitchRectangles';
+// import Signup from './Signup';
 import TopNavBar from './TopNavBar';
 import '../css/home.css';
 
