@@ -62,50 +62,43 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 	}
 
 	return (
-		<div>
-			<div>
-				<form onSubmit={validateVerificationCode}>
-					<div>
-						<h3>Verify Account</h3>
-						<p>
-							For your protection, we need to verify that this email is yours.
-							Please enter the code we sent to your email address below.
-						</p>
-						<input
-							autoFocus
-							type="text"
-							value={code}
-							onChange={(e) => setCode(e.target.value)}
-						/>
+		<form onSubmit={validateVerificationCode} className="signup-container">
+			<div className="verification-container">
+				<h3>Verify Account</h3>
+				<br />
+				<p>
+					Please enter the code we sent to your email address below
+				</p>
+				<br />
+				<TextField
+					autoFocus={true}
+					className="text-field verification-field"
+					value={code}
+					onChange={(e) => setCode(e.target.value)}
+				/>
+				{verificationErrStatus !== '' && (
+					<div className="login-error-message">
+						<p>{verificationErrStatus}</p>
 					</div>
-					{verificationErrStatus !== '' && (
-						<div className="login-error-message">
-							<p>{verificationErrStatus}</p>
-						</div>
-					)}
-					<button
-						id="submitForEmailVerificationButton"
-						onClick={validateVerificationCode}
-						type="submit"
-						disabled={!validateForm2()}>
-						Submit
-					</button>
-					<div>
-						<p
-							className="signupLiteDidntRecieveText"
-							style={{ margin: '10px 0 42px 0' }}>
-							{"Didn't recieve the verfication code? "}
-							<button
-								className="signUpLiteResendCodeBtn"
-								id="resendCodeButton"
-								onClick={(e) => handleResendCode(e)}>
-								<div className="signupLiteResendCodeText"> Resend Code </div>
-							</button>
-						</p>
-					</div>
-				</form>
+				)}
+				<Button
+					className="verify-button"
+					onClick={validateVerificationCode}
+					variant="contained"
+					disabled={!validateForm2()}>
+					Submit
+				</Button>
 			</div>
-		</div>
+			<div className="resend-prompt">
+				<p>Didn't recieve the verfication code?</p>
+				<Button
+					className="resend-code-button"
+					variant="text"
+					onClick={(e) => handleResendCode(e)}>
+						Resend Code
+				</Button>
+			</div>
+		</form>
 	);
 }
 
@@ -137,10 +130,10 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 			setErrStatus('Please enter a valid Email Address!');
 		} else if (!validatePassword(props.password)) {
 			setErrStatus(
-				'Password must consist of an uppercase and lowercase letter and must be atleast 8 characters long!'
+				'Password must consist of an uppercase and lowercase letter and must be atleast 8 characters long'
 			);
 		} else if (props.password !== conPassword) {
-			setErrStatus('Your password and confirmation password do not match!');
+			setErrStatus('Your password and confirmation password do not match');
 		} else {
 			const attributeUsername = new CognitoUserAttribute({
 				Name: 'preferred_username',

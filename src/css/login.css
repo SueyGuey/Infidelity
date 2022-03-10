@@ -19,16 +19,6 @@
 	background-color: white !important;
 }
 
-.text-input {
-	border: 1px solid black;
-	box-sizing: border-box;
-	border-radius: 15px;
-	height: 40px;
-	width: 100%;
-	padding: 0 15px;
-	font-size: 14px;
-}
-
 .login-error-message {
 	color: black;
 	outline: 1px solid red;
@@ -40,4 +30,31 @@
 	font-family: "Arial";
 	font-size: small;
 	text-align: center;
+}
+
+.verification-container {
+	font-family: "Arial";
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 80%;
+}
+
+.verification-field {
+	width: 200px;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.verify-button {
+	margin: 0px 0px 40px 0px !important;
+}
+
+.resend-prompt {
+	top: 50%;
+	display: flex;
+	font-size: small;
+	align-items: center;
+	width: 100%;
+	justify-content: space-around;
 }

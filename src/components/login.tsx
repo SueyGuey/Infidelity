@@ -33,7 +33,7 @@ function Login(): ReactElement {
 				const errorMessage = err.message;
 				if (errorMessage === 'Incorrect username or password.') {
 					setErrStatus(
-						"Incorrect username or password."
+						"Incorrect username or password"
 					);
 					const e = document.getElementsByClassName(
 						'loginFooter'
@@ -97,7 +97,7 @@ function Login(): ReactElement {
 			)}
 			<Button
 				className="login-button"
-				variant="outlined"
+				variant="contained"
 				onClick={handleSubmit}>Log In</Button>
 		</div>
 	);
