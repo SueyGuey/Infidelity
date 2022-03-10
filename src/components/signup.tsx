@@ -188,7 +188,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				id="signup-email-field"
 				label="Email"
 				value={props.email}
-				onChange={(e) => props.setUsername(e.target.value)}
+				onChange={(e) => props.setEmail(e.target.value)}
 			/>
 			<TextField
 				className="text-field"

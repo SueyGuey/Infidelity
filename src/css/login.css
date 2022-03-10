@@ -14,8 +14,9 @@
 	min-width: 200px;
 }
 
-.text-field input {
-	background-color: white;
+/* not sure how I can style this */
+.MuiOutlinedInput-input {
+	background-color: white !important;
 }
 
 .text-input {
@@ -36,5 +37,7 @@
 	padding: 5px 10px;
 	border-radius: 3px;
 	width: fit-content;
-	font-family: "Inter";
+	font-family: "Arial";
+	font-size: small;
+	text-align: center;
 }
