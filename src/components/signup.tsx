@@ -5,6 +5,8 @@ import UserPool from '../authentication/userPool';
 import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js';
 import { AccountContext } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
@@ -124,15 +126,6 @@ export type SignupFormProps = {
 export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps> {
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');
-	const [showPassword, setShowPassword] = useState(false);
-	const [showConPassword, setShowConPassword] = useState(false);
-
-	function toggleShowPassword() {
-		setShowPassword(!showPassword);
-	}
-	function toggleShowConPassword() {
-		setShowConPassword(!showConPassword);
-	}
 
 	function handleSignUpSubmit(
 		event: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>
@@ -183,81 +176,45 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 
 	return (
 		<div className="signup-container">
-			<h3>Sign Up</h3>
-			<div id="username">
-				<p>Username</p>
-				<input
-					className="text-input"
-					type="username"
-					id="username"
-					placeholder="username"
-					value={props.username}
-					onChange={(e) => props.setUsername(e.target.value)}
+			<TextField
+				className="text-field"
+				id="signup-username-field"
+				label="Username"
+				value={props.username}
+				onChange={(e) => props.setUsername(e.target.value)}
+			/>
+			<TextField
+				className="text-field"
+				id="signup-email-field"
+				label="Email"
+				value={props.email}
+				onChange={(e) => props.setUsername(e.target.value)}
+			/>
+			<TextField
+				className="text-field"
+				id="signup-password"
+				label="Password"
+				type="password"
+				value={props.password}
+				onChange={(e) => props.setPassword(e.target.value)}
 				/>
-			</div>
-			<div id="email">
-				<p>Email</p>
-				<input
-					className="text-input"
-					type="email"
-					id="email"
-					value={props.email}
-					onChange={(e) => props.setEmail(e.target.value)}
+			<TextField
+				className="text-field"
+				id="signup-confirm-password"
+				label="Confirm Password"
+				type="password"
+				value={conPassword}
+				onChange={(e) => setConPassword(e.target.value)}
 				/>
-			</div>
-			<div id="password">
-				<p>Password</p>
-				<input
-					className="text-input"
-					type={showPassword ? 'text' : 'password'}
-					id="password"
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-					spellCheck={false}
-					value={props.password}
-					onChange={(e) => props.setPassword(e.target.value)}
-				/>
-				<button
-					onClick={toggleShowPassword}
-					onMouseDown={(e) => e.preventDefault()}
-					className="eye-button">
-					{showPassword ? 'Hide' : 'Show'}
-				</button>
-			</div>
-			<div id="password">
-				<p>Confirm Password</p>
-				<input
-					type={showConPassword ? 'text' : 'password'}
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-					required={true}
-					className="text-input"
-					spellCheck={false}
-					id="password"
-					value={conPassword}
-					onChange={(e) => setConPassword(e.target.value)}
-				/>
-				<button
-					onClick={toggleShowConPassword}
-					onMouseDown={(e) => e.preventDefault()}
-					className="eye-button">
-					{showConPassword ? 'Hide' : 'Show'}
-				</button>
-			</div>
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
 				</div>
 			)}
-			<div className="info"></div>
-			<button
+			<Button
 				className="signup-button"
-				onClick={(e) => {
-					handleSignUpSubmit(e);
-				}}
-				type="submit">
-				Create Account
-			</button>
+				variant="outlined"
+				onClick={(e) => handleSignUpSubmit(e)}>Create Account</Button>
 		</div>
 	);
 }

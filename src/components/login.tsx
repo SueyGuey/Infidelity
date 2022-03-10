@@ -22,11 +22,6 @@ function Login(): ReactElement {
 	const navigate = useNavigate();
 	const context = useContext(AccountContext);
 	const authenticate = context.authenticate;
-	console.log(authenticate);
-
-	function toggleShowPassword() {
-		setShowPassword(!showPassword);
-	}
 
 	function handleSubmit(event: React.SyntheticEvent): void {
 		event.preventDefault();
