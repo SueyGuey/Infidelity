@@ -1,7 +1,8 @@
 package infidelity.api;
 
+import infidelity.api.stockdata.FinnHub;
 import infidelity.api.stockdata.FinnHubMessage;
-import infidelity.api.stockdata.MessageDecoder;
+import infidelity.api.stockdata.FHMessageDecoder;
 import infidelity.api.stockdata.WebsocketClientEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,25 +22,21 @@ public class StockDataTests {
 
     private final String maybeAnotherAPI = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 
-    private final MessageDecoder decoder = new MessageDecoder();
-
-    private double parsePriceFH(String priceData) {
-        return 0.4;
-    }
+    private final FHMessageDecoder decoder = new FHMessageDecoder();
 
     @Test
-    void testFinnHub() {
+    void testFinnHubConnection() {
         int waitTime = 3000; // milliseconds
         try {
             // open websocket
             final WebsocketClientEndpoint clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_ENDPOINT));
 
-            List<Double> prices = new ArrayList<>();
+            List<String> prices = new ArrayList<>();
 
             // add listener
             clientEndpoint.addMessageHandler(new WebsocketClientEndpoint.MessageHandler() {
                 public void handleMessage(String message) {
-                    prices.add(parsePriceFH(message));
+                    prices.add(message);
                     System.out.println(message);
                 }
             });
@@ -97,6 +94,20 @@ public class StockDataTests {
             log.error("URISyntaxException exception: " + e.getMessage());
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testFinnHubSubscribe() throws InterruptedException {
+        int waitTime = 5000; // milliseconds
+        List<String> symbols = List.of(new String[]{"AAPL", "AMZN", "TSLA", "BINANCE:BTCUSDT"});
+        FinnHub fh = new FinnHub();
+        for (String symbol : symbols)
+            fh.subscribe(symbol);
+        // wait for updates to roll in
+        Thread.sleep(waitTime);
+        for (String symbol : symbols) {
+            System.out.println(fh.getInfo(symbol));
         }
     }
 }
