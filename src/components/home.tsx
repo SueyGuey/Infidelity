@@ -1,9 +1,10 @@
 import React, { ReactElement, useState } from 'react';
+import '../css/home.css';
 import Login from '../components/login';
 import PitchRectangles from './PitchRectangles';
 import Signup from './Signup';
 import TopNavBar from './TopNavBar';
-import '../css/home.css';
+import StockGraph from './StockGraph';
 
 export default function Home(): ReactElement {
 	const [tabNumber, setTabNumber] = useState(1);
@@ -34,7 +35,8 @@ export default function Home(): ReactElement {
 					</div>
 				</div>
 			</div>
-      <PitchRectangles/>
+		<StockGraph/>
+    	<PitchRectangles/>
 		</div>
 	);
 }
