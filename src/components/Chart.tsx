@@ -1,20 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-// @ts-ignore
-import { scaleTime } from "d3";
-// @ts-ignore
-import { curveMonotoneX } from "d3";
-
-// @ts-ignore
+import { scaleTime, curveMonotoneX } from "d3";
 import { ChartCanvas, Chart } from "react-stockcharts";
-// @ts-ignore
 import { AreaSeries } from "react-stockcharts/lib/series";
-// @ts-ignore
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
-// @ts-ignore
 import { fitWidth } from "react-stockcharts/lib/helper";
-// @ts-ignore
 import { createVerticalLinearGradient, hexToRGBA } from "react-stockcharts/lib/utils";
 
 const canvasGradient = createVerticalLinearGradient([
@@ -23,22 +14,19 @@ const canvasGradient = createVerticalLinearGradient([
 	{ stop: 1, color: hexToRGBA("#4286f4", 0.8) },
 ]);
 
-class AreaChart extends React.Component {
+class AreaChart extends React.Component<any, any> {
 	render() {
-        // @ts-ignore
 		const { data, type, width, ratio } = this.props;
 		return (
 			<ChartCanvas ratio={ratio} width={width} height={400}
 				margin={{ left: 50, right: 50, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
-				xAccessor={// @ts-ignore
-                    d => d.date}
+				xAccessor={(d:any) => d.date}
 				xScale={scaleTime()}
 				xExtents={[new Date(2011, 0, 1), new Date(2013, 0, 2)]}
 			>
-				<Chart id={0} yExtents={// @ts-ignore
-                    d => d.close}>
+				<Chart id={0} yExtents={(d:any) => d.close}>
 					<defs>
 						<linearGradient id="MyGradient" x1="0" y1="100%" x2="0" y2="0%">
 							<stop offset="0%" stopColor="#b5d0ff" stopOpacity={0.2} />
@@ -49,8 +37,7 @@ class AreaChart extends React.Component {
 					<XAxis axisAt="bottom" orient="bottom" ticks={6}/>
 					<YAxis axisAt="left" orient="left" />
 					<AreaSeries
-                    // @ts-ignore
-						yAccessor={d => d.close}
+						yAccessor={(d:any) => d.close}
 						fill="url(#MyGradient)"
 						strokeWidth={2}
 						interpolation={curveMonotoneX}
@@ -62,18 +49,6 @@ class AreaChart extends React.Component {
 	}
 }
 
-// @ts-ignore
-AreaChart.propTypes = {
-	data: PropTypes.array.isRequired,
-	width: PropTypes.number.isRequired,
-	ratio: PropTypes.number.isRequired,
-	type: PropTypes.oneOf(["svg", "hybrid"]).isRequired,
-};
-
-// @ts-ignore
-AreaChart.defaultProps = {
-	type: "svg",
-};
 // @ts-ignore
 AreaChart = fitWidth(AreaChart);
 
