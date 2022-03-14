@@ -1,8 +1,5 @@
 import React, { ReactElement} from 'react';
-import '../css/StockGraph.css';
-
 import { tsvParse, timeParse } from  "d3";
-
 import Chart from './Chart';
 import { type } from 'os';
 
@@ -40,7 +37,7 @@ class StockGraph extends React.Component<any, any> {
 		}
 
 		return (
-			<Chart type = {SVGAElement} data={this.state.data} />
+			<Chart type = {"svg"} data={this.state.data} />
 		)
 	}
 }

@@ -31,6 +31,7 @@ span + span {
   width: 46rem;
   height: auto;
   padding-bottom: min(1.3vw, 2rem);
+  border: 1px solid #060606;
   background: #e0e0e0;
   box-shadow: 5px 5px 5px #060606;
   border-radius: 20px;

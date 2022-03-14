@@ -1,5 +1,11 @@
+@font-face {
+  font-family: Arsenal-Bold;
+  src: url("../fonts/Arsenal-Bold.ttf");
+}
+
 .container {
-  height: 400px;
+  height: 420px;
+  margin-bottom: 40px;
 }
 
 .LoginSignup {
@@ -16,7 +22,17 @@
   margin-left: 40px;
   display: inline-block;
   position: absolute;
-  width: calc(100% - 380px);
+  height: 430px;
+  width: calc(100% - 400px);
+  box-shadow: 5px 5px 5px #060606;
+  border: 1px solid #060606;
+  border-radius: 20px;
+}
+
+.stockName {
+  text-align: center;
+  font-family: Arsenal-Bold;
+  font-size: 20px;
 }
 
 .tabContainer {
