@@ -24,7 +24,9 @@ class AreaChart extends React.Component<any, any> {
 				data={data} type={type}
 				xAccessor={(d:any) => d.date}
 				xScale={scaleTime()}
-				xExtents={[new Date(2011, 0, 1), new Date(2013, 0, 2)]}
+				panEvent={false}
+   				zoomEvent={false}
+				xExtents={[new Date(2011, 0, 1), new Date(2016, 0, 2)]}
 			>
 				<Chart id={0} yExtents={(d:any) => d.close}>
 					<defs>

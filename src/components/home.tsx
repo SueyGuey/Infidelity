@@ -13,29 +13,34 @@ export default function Home(): ReactElement {
 		<div>
 			<TopNavBar/>
 			<div className='container'>
-				<div className="tabContainer">
-					<button
-					className={tabNumber === 1 ? "tabs active-tabs" : "tabs"}
-					onClick={() => setTabNumber(1)}>
-						Log In
-					</button>
-					<button
-					className={tabNumber === 2 ? "tabs active-tabs" : "tabs"}
-					onClick={() => setTabNumber(2)}>
-						Sign Up
-					</button>
+				<div className='LoginSignup'>
+					<div className="tabContainer">
+						<button
+						className={tabNumber === 1 ? "tabs active-tabs" : "tabs"}
+						onClick={() => setTabNumber(1)}>
+							Log In
+						</button>
+						<button
+						className={tabNumber === 2 ? "tabs active-tabs" : "tabs"}
+						onClick={() => setTabNumber(2)}>
+							Sign Up
+						</button>
+					</div>
+					
+					<div className="contentContainer">
+						<div className={tabNumber === 1 ? "content  active-content" : "content"}>
+							<Login />
+						</div>
+						<div className={tabNumber === 2 ? "content  active-content" : "content"}>
+							<Signup/>
+						</div>
+					</div>
 				</div>
-				
-				<div className="contentContainer">
-					<div className={tabNumber === 1 ? "content  active-content" : "content"}>
-						<Login />
-					</div>
-					<div className={tabNumber === 2 ? "content  active-content" : "content"}>
-						<Signup/>
-					</div>
+				<div className='graph'>
+					<p className='stockName'> MSFT</p>
+					<StockGraph/>
 				</div>
 			</div>
-		<StockGraph/>
     	<PitchRectangles/>
 		</div>
 	);

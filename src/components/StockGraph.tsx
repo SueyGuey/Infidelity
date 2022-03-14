@@ -2,7 +2,6 @@ import React, { ReactElement} from 'react';
 import '../css/StockGraph.css';
 
 import { tsvParse, timeParse } from  "d3";
-import { TypeChooser } from "react-stockcharts/lib/helper";
 
 import Chart from './Chart';
 import { type } from 'os';
@@ -36,15 +35,12 @@ class StockGraph extends React.Component<any, any> {
 		})
 	}
 	render() {
-		
 		if (this.state == null) {
 			return <div>Loading...</div>
 		}
 
 		return (
-			<TypeChooser>
-				{(type: any) => <Chart type = {type} data={this.state.data} />}
-			</TypeChooser>
+			<Chart type = {SVGAElement} data={this.state.data} />
 		)
 	}
 }
