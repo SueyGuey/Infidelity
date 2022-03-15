@@ -3,8 +3,13 @@ import React, { ReactElement, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Account, AccountContext } from '../authentication/accounts';
 import userPool from '../authentication/userPool';
+import TextField from '@mui/material/TextField';
 import '../css/login.css';
 import { SignupVerification } from './signup';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login(): ReactElement {
 	const [errStatus, setErrStatus] = useState('');
@@ -17,11 +22,6 @@ function Login(): ReactElement {
 	const navigate = useNavigate();
 	const context = useContext(AccountContext);
 	const authenticate = context.authenticate;
-	console.log(authenticate);
-
-	function toggleShowPassword() {
-		setShowPassword(!showPassword);
-	}
 
 	function handleSubmit(event: React.SyntheticEvent): void {
 		event.preventDefault();
@@ -33,7 +33,7 @@ function Login(): ReactElement {
 				const errorMessage = err.message;
 				if (errorMessage === 'Incorrect username or password.') {
 					setErrStatus(
-						"Please make sure your email and password are correct! If you need help, please hit the 'Forgot Password' Button!"
+						"Incorrect username or password"
 					);
 					const e = document.getElementsByClassName(
 						'loginFooter'
@@ -49,6 +49,7 @@ function Login(): ReactElement {
 					setCogUser(newCogUser);
 					setVerification(true);
 				} else {
+					setErrStatus("Error logging in.")
 					console.error(err);
 				}
 			});
@@ -62,41 +63,42 @@ function Login(): ReactElement {
 			password={password}></SignupVerification>
 	) : (
 		<div className='login-container'>
-			<p>Username or Email</p>
-			<input
-				className="login-input"
-				autoComplete="off"
-				type="login"
+			<TextField
+				className="text-field"
+				id="login-username-field"
+				label="Username or Email"
 				value={username}
 				onChange={(e) => setUsername(e.target.value)}
 			/>
-			<p>Password</p>
-			<input
-				className="login-input"
-				type={showPassword ? 'text' : 'password'}
-				autoComplete="off"
-				required={true}
-				spellCheck={false}
+			<TextField
+				className="text-field"
+				id="outlined"
+				label="Password"
+				type={showPassword ? "text" : "password"}
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
-			/>
-			<button
-				onClick={toggleShowPassword}
-				onMouseDown={(e) => e.preventDefault()}
-				className="eye-button">
-				{showPassword ? 'Hide' : 'Show'}
-			</button>
+				InputProps={{ // <-- This is where the toggle button is added.
+					endAdornment: (
+						<InputAdornment position="end">
+							<IconButton
+								aria-label="toggle password visibility"
+								onClick={() => setShowPassword(!showPassword)}
+							>
+							{showPassword ? <Visibility /> : <VisibilityOff />}
+							</IconButton>
+						</InputAdornment>
+					)
+				  }}
+				/>
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
 				</div>
 			)}
-			<button
-				id="logInButton"
-				onClick={handleSubmit}
-				type="submit">
-				Login
-			</button>
+			<Button
+				className="login-button"
+				variant="contained"
+				onClick={handleSubmit}>Log In</Button>
 		</div>
 	);
 }

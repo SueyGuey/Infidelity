@@ -5,6 +5,8 @@ import UserPool from '../authentication/userPool';
 import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js';
 import { AccountContext } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
@@ -60,50 +62,43 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 	}
 
 	return (
-		<div>
-			<div>
-				<form onSubmit={validateVerificationCode}>
-					<div>
-						<h3>Verify Account</h3>
-						<p>
-							For your protection, we need to verify that this email is yours.
-							Please enter the code we sent to your email address below.
-						</p>
-						<input
-							autoFocus
-							type="text"
-							value={code}
-							onChange={(e) => setCode(e.target.value)}
-						/>
+		<form onSubmit={validateVerificationCode} className="signup-container">
+			<div className="verification-container">
+				<h3>Verify Account</h3>
+				<br />
+				<p>
+					Please enter the code we sent to your email address below
+				</p>
+				<br />
+				<TextField
+					autoFocus={true}
+					className="text-field verification-field"
+					value={code}
+					onChange={(e) => setCode(e.target.value)}
+				/>
+				{verificationErrStatus !== '' && (
+					<div className="login-error-message">
+						<p>{verificationErrStatus}</p>
 					</div>
-					{verificationErrStatus !== '' && (
-						<div className="login-error-message">
-							<p>{verificationErrStatus}</p>
-						</div>
-					)}
-					<button
-						id="submitForEmailVerificationButton"
-						onClick={validateVerificationCode}
-						type="submit"
-						disabled={!validateForm2()}>
-						Submit
-					</button>
-					<div>
-						<p
-							className="signupLiteDidntRecieveText"
-							style={{ margin: '10px 0 42px 0' }}>
-							{"Didn't recieve the verfication code? "}
-							<button
-								className="signUpLiteResendCodeBtn"
-								id="resendCodeButton"
-								onClick={(e) => handleResendCode(e)}>
-								<div className="signupLiteResendCodeText"> Resend Code </div>
-							</button>
-						</p>
-					</div>
-				</form>
+				)}
+				<Button
+					className="verify-button"
+					onClick={validateVerificationCode}
+					variant="contained"
+					disabled={!validateForm2()}>
+					Submit
+				</Button>
 			</div>
-		</div>
+			<div className="resend-prompt">
+				<p>Didn't recieve the verfication code?</p>
+				<Button
+					className="resend-code-button"
+					variant="text"
+					onClick={(e) => handleResendCode(e)}>
+						Resend Code
+				</Button>
+			</div>
+		</form>
 	);
 }
 
@@ -124,15 +119,6 @@ export type SignupFormProps = {
 export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps> {
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');
-	const [showPassword, setShowPassword] = useState(false);
-	const [showConPassword, setShowConPassword] = useState(false);
-
-	function toggleShowPassword() {
-		setShowPassword(!showPassword);
-	}
-	function toggleShowConPassword() {
-		setShowConPassword(!showConPassword);
-	}
 
 	function handleSignUpSubmit(
 		event: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>
@@ -144,10 +130,10 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 			setErrStatus('Please enter a valid Email Address!');
 		} else if (!validatePassword(props.password)) {
 			setErrStatus(
-				'Password must consist of an uppercase and lowercase letter and must be atleast 8 characters long!'
+				'Password must consist of an uppercase and lowercase letter and must be atleast 8 characters long'
 			);
 		} else if (props.password !== conPassword) {
-			setErrStatus('Your password and confirmation password do not match!');
+			setErrStatus('Your password and confirmation password do not match');
 		} else {
 			const attributeUsername = new CognitoUserAttribute({
 				Name: 'preferred_username',
@@ -183,81 +169,45 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 
 	return (
 		<div className="signup-container">
-			<h3>Sign Up</h3>
-			<div id="username">
-				<p>Username</p>
-				<input
-					className="text-input"
-					type="username"
-					id="username"
-					placeholder="username"
-					value={props.username}
-					onChange={(e) => props.setUsername(e.target.value)}
+			<TextField
+				className="text-field"
+				id="signup-username-field"
+				label="Username"
+				value={props.username}
+				onChange={(e) => props.setUsername(e.target.value)}
+			/>
+			<TextField
+				className="text-field"
+				id="signup-email-field"
+				label="Email"
+				value={props.email}
+				onChange={(e) => props.setEmail(e.target.value)}
+			/>
+			<TextField
+				className="text-field"
+				id="signup-password"
+				label="Password"
+				type="password"
+				value={props.password}
+				onChange={(e) => props.setPassword(e.target.value)}
 				/>
-			</div>
-			<div id="email">
-				<p>Email</p>
-				<input
-					className="text-input"
-					type="email"
-					id="email"
-					value={props.email}
-					onChange={(e) => props.setEmail(e.target.value)}
+			<TextField
+				className="text-field"
+				id="signup-confirm-password"
+				label="Confirm Password"
+				type="password"
+				value={conPassword}
+				onChange={(e) => setConPassword(e.target.value)}
 				/>
-			</div>
-			<div id="password">
-				<p>Password</p>
-				<input
-					className="text-input"
-					type={showPassword ? 'text' : 'password'}
-					id="password"
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-					spellCheck={false}
-					value={props.password}
-					onChange={(e) => props.setPassword(e.target.value)}
-				/>
-				<button
-					onClick={toggleShowPassword}
-					onMouseDown={(e) => e.preventDefault()}
-					className="eye-button">
-					{showPassword ? 'Hide' : 'Show'}
-				</button>
-			</div>
-			<div id="password">
-				<p>Confirm Password</p>
-				<input
-					type={showConPassword ? 'text' : 'password'}
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
-					required={true}
-					className="text-input"
-					spellCheck={false}
-					id="password"
-					value={conPassword}
-					onChange={(e) => setConPassword(e.target.value)}
-				/>
-				<button
-					onClick={toggleShowConPassword}
-					onMouseDown={(e) => e.preventDefault()}
-					className="eye-button">
-					{showConPassword ? 'Hide' : 'Show'}
-				</button>
-			</div>
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
 				</div>
 			)}
-			<div className="info"></div>
-			<button
+			<Button
 				className="signup-button"
-				onClick={(e) => {
-					handleSignUpSubmit(e);
-				}}
-				type="submit">
-				Create Account
-			</button>
+				variant="outlined"
+				onClick={(e) => handleSignUpSubmit(e)}>Create Account</Button>
 		</div>
 	);
 }
