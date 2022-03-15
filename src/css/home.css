@@ -1,10 +1,38 @@
+@font-face {
+  font-family: Arsenal-Bold;
+  src: url("../fonts/Arsenal-Bold.ttf");
+}
+
 .container {
+  height: 420px;
+  margin-bottom: 40px;
+}
+
+.LoginSignup {
   margin-top: 30px;
   margin-left: 2%;
   width: 300px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px #060606;
   border-left: 1px solid #060606;
+  display: inline-block;
+}
+
+.graph {
+  margin-left: 40px;
+  display: inline-block;
+  position: absolute;
+  height: 430px;
+  width: calc(100% - 400px);
+  box-shadow: 5px 5px 5px #060606;
+  border: 1px solid #060606;
+  border-radius: 20px;
+}
+
+.stockName {
+  text-align: center;
+  font-family: Arsenal-Bold;
+  font-size: 20px;
 }
 
 .tabContainer {
