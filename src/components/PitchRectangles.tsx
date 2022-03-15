@@ -1,11 +1,9 @@
-import {Component} from 'react';
+import {ReactElement} from 'react';
 import '../css/PitchRectangles.css';
-import logo from "./logo.png";
+import logo from '../images/logo.png';
 
-/**Kyra Sanchez -- kySanDSML : Msg if questions **/
-class PitchRectangles extends Component{
-    render(){
-        return(
+export default function PitchRectangles(): ReactElement {
+    return(
             /**MAIN DIV-- CONTAINS ALL RECTANGLE SPANS*/
 
         <div className = 'parent'>
@@ -37,8 +35,5 @@ class PitchRectangles extends Component{
             </span>
         </div>
         /* End of Pitch Rectangles Main Span */
-        );
-    }
+    );
 }
-
-export default PitchRectangles

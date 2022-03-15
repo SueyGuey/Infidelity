@@ -1,5 +1,5 @@
 import {ReactElement} from 'react';
-import logo from "./logo.png";
+import logo from '../images/logo.png';
 import '../css/TopNavBar.css';
 
 export default function TopNavBar(): ReactElement {
