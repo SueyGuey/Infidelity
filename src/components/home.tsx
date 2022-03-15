@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react';
 import '../css/home.css';
 import PitchRectangles from './PitchRectangles';
 import Login from '../components/login';
-import Signup from './Signup';
+import Signup from './signup';
 import TopNavBar from './TopNavBar';
 import StockGraph from './StockGraph';
 
