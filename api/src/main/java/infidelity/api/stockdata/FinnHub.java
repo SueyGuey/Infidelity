@@ -52,6 +52,10 @@ public class FinnHub {
         clientEndpoint.sendMessage(subMsg);
     }
 
+    public boolean hasData(String symbol) {
+        return info.containsKey(symbol) && info.get(symbol) != null;
+    }
+
     public FinnHubMessage.PriceMessage getInfo(String symbol) {
         return info.get(symbol);
     }
