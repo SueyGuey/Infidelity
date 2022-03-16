@@ -15,7 +15,8 @@
 /*Parent contains all Rectangle Spans*/
 .parent {
   align-self: center;
-  margin-top: 30px;
+  margin-top: 1vw;
+  bottom: 2vw;
   width: 100%;
   display: flex;
   justify-content: left;

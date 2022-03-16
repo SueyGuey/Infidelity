@@ -4,35 +4,27 @@
 }
 
 .container {
-  height: 420px;
-  margin-bottom: 40px;
+  height: 21vw;
+  margin-bottom: 2vw;
 }
 
 .login-signup-container {
-  margin-top: 30px;
+  margin-top: 1.5vw;
   margin-left: 2%;
-  width: 500px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 5px #060606;
-  border-left: 1px solid #060606;
+  width: 20vw;
+  border-radius: .5vw;
+  box-shadow: .25vw .25vw .25vw #060606;
+  border-left: .05vw solid #060606;
+  border-bottom: 0.5vw solid #060606;
   display: inline-block;
-}
-
-.graph {
-  margin-left: 40px;
-  display: inline-block;
-  position: absolute;
-  height: 430px;
-  width: calc(100% - 400px);
-  box-shadow: 5px 5px 5px #060606;
-  border: 1px solid #060606;
-  border-radius: 20px;
+  border-bottom-right-radius: 1.25vw;
+  border-bottom-left-radius: 1.25vw;
 }
 
 .stockName {
   text-align: center;
   font-family: Arsenal-Bold;
-  font-size: 20px;
+  font-size: 1vw;
 }
 
 .tabContainer {
@@ -40,27 +32,27 @@
 }
 
 .tabs {
-  font-size: 16px;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-  padding: 15px;
+  font-size: .78vw;
+  border-top-right-radius: .5vw;
+  border-top-left-radius: .5vw;
+  padding: .75vw;
   text-align: center;
   width: 50%;
   background: #e6e6e6;
   cursor: pointer;
-  border-top: 1px solid #060606;
-  border-bottom: 1px solid #060606;
+  border-top: .05vw solid #060606;
+  border-bottom: .05vw solid #060606;
   box-sizing: content-box;
   position: relative;
 }
 
 .tabs:not(:last-child) {
-  border-right: 1px solid #060606;
+  border-right: .05vw solid #060606;
 }
 
 .active-tabs {
   background: #fefdfd;
-  border-bottom: 1px solid transparent;
+  border-bottom: .05vw solid transparent;
 }
 
 .active-tabs::before {
@@ -68,7 +60,7 @@
   display: block;
   position: absolute;
   left: 50%;
-  height: 5px;
+  height: .25vw;
 }
 
 button {
@@ -81,11 +73,12 @@ button {
 
 .content {
   background: white;
-  padding: 20px;
+  padding: 1vw;
   height: 100%;
   display: none;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: .5vw;
+  border-bottom-left-radius: .5vw;
+  
 }
 
 .active-content {
