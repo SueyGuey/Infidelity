@@ -1,6 +1,7 @@
 import React, { ReactElement} from 'react';
 import { tsvParse, timeParse } from  "d3";
 import Chart from './Chart';
+import '../css/graph.css'
 import { type } from 'os';
 
 function parseData(parse: any) {

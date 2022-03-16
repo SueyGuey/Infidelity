@@ -1,0 +1,11 @@
+.App{
+    width: 930;
+    aspect-ratio: 3/1.4;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .graph{
+    top: 7vw;
+    width: 69.55vw; /*Still need to figure out how to adjust graph size.*/
+  }

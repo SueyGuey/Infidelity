@@ -4,6 +4,7 @@ import userPool from './authentication/userPool';
 /* pages */
 import Dashboard from './components/dashboard';
 import Home from './components/home';
+import './App.css';
 
 function App() {
   const loggedIn = userPool.getCurrentUser() !== null;
