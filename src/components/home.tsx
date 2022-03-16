@@ -12,7 +12,7 @@ export default function Home(): ReactElement {
 			<div className = 'top'>
 			<LoginSignup/>
 			<span className = 'top-2'>
-				<div className='graph'>
+				<div className='graph' id='graph-container'>
 					<p className='stockName'> MSFT</p>
 					<StockGraph/>
 				</div>
