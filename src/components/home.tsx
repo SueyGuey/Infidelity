@@ -18,7 +18,9 @@ export default function Home(): ReactElement {
 				</div>
 			</span>
 			</div>
-			<PitchRectangles/>
+			<div className = 'bottom'>
+				<PitchRectangles/>
+			</div>
 		</div>
 	);
 }
