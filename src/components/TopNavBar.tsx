@@ -8,7 +8,7 @@ export default function TopNavBar(): ReactElement {
             <div className='insideHeader'>
                 <img src= {logo} className='logo' />
                 <div className='name' >
-                    <p>Infidelity</p>
+                    <p>INFIDELITY</p>
                 </div>
                 <ul className='nav'>
                     <li>About</li>
