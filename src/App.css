@@ -1,28 +1,4 @@
 .App{
     height: fit-content;
     padding-bottom: 1vw;
-  }
-
-  .top{
-      padding-top: 0.75vw;
-      width: 92.5vw;
-      height: 25vw;
-      display: flex;
-  }
-  .top-2{
-    padding-top: 1.25vw;
-    left: -1vw;
-    width: 73%;
-    /*background-color: red;*/
-  }
-  .graph{
-    position: relative;
-    margin-top: .25vw;
-    width: 101.34%;
-    height: 98%;
-    margin-left: 2vw;
-    box-shadow: .25vw .25vw .25vw #060606;
-    border: 1px solid #060606;
-    border-radius: 1vw;
-    /*width: 69.55vw; Still need to figure out how to adjust graph size.*/
-  }
+}

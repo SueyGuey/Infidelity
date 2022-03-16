@@ -84,3 +84,26 @@ button {
 .active-content {
   display: block;
 }
+
+.top{
+  padding-top: 0.75vw;
+  width: 92.5vw;
+  height: 25vw;
+  display: flex;
+}
+.top-2{
+  padding-top: 1.25vw;
+  left: -1vw;
+  width: 73%;
+  /*background-color: red;*/
+}
+.graph{
+  position: relative;
+  margin-top: .25vw;
+  width: 101.34%;
+  height: 96.75%;
+  margin-left: 2vw;
+  box-shadow: .25vw .25vw .25vw #060606;
+  border: 1px solid #060606;
+  border-radius: 1vw;
+}
