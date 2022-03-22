@@ -4,9 +4,7 @@ import infidelity.api.data.model.UserData;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * User objects are those stored in the Postgres database and used by the UserService class.
@@ -27,6 +25,10 @@ public class User {
     private String email;
     private String username;
 
+    @OneToOne
+    @JoinColumn(name = "portfolio_id")
+    private Portfolio portfolio;
+
     /**
      * Converts this User to a UserData object that can be passed as a JSON object to the frontend.
      * Use this function when returning User information from an endpoint.
@@ -37,6 +39,7 @@ public class User {
                 .id(getId())
                 .email(getEmail())
                 .username(getUsername())
+                .portfolio(portfolio.toData())
                 .build();
     }
 }

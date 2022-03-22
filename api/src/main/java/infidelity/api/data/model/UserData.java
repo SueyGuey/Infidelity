@@ -15,4 +15,6 @@ public class UserData {
     private String id;
     private String email;
     private String username;
+
+    private PortfolioData portfolio;
 }
