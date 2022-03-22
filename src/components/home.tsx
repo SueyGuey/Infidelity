@@ -1,7 +1,7 @@
 // import React, { ReactElement } from 'react';
 import React, { ReactElement, useState } from 'react';
 import Login from './login';
-import Signup from './Signup';
+import Signup from './signup';
 // import Login from '../components/login';
 import PitchRectangles from './PitchRectangles';
 // import Signup from './Signup';
