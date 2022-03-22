@@ -1,41 +1,60 @@
 .login-container,
 .signup-container {
-	width: 200px;
 	height: 400px;
 	border-radius: 10px;
-	background-color: #636363;
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
-.text-input {
-	background-color: #f7f8fe;
-	border: 1px solid black;
-	box-sizing: border-box;
-	border-radius: 15px;
-	height: 40px;
-	width: 100%;
-	padding: 0 15px;
-	font-size: 14px;
+.text-field {
+	margin: 0px 0px 20px 0px !important;
+	width: 80%;
+	min-width: 200px;
 }
 
-.eye-button {
-	right: 8px;
-	top: 34px;
-	font-family: 'Open Sans';
-	font-size: 11px;
-	line-height: 19px;
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
-	color: #a6a6a6;
-	background: none;
-	border: none;
+/* not sure how I can style this */
+.MuiOutlinedInput-input {
+	background-color: white !important;
 }
 
 .login-error-message {
-	background-color: rgb(255, 122, 122);
 	color: black;
-	width: fit-content;
+	outline: 1px solid red;
+	background-color: rgb(255, 164, 164);
+	margin-bottom: 20px;
+	padding: 5px 10px;
 	border-radius: 3px;
+	width: fit-content;
+	font-family: "Arial";
+	font-size: small;
+	text-align: center;
+}
+
+.verification-container {
+	font-family: "Arial";
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 80%;
+}
+
+.verification-field {
+	width: 200px;
+	margin-top: 20px;
+	text-align: center;
+}
+
+.verify-button {
+	margin: 0px 0px 40px 0px !important;
+}
+
+.resend-prompt {
+	top: 50%;
+	display: flex;
+	font-size: small;
+	align-items: center;
+	width: 100%;
+	justify-content: space-around;
 }

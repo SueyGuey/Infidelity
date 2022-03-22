@@ -31,6 +31,7 @@ span + span {
   width: 46rem;
   height: auto;
   padding-bottom: min(1.3vw, 2rem);
+  border: 1px solid #060606;
   background: #e0e0e0;
   box-shadow: 5px 5px 5px #060606;
   border-radius: 20px;
@@ -65,7 +66,7 @@ span + span {
   font-family: Arsenal-Bold;
   font-style: normal;
   font-weight: normal;
-  font-size: min(2.5vw, 55px);
+  font-size: min(2.5vw, 35px);
   font-weight: bold;
   line-height: 45px;
   text-align: center;
@@ -79,7 +80,7 @@ span + span {
   font-family: Arsenal;
   font-style: normal;
   font-weight: normal;
-  font-size: max(1vw, 20px);
+  font-size: max(1vw, 15px);
   line-height: max(1.5vw, 25px);
   text-align: left;
 }
