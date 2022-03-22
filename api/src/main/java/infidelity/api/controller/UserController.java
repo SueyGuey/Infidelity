@@ -6,10 +6,7 @@ import infidelity.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -37,5 +34,16 @@ public class UserController {
             log.warn("User {} not found", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    /**
+     * Endpoint for creating users.
+     * Requires that the data object contain at least the username and email of the new user.
+     */
+    @PostMapping
+    public ResponseEntity<UserData> createUser(@RequestBody UserData data) {
+        log.info("POST /user/create");
+        User newUser = userService.createUser(data);
+        return new ResponseEntity<>(newUser.toData(), HttpStatus.OK);
     }
 }

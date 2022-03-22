@@ -7,6 +7,7 @@ import { AccountContext } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { createUser } from '../endpoints';
 
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
@@ -38,6 +39,10 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 				} else {
 					authenticate(props.username, props.password)
 						.then((_data: any) => {
+							createUser({
+								username: props.username,
+								email: props.email
+							});
 							navigate('/dashboard');
 						})
 						.catch((err: Error) => {

@@ -1,9 +1,8 @@
 import { JSONData } from "./misc";
 
 export default interface User {
-	userId: string;
-	email: string;
 	username: string;
+	email: string;
 }
 
 export function userToData(user: User): JSONData<User> {
@@ -19,7 +18,6 @@ export function dataToUser(data: JSONData<User>): User {
 }
 
 export type NewUserInfo = {
-	userId: string;
-	email: string;
 	username: string;
+	email: string;
 }

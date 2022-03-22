@@ -1,8 +1,7 @@
 package infidelity.api.data;
 
 import infidelity.api.data.model.UserData;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +14,9 @@ import javax.persistence.Id;
 @Entity(name = "iuser")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     /**
      * Created by AWS Cognito, a universally unique Identifier for the user. Cannot be changed, and used
@@ -23,9 +25,8 @@ public class User {
      */
     @Id
     @Column(name = "id", nullable = false)
-    private String id;
-    private String email;
     private String username;
+    private String email;
 
     /**
      * Converts this User to a UserData object that can be passed as a JSON object to the frontend.
@@ -34,9 +35,8 @@ public class User {
      */
     public UserData toData() {
         return UserData.builder()
-                .id(getId())
-                .email(getEmail())
                 .username(getUsername())
+                .email(getEmail())
                 .build();
     }
 }
