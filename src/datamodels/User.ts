@@ -17,3 +17,9 @@ export function dataToUser(data: JSONData<User>): User {
 		...data,
 	};
 }
+
+export type NewUserInfo = {
+	userId: string;
+	email: string;
+	username: string;
+}

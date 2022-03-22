@@ -1,3 +1,5 @@
+import { NewUserInfo } from "./datamodels/User";
+
 enum Backend {
 	Local = 'http://localhost:8080/api',
 }
@@ -11,4 +13,8 @@ export const STOCK_PRICE_URL = (symbol: string): string => `${BACKEND_URL}/marke
 
 export async function stockPrice(symbol: string): Promise<number> {
 	return await (await fetch(STOCK_PRICE_URL(symbol))).json();
+}
+
+export function createUser(user: NewUserInfo) {
+	;
 }

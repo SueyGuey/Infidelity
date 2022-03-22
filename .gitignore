@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.js
 
@@ -23,3 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 api/.idea
+
+aws-lambda/*/*.zip
+aws-lambda/*/package-lock.json
