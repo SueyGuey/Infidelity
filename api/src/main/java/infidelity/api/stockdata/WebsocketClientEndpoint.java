@@ -17,6 +17,7 @@ import java.net.URI;
 public class WebsocketClientEndpoint {
     Session session = null;
     private MessageHandler messageHandler;
+    private OpenHandler openHandler;
 
     public WebsocketClientEndpoint(URI endpointURI) {
         try {
@@ -36,6 +37,9 @@ public class WebsocketClientEndpoint {
     public void onOpen(Session userSession) {
         log.info("opening websocket");
         this.session = userSession;
+        if (this.openHandler != null) {
+            this.openHandler.handleOpen();
+        }
     }
 
     /**
@@ -86,5 +90,12 @@ public class WebsocketClientEndpoint {
      */
     public static interface MessageHandler {
         public void handleMessage(String message);
+    }
+
+    /**
+     * Open handler
+     */
+    public static interface OpenHandler {
+        public void handleOpen();
     }
 }

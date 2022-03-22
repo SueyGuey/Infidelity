@@ -22,6 +22,7 @@ public class MarketController {
 
     @GetMapping("/price/{symbol}")
     public double getPrice(@PathVariable String symbol) {
+        log.info("GET /market/price/{}", symbol);
         return market.getCurrentPrice(symbol);
     }
 }

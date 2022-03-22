@@ -16,7 +16,7 @@ public class FHMessageDecoder implements Decoder.Text<FinnHubMessage> {
 
     @Override
     public boolean willDecode(String s) {
-        return (s != null);
+        return s != null && s.contains("\"data\"");
     }
 
     @Override

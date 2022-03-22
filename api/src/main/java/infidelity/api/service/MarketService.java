@@ -11,6 +11,8 @@ public class MarketService {
     private final static FinnHub fh = new FinnHub();
 
     public double getCurrentPrice(String symbol) {
+        fh.doThing(symbol);
+
         if (!fh.hasData(symbol)) {
             fh.subscribe(symbol);
         }
