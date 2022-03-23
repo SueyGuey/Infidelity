@@ -23,6 +23,10 @@ public class UserService {
         return findUserById(id).orElseThrow(() -> new IllegalArgumentException("Could not find user with id " + id));
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
+
     public User createUser(UserData data) {
         User newUser = User.builder()
                 .username(data.getUsername())

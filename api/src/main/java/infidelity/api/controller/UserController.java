@@ -32,7 +32,7 @@ public class UserController {
             return new ResponseEntity<>(user.get().toData(), HttpStatus.OK);
         } else {
             log.warn("User {} not found", id);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -40,10 +40,10 @@ public class UserController {
      * Endpoint for creating users.
      * Requires that the data object contain at least the username and email of the new user.
      */
-    @PostMapping
-    public ResponseEntity<UserData> createUser(@RequestBody UserData data) {
+    @PostMapping("/create")
+    public void createUser(@RequestBody User newUser) {
         log.info("POST /user/create");
-        User newUser = userService.createUser(data);
-        return new ResponseEntity<>(newUser.toData(), HttpStatus.OK);
+        System.out.println(newUser);
+        userService.saveUser(newUser);
     }
 }
