@@ -28,11 +28,11 @@ public class CognitoUserMetadataExtractor implements CognitoIdTokenProcessor.Use
             // .maximumSize(100000)
             .build(new CacheLoader<String, Optional<UserMetadata>>() {
                 @Override
-                public Optional<UserMetadata> load(String cogId) {
-                    Optional<UserMetadata> possibleMetadata = loadUserMetadataForId(cogId);
+                public Optional<UserMetadata> load(String username) {
+                    Optional<UserMetadata> possibleMetadata = loadUserMetadataForId(username);
                     if (!possibleMetadata.isPresent()) {
-                        log.error("Unable to find User with cogId '{}' - caching resolution for {} minutes",
-                                CACHE_TTL_MINS);
+                        log.error("Unable to find User with username '{}' - caching resolution for {} minutes",
+                                username, CACHE_TTL_MINS);
                     }
                     return possibleMetadata;
                 }
@@ -43,21 +43,21 @@ public class CognitoUserMetadataExtractor implements CognitoIdTokenProcessor.Use
     }
 
     @Override
-    public Optional<UserMetadata> resolveMetadataForUserId(String cogId) {
+    public Optional<UserMetadata> resolveMetadataForUserId(String username) {
         try {
-            return userMetadataCache.get(cogId);
+            return userMetadataCache.get(username);
         } catch (UncheckedExecutionException uee) {
-            log.error("Unexpected error while looking up UserMetadata for cogId: {}", cogId, uee.getCause());
+            log.error("Unexpected error while looking up UserMetadata for username: {}", username, uee.getCause());
         } catch (ExecutionException ee) {
-            log.error("Failed to look up UserMetadata thru the configured resolver cogId: {}", cogId, ee.getCause());
+            log.error("Failed to look up UserMetadata thru the configured resolver username: {}", username, ee.getCause());
         }
         return Optional.empty();
     }
 
-    private Optional<UserMetadata> loadUserMetadataForId(String id) {
-        Optional<User> user = userRepository.findById(id);
+    private Optional<UserMetadata> loadUserMetadataForId(String username) {
+        Optional<User> user = userRepository.findById(username);
         return user.map(mmu -> UserMetadata.builder()
-                .username(id)
+                .username(username)
                 .email(mmu.getEmail())
                 .build());
     }

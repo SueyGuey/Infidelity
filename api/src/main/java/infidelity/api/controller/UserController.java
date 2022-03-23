@@ -21,15 +21,15 @@ public class UserController {
 
     /**
      * Default endpoint for retrieving user information given their user id.
-     * @param id The ID created by AWS Cognito which serves as a mandatory unique identifier for each user
+     * @param id The ID is also the user's username, which serves as a mandatory unique identifier for each user
      * @return JSON-friendly UserData object containing basic information about the user.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UserData> getUser(@PathVariable("id") String id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") String id) {
         log.info("GET /user/{}", id);
-        Optional<User> user = userService.findUserById(id);
-        if (user.isPresent()) {
-            return new ResponseEntity<>(user.get().toData(), HttpStatus.OK);
+        Optional<User> optUser = userService.findUserById(id);
+        if (optUser.isPresent()) {
+            return new ResponseEntity<>(optUser.get(), HttpStatus.OK);
         } else {
             log.warn("User {} not found", id);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

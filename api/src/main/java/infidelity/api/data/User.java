@@ -4,8 +4,11 @@ import infidelity.api.data.model.UserData;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * User objects are those stored in the Postgres database and used by the UserService class.
@@ -19,9 +22,8 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class User {
     /**
-     * Created by AWS Cognito, a universally unique Identifier for the user. Cannot be changed, and used
-     * to identify and log each user in the database as well as make requests to the API that concern
-     * a specific user.
+     * Specified by the user at signup, a universally unique Identifier for the user. Cannot be changed, and used
+     * to identify and log each user in the database as well as make requests to the API that concern a specific user.
      */
     @Id
     @Column(name = "id", nullable = false)
