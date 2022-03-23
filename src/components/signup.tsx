@@ -39,10 +39,6 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 				} else {
 					authenticate(props.username, props.password)
 						.then((_data: any) => {
-							createUser({
-								username: props.username,
-								email: props.email
-							});
 							navigate('/dashboard');
 						})
 						.catch((err: Error) => {
@@ -161,6 +157,10 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 						setErrStatus(errorMessage);
 						return;
 					} else if (data) {
+						createUser({
+							username: props.username,
+							email: props.email
+						});
 						props.setCognitoUser(data.user);
 						props.setUserId(data.userSub);
 						props.setSignUpPressed(true);

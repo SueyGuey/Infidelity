@@ -1,7 +1,7 @@
 import { NewUserInfo } from "./datamodels/User";
 
 enum Backend {
-	Local = 'http://localhost:8080/api',
+	Local = 'http://localhost:8080',
 }
 
 const BACKEND_URL = Backend.Local;
