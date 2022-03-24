@@ -10,7 +10,8 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Builder
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
     @Id
     @Column(nullable = false)
