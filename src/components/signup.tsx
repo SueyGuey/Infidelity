@@ -7,6 +7,7 @@ import { AccountContext } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { createUserBackend } from '../endpoints';
 
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
@@ -156,6 +157,10 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 						setErrStatus(errorMessage);
 						return;
 					} else if (data) {
+						createUserBackend({
+							username: props.username,
+							email: props.email
+						});
 						props.setCognitoUser(data.user);
 						props.setUserId(data.userSub);
 						props.setSignUpPressed(true);
