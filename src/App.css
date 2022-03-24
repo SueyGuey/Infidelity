@@ -1,4 +1,4 @@
 .App{
     height: fit-content;
-    padding-bottom: 1vw;
+    overflow-y: hidden;
 }
