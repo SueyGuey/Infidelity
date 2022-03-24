@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { createUserBackend } from '../endpoints';
 
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
@@ -161,6 +162,10 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 						setErrStatus(errorMessage);
 						return;
 					} else if (data) {
+						createUserBackend({
+							username: props.username,
+							email: props.email
+						});
 						props.setCognitoUser(data.user);
 						props.setUserId(data.userSub);
 						props.setSignUpPressed(true);

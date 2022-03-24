@@ -1,0 +1,90 @@
+@font-face {
+    font-family: Arsenal-Bold;
+    src: url("../fonts/Arsenal-Bold.ttf");
+  }
+  @font-face {
+    font-family: Arsenal-Regular;
+    src: url("../fonts/Arsenal-Regular.ttf");
+  }
+
+
+.dashBottomContain{
+    font-family: Arsenal-Regular;  
+    position: absolute;
+    display: flex;
+    border: none;
+    height: 17vw;
+    width: 82%;
+    top: 31.5vw;
+    right: 0;
+    /* background-color: red; */
+}
+
+.dashBottom{
+    padding-left: 4vw;
+    position: inherit;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+}
+
+.bottomSpan{
+    display: inline-block;
+    top: 0;
+    left: 0;
+    height: 10vw;
+    width: 12vw;
+    height: calc(100% - 1vw);
+    border: none;
+    background-color: #D8D8D8;
+    border-radius: .3vw;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    font-family: Arsenal-Regular;
+
+    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.20);
+    border-radius: .4vw
+}
+
+.watchLists{
+    width: 20vw;
+}
+
+.positions{
+    width: 35vw;
+}
+
+.recentTrade{
+    width: 17.26vw;
+}
+
+.spanCap{
+    width: 100%;
+    height: 20%;
+    border-top-left-radius: .4vw;
+    border-top-right-radius: .4vw;
+    background-color: #C9C9C9;
+}
+
+.spanCap p{
+    margin-top: .75vw;
+    position: inherit;
+    padding-left: 1vw;
+    font-size: 1.3vw;
+}
+.spanCap select{
+    position: inherit;
+    display: inline;
+    right: 0vw;
+    margin-left: 4vw;
+    font-family: Arsenal-Regular;   
+    font-size: 1.0vw;
+    border: none;
+    border-radius: .25vw;
+    background-color: rgba(240,240,240,1);
+}

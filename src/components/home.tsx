@@ -9,12 +9,18 @@ export default function Home(): ReactElement {
 	return (
 		<div>
 			<TopNavBar/>
+			<div className = 'top'>
 			<LoginSignup/>
-			<div className='graph'>
-				<p className='stockName'> MSFT</p>
-				<StockGraph/>
+			<span className = 'top-2'>
+				<div className='graph' id='graph-container'>
+					<p className='stockName'> MSFT</p>
+					<StockGraph/>
+				</div>
+			</span>
 			</div>
-			<PitchRectangles/>
+			<div className = 'bottom'>
+				<PitchRectangles/>
+			</div>
 		</div>
 	);
 }
