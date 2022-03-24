@@ -102,12 +102,12 @@ button {
   width: 100.75%;
   height: 96.75%;
   margin-left: 2vw;
-  background-color: #f6f6f6;
+  background-color: #F6F6F6;
   filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.25));
   border-radius: 1vw;
 }
 
 .bottom{
-  padding-bottom: 3.7vw;
+  padding-bottom: 3.9vw;
 }
 

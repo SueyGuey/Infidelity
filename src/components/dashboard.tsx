@@ -4,6 +4,8 @@ import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
 import TopNavBar from './TopNavBar';
 import '../css/Dashboard.css'
+import DashTop from './DashTop';
+import DashBottom from './DashBottom';
 
 export default function Dashboard(): ReactElement {
 	const user = userPool.getCurrentUser();
@@ -11,8 +13,8 @@ export default function Dashboard(): ReactElement {
 		<div className = "Dashboard">
 			{/* <TopNavBar/> */}
 			<DashSideMenu/>
-			<div className = "mainDash">
-			</div>
+			<DashTop/>
+			<DashBottom/>
 		</div>
 	) /* : <Navigate to="/"/>*/;
 }
