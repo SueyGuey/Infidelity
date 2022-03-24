@@ -12,11 +12,10 @@
     font-family: Arsenal-Regular;  
     position: absolute;
     display: flex;
-    z-index: 1;
     border: none;
     height: 35%;
     width: 82%;
-    bottom: 0;
+    top: 65%;
     right: 0;
     /* background-color: red; */
 }

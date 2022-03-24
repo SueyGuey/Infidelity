@@ -18,7 +18,7 @@
     align-items: center;
 }
 
-input{
+.searchInput{
     position: inherit;
     padding-left: 2vw;
     width: 70%;
@@ -34,8 +34,8 @@ input{
 
 .searchIcon{
     position: absolute;
-    padding-left: .5vw;
-    padding-top: .2vw;
+    margin-left: .5vw;
+    margin-top: .2vw;
     z-index: 2;
     height: 1vw;
     width: auto;

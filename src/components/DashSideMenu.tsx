@@ -37,9 +37,9 @@ export default function DashSideMenu(): ReactElement {
                         <li className = "menuItem"><p>Stock Search</p></li>
                     </ul>
                     </li>
-                    <li className = "bottom"><p>Profile</p></li>
-                    <li className = "bottom"><p>Settings</p></li>
-                    <li className = "bottom logout"><p>Logout</p></li>
+                    <li className = "bottomItem"><p>Profile</p></li>
+                    <li className = "bottomItem"><p>Settings</p></li>
+                    <li className = "bottomItem logout"><p>Logout</p></li>
                 </ul>
             </div>
 		</div>

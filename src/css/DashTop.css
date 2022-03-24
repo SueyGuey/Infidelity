@@ -10,7 +10,6 @@
 .DashTopContain{
     position: absolute;
     display: flex;
-    z-index: 1;
     border: none;
     height: 65%;
     width: 82%;

@@ -42,7 +42,6 @@
     width: 100%;
     border: none;
     height: 91.5%;
-    margin-top: .5vw;
 }
 
 .menuTypeHeader{
@@ -62,22 +61,21 @@
     position: inherit;
     font-size: 1.6vw;
     font-weight: normal;
-    margin-bottom: .5vw;
+    margin-bottom: .2vw;
     padding-left: 1.56vw;
 }
 
-.menuTypeHeader + .bottom{
-    margin-top: 12.5vw;
+.menuTypeHeader + .bottomItem{
+    margin-top: 14vw;
 }
 
-.bottom{
+.bottomItem{
     position: inherit;
     font-family: Arsenal-Regular;
     font-weight: 500;
     font-size: 1.6vw;
     font-weight: normal;
     padding-left: 1.56vw;
-    margin-bottom: -3.4vw;
 }
 
 .logout{

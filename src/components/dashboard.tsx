@@ -16,5 +16,5 @@ export default function Dashboard(): ReactElement {
 			<DashTop/>
 			<DashBottom/>
 		</div>
-	) /* : <Navigate to="/"/>*/;
+	) /*: <Navigate to="/"/>*/;
 }
