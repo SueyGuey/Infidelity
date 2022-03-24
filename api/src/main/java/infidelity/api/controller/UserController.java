@@ -46,4 +46,14 @@ public class UserController {
         System.out.println(newUser);
         userService.saveUser(newUser);
     }
+
+    /**
+     * Completely erase all user data for a particular user given cogId
+     */
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("username") String username) {
+        log.info("Request to delete user {}", username);
+        userService.deleteUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
