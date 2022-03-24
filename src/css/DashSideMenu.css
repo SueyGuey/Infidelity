@@ -1,0 +1,90 @@
+@font-face {
+    font-family: Babas;
+    src: url("../fonts/BebasNeue-Regular.ttf");
+  }
+  @font-face {
+    font-family: Arsenal-Bold;
+    src: url("../fonts/Arsenal-Bold.ttf");
+  }
+  @font-face {
+    font-family: Arsenal-Regular;
+    src: url("../fonts/Arsenal-Regular.ttf");
+  }
+.SideMenuContainer{
+    top: 0;
+    left: 0;
+    height: 48.5vw;
+    width: 18%;
+    background-color: #e4e4e4;
+}
+
+.logoName{
+    position: inherit;
+    top: 0;
+    left:0;
+    height: 8%;
+    width: 100%;
+    background-color: #D9D9D9;
+}
+
+.sideLogo{
+    margin-left: 1vw;
+    margin-right: 0.5vw;
+    width: 4.5vw;
+    height: auto;
+}
+
+.sideBarName{
+    padding-top: .4vw;
+}
+
+.menu{
+    width: 100%;
+    border: none;
+    height: 91.5%;
+}
+
+.menuTypeHeader{
+    height: 33%;
+    width: 100%;
+    font-family: Arsenal-Regular;
+    font-weight: 500;
+    font-size: 1vw;
+    margin-bottom: 2vw;
+}
+
+.menuTypeHeader p{
+    padding-left: .5vw;
+}
+
+.menuItem p{
+    position: inherit;
+    font-size: 1.6vw;
+    font-weight: normal;
+    margin-bottom: .2vw;
+    padding-left: 1.56vw;
+}
+
+.menuTypeHeader + .bottomItem{
+    margin-top: 14vw;
+}
+
+.bottomItem{
+    position: inherit;
+    font-family: Arsenal-Regular;
+    font-weight: 500;
+    font-size: 1.6vw;
+    font-weight: normal;
+    padding-left: 1.56vw;
+}
+
+.logout{
+    margin-top: 1vw;
+    font-size: 1vw;
+    margin-left: -1vw;
+}
+
+.activePage{
+    width: 100%;
+    background-color: #f0f0f0;
+}

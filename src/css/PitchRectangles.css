@@ -15,10 +15,11 @@
 /*Parent contains all Rectangle Spans*/
 .parent {
   align-self: center;
-  margin-top: 30px;
-  width: 100%;
+  margin-top: 1vw;
+  bottom: 2vw;
+  width: calc(100%-2vw);
   display: flex;
-  justify-content: center;
+  justify-content: left;
   /*display: flexbox;*/
 }
 
@@ -28,12 +29,11 @@ span + span {
 }
 .pitches {
   /*position: inherit;*/
-  width: 46rem;
+  width: 100%;
   height: auto;
   padding-bottom: min(1.3vw, 2rem);
-  border: 1px solid #060606;
-  background: #e0e0e0;
-  box-shadow: 5px 5px 5px #060606;
+  background: #e0feff;
+  filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.25));
   border-radius: 20px;
   display: flexbox;
   text-align: center;
@@ -56,8 +56,9 @@ span + span {
 }
 
 .pitchImages {
-  width: min(120px, 20vw);
-  height: auto;
+  margin-top: 1vw;
+  width:auto;
+  height:  min(70px, 15vw);
 }
 
 .rectangleTextHeader {

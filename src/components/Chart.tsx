@@ -58,7 +58,11 @@ function tooltipContent(ys:any) {
 class AreaChart extends React.Component<any, any> {
 	render() {
 		const { data, type, width, ratio } = this.props;
-		
+		var containerHeight = document.getElementById('graph-container')?.offsetHeight;
+		if(containerHeight == undefined){//should not occur unless graph has no div containing it.
+			containerHeight = 0;
+		}
+		var thisHeight = containerHeight*0.90;
 		const ema20 = ema()
 			.id(0)
 			.options({ windowSize: 20 })
@@ -76,7 +80,7 @@ class AreaChart extends React.Component<any, any> {
 			.accessor((d:any) => d.ema50);
 
 		return (
-			<ChartCanvas ratio={ratio} width={width} height={400}
+			<ChartCanvas ratio={ratio} width={width} height = {thisHeight}
 				margin={{ left: 50, right: 30, top: 10, bottom: 30 }}
 				seriesName="MSFT"
 				data={data} type={type}
