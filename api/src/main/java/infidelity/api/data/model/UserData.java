@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 public class UserData {
     @NonNull
-    private String id;
-    private String email;
     private String username;
+    private String email;
 }

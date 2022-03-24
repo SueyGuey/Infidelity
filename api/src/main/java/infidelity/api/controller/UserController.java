@@ -6,10 +6,7 @@ import infidelity.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -24,18 +21,39 @@ public class UserController {
 
     /**
      * Default endpoint for retrieving user information given their user id.
-     * @param id The ID created by AWS Cognito which serves as a mandatory unique identifier for each user
+     * @param id The ID is also the user's username, which serves as a mandatory unique identifier for each user
      * @return JSON-friendly UserData object containing basic information about the user.
      */
     @GetMapping("/{id}")
-    public ResponseEntity<UserData> getUser(@PathVariable("id") String id) {
+    public ResponseEntity<User> getUser(@PathVariable("id") String id) {
         log.info("GET /user/{}", id);
-        Optional<User> user = userService.findUserById(id);
-        if (user.isPresent()) {
-            return new ResponseEntity<>(user.get().toData(), HttpStatus.OK);
+        Optional<User> optUser = userService.findUserById(id);
+        if (optUser.isPresent()) {
+            return new ResponseEntity<>(optUser.get(), HttpStatus.OK);
         } else {
             log.warn("User {} not found", id);
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     * Endpoint for creating users.
+     * Requires that the data object contain at least the username and email of the new user.
+     */
+    @PostMapping("/create")
+    public void createUser(@RequestBody User newUser) {
+        log.info("POST /user/create");
+        System.out.println(newUser);
+        userService.saveUser(newUser);
+    }
+
+    /**
+     * Completely erase all user data for a particular user given cogId
+     */
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("username") String username) {
+        log.info("Request to delete user {}", username);
+        userService.deleteUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
