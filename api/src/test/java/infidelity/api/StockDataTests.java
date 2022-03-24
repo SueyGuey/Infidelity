@@ -24,6 +24,8 @@ public class StockDataTests {
 
     private final FHMessageDecoder decoder = new FHMessageDecoder();
 
+    private final FinnHub fh = new FinnHub();
+
     @Test
     void testFinnHubConnection() {
         int waitTime = 3000; // milliseconds
@@ -110,4 +112,10 @@ public class StockDataTests {
             System.out.println(fh.getInfo(symbol));
         }
     }
+
+    @Test
+    void testFHSymbols() {
+        fh.listExchange();
+    }
+
 }

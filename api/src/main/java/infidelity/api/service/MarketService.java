@@ -1,5 +1,6 @@
 package infidelity.api.service;
 
+import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class MarketService {
+
+    @Autowired
+    private StockRepository stockRepository;
+
     private final static FinnHub fh = new FinnHub();
 
     public double getCurrentPrice(String symbol) {
@@ -26,5 +31,12 @@ public class MarketService {
             }
         }
         return fh.getInfo(symbol).getPrice();
+    }
+
+    /**
+     *
+     */
+    public void populateCompanyInfo() {
+        fh.listExchange();
     }
 }

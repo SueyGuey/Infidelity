@@ -22,6 +22,7 @@ public class FinnHub {
 
     private WebsocketClientEndpoint clientEndpoint;
     private final FHMessageDecoder decoder = new FHMessageDecoder();
+    private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
 
     private WebsocketStompClient stompClient;
 
@@ -31,6 +32,8 @@ public class FinnHub {
     private Map<String, FinnHubMessage.PriceMessage> info = new HashMap<>();
 
     public FinnHub() {
+        // BELOW IS WEBSOCKET CODE
+        /*
         try {
             // open websocket
             clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT));
@@ -39,8 +42,8 @@ public class FinnHub {
         } catch (URISyntaxException e) {
             log.error("URISyntaxException exception: " + e.getMessage());
         }
-
-//        stompClient = new WebsocketStompClient();
+        stompClient = new WebsocketStompClient();
+        */
     }
 
     private void handleOpen() {
@@ -97,6 +100,31 @@ public class FinnHub {
 
             System.out.println(response.body());
         } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void search(String query) {
+        // standard http connection
+    }
+
+    public void listExchange() {
+        String url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&currency=USD&token=c8oia22ad3iatn99l4u0";
+        try {
+            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+            con.setRequestMethod("GET");
+            System.out.println(con.getContentLength());
+            System.out.println(con.getContent());
+            String response = con.getResponseMessage();
+            if (!symbolDecoder.willDecode(response)) {
+                log.error("Error parsing response {}", response);
+            } else {
+                List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(response));
+                for (int i = 0; i < 10; i++) {
+                    System.out.println(symbols.get(i).getSymbol());
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
