@@ -1,29 +1,31 @@
 package infidelity.api.data;
 
-import infidelity.api.data.model.PortfolioData;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@RequiredArgsConstructor
 public class Portfolio {
     @Id
-    @Column(name = "id", nullable = false)
-    private String id;
+    @Column(nullable = false)
+    private String portfolioId;
 
     private String name;
-    private double money;
+    private double balance;
 
-    public PortfolioData toData() {
-        return PortfolioData.builder()
-                .id(id)
-                .name(name)
-                .money(money)
-                .build();
-    }
+    @Builder.Default
+    @OneToMany
+    private List<Transaction> transactions = new ArrayList<>();
 }
