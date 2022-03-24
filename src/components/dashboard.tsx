@@ -9,12 +9,12 @@ import DashBottom from './DashBottom';
 
 export default function Dashboard(): ReactElement {
 	const user = userPool.getCurrentUser();
-	return /*user ?*/ (
+	return user ? (
 		<div className = "Dashboard">
 			{/* <TopNavBar/> */}
 			<DashSideMenu/>
 			<DashTop/>
 			<DashBottom/>
 		</div>
-	) /*: <Navigate to="/"/>*/;
+	) : <Navigate to="/"/>;
 }
