@@ -2,9 +2,8 @@ package infidelity.api.data;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -15,5 +14,12 @@ import javax.persistence.Id;
 public class Transaction {
     @Id
     @Column(nullable = false)
-    private String transactionId;
+    private UUID transactionId;
+
+    private long timestamp;
+    @ManyToOne
+    @JoinColumn(name = "transaction_item_symbol")
+    private Tradeable item;
+    private double price;
+    private double quantity;
 }

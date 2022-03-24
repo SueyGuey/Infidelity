@@ -2,12 +2,8 @@ package infidelity.api.data;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Getter
@@ -18,7 +14,7 @@ import java.util.List;
 public class Portfolio {
     @Id
     @Column(nullable = false)
-    private String portfolioId;
+    private UUID portfolioId;
 
     private String name;
     private double balance;
@@ -26,4 +22,8 @@ public class Portfolio {
     @Builder.Default
     @OneToMany
     private List<Transaction> transactions = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany
+    private Set<Asset> assets = new HashSet<>();
 }
