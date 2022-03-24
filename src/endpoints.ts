@@ -2,6 +2,7 @@ import { NewUserInfo } from "./datamodels/User";
 
 enum Backend {
 	Local = 'http://localhost:8080',
+	Production = '',
 }
 
 const BACKEND_URL = Backend.Local;
@@ -16,7 +17,7 @@ export async function stockPrice(symbol: string): Promise<number> {
 	return await (await fetch(STOCK_PRICE_URL(symbol))).json();
 }
 
-export function createUser(user: NewUserInfo) {
+export function createUserBackend(user: NewUserInfo) {
 	console.log("CREATING USER");
 	fetch(CREATE_USER_URL, {
 		method: 'POST',

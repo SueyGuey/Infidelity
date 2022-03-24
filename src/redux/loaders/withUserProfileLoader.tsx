@@ -48,7 +48,7 @@ export default function withUserProfileLoader<PropType>(
 					if (cognitoUser) {
 						cognitoUser.signOut();
 					}
-					navigate('/login');
+					navigate('/');
 				}
 				return <ErrorPage message={userProfile.errorMessage} />;
 			case 'success':
