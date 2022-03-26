@@ -8,3 +8,7 @@ declare module 'react-stockcharts/lib/tooltip';
 declare module 'react-stockcharts/lib/indicator';
 declare module 'd3-time-format';
 declare module 'd3-format';
+declare module 'redux';
+declare module 'redux-thunk';
+declare module 'react-redux';
+declare module '@reduxjs/toolkit';
