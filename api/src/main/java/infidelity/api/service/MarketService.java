@@ -83,7 +83,8 @@ public class MarketService {
         Optional<Tradeable> existing = stockRepository.findById(symbol);
         if (existing.isPresent()) {
             Tradeable old = existing.get();
-            if (old instanceof Stock stock) {
+            if (old instanceof Stock) {
+                Stock stock = (Stock) old;
                 updateProperty(stock, Stock::getCompany, stock::setCompany,
                         companyRepository.save(Company.builder()
                                 .name(String.format("Company-%s", symbol))
