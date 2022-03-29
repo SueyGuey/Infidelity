@@ -11,7 +11,7 @@ type UserProfileAction = {
 	payload: Loadable<User>;
 };
 
-export const fetchUserProfile = (cog_id: string) => {
+export const fetchUserProfile = (username: string) => {
 	return async (dispatch: Dispatch<UserProfileAction>) => {
 		const fetchUserProfileCallback = async (bearerToken: string) => {
 			if (bearerToken === 'Refresh Token has expired') {
@@ -23,7 +23,7 @@ export const fetchUserProfile = (cog_id: string) => {
 			}
 			dispatch({ type: Action.FETCH_USER_PROFILE, payload: { status: 'loading' } });
 			try {
-				fetch(GET_USER_URL(cog_id), {
+				fetch(GET_USER_URL(username), {
 					headers: {
 						Authorization: `Bearer ${bearerToken}`,
 						'Content-Type': 'application/json',
