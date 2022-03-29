@@ -13,8 +13,9 @@ import java.util.*;
 @AllArgsConstructor
 public class Portfolio {
     @Id
-    @Column(nullable = false)
-    private UUID portfolioId;
+    @Column
+    @Builder.Default
+    private UUID portfolioId = UUID.randomUUID();
 
     private String name;
     @Builder.Default

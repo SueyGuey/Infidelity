@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.websocket.DeploymentException;
 import java.io.IOException;
 import java.net.*;
 import java.net.http.HttpClient;
@@ -16,9 +17,9 @@ import java.util.Map;
 @Service
 @Slf4j
 public class FinnHub {
-    private final String FINNHUB_KEY = "c8kmugaad3ibbdm3vo8g";
-    private final String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=" + FINNHUB_KEY;
-    private final String FINNHUB_ENDPOINT = "https://finnhub.io/api/v1/webhook/add?token=" + FINNHUB_KEY;
+    private final String[] FINNHUB_KEYS = {"c8kmugaad3ibbdm3vo8g", "c8oia22ad3iatn99l4u0"};
+    private final String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=";
+    private final String FINNHUB_ENDPOINT = "https://finnhub.io/api/v1/webhook/add?token=";
 
     private WebsocketClientEndpoint clientEndpoint;
     private final FHMessageDecoder decoder = new FHMessageDecoder();
@@ -33,17 +34,25 @@ public class FinnHub {
 
     public FinnHub() {
         // BELOW IS WEBSOCKET CODE
-        /*
+        //*
         try {
             // open websocket
-            clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT));
+            clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + FINNHUB_KEYS[0]));
             // add listener
             clientEndpoint.addMessageHandler(FinnHub.this::handleMessage);
         } catch (URISyntaxException e) {
             log.error("URISyntaxException exception: " + e.getMessage());
+        } catch (Exception e) {
+            if (e instanceof DeploymentException) {
+                try {
+                    clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_ENDPOINT + FINNHUB_KEYS[1]));
+                } catch (URISyntaxException ure) {
+                    ure.printStackTrace();
+                }
+            }
         }
-        stompClient = new WebsocketStompClient();
-        */
+        //*/
+        // stompClient = new WebsocketStompClient();
     }
 
     private void handleOpen() {
@@ -67,7 +76,8 @@ public class FinnHub {
      */
     public void subscribe(String symbol) {
         String subMsg = String.format("{\"type\":\"subscribe\",\"symbol\":\"%s\"}", symbol);
-        clientEndpoint.sendMessage(subMsg);
+        if (clientEndpoint != null)
+            clientEndpoint.sendMessage(subMsg);
     }
 
     public boolean hasData(String symbol) {

@@ -3,7 +3,7 @@ import '../css/login.css';
 import { validateEmail, validatePassword } from '../textUtils';
 import UserPool from '../authentication/userPool';
 import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js';
-import { AccountContext } from '../authentication/accounts';
+import { AccountContext, AccountContextType } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -25,8 +25,8 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 	const [code, setCode] = useState('');
 	const navigate = useNavigate();
 
-	const context: any = useContext(AccountContext);
-	const authenticate: any = context.authenticate;
+	const context = useContext(AccountContext);
+	const authenticate = context.authenticate;
 
 	function validateForm2(): boolean {
 		return code.length > 0;
@@ -36,7 +36,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 		event.preventDefault();
 		if (props.cognitoUser) {
 			props.cognitoUser.confirmRegistration(code, true, (err?: Error, _result?: any) => {
-				if (err && !err.message.includes('Current status is CONFIRMED')) {
+				if (err) {
 					console.error(err);
 					setVerificationErrStatus('Verification provided is incorrect.');
 				} else {

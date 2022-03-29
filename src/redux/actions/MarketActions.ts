@@ -1,8 +1,6 @@
 import { Dispatch } from 'react';
-import { FetchError, JSONData } from '../../datamodels/misc';
-import User, { dataToUser, userToData } from '../../datamodels/User';
-import { EDIT_USER_URL, getTradeableBackend, GET_USER_URL, searchMarketBackend } from '../../endpoints';
-import authFetchWrapper from '../authFetch';
+import User from '../../datamodels/User';
+import { getTradeableBackend, searchMarketBackend } from '../../endpoints';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
 

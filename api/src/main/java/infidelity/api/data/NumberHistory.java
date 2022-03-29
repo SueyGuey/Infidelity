@@ -19,7 +19,8 @@ import java.util.UUID;
 public class NumberHistory {
     @Id
     @Column(nullable = false)
-    private UUID numberHistoryId;
+    @Builder.Default
+    private UUID numberHistoryId = UUID.randomUUID();;
 
     @Builder.Default
     @ElementCollection

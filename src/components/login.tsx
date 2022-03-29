@@ -1,4 +1,4 @@
-import { CognitoUser, CognitoUserSession } from 'amazon-cognito-identity-js';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import React, { ReactElement, useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Account, AccountContext } from '../authentication/accounts';
@@ -26,7 +26,7 @@ function Login(): ReactElement {
 	function handleSubmit(event: React.SyntheticEvent): void {
 		event.preventDefault();
 		authenticate(username, password)
-			.then((data: CognitoUserSession) => {
+			.then((_data) => {
 				navigate('/dashboard');
 			})
 			.catch((err: Error) => {
