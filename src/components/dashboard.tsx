@@ -8,17 +8,16 @@ import '../css/Dashboard.css'
 import DashTop from './DashTop';
 import DashBottom from './DashBottom';
 
-function Dashboard(props: WithUserProfileLoaderProps): ReactElement {
-	console.log(props.userProfile);
+function Dashboard(): ReactElement {
 	const user = userPool.getCurrentUser();
-	return user ? (
+	return /*user ?*/ (
 		<div className = "Dashboard">
 			{/* <TopNavBar/> */}
 			<DashSideMenu/>
 			<DashTop/>
 			<DashBottom/>
 		</div>
-	) : <Navigate to="/"/>;
+	) /*: <Navigate to="/"/>*/;
 }
 
-export default withUserProfileLoader(Dashboard);
+export default Dashboard;
