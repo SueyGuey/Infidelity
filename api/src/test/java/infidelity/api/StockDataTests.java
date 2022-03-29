@@ -7,6 +7,9 @@ import infidelity.api.stockdata.WebsocketClientEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.websocket.DeploymentException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.net.URI;
@@ -23,6 +26,8 @@ public class StockDataTests {
     private final String maybeAnotherAPI = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 
     private final FHMessageDecoder decoder = new FHMessageDecoder();
+
+    private final FinnHub fh = new FinnHub();
 
     @Test
     void testFinnHubConnection() {
@@ -52,60 +57,24 @@ public class StockDataTests {
 
         } catch (URISyntaxException e) {
             log.error("URISyntaxException exception: " + e.getMessage());
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    void testFinnHubParse() {
-        int waitTime = 3000; // milliseconds
-        try {
-            // open websocket
-            final WebsocketClientEndpoint clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_ENDPOINT));
-            List<FinnHubMessage> prices = new ArrayList<>();
-            // add listener
-            clientEndpoint.addMessageHandler(new WebsocketClientEndpoint.MessageHandler() {
-                public void handleMessage(String message) {
-                    prices.add(decoder.decode(message));
-                    System.out.println(message);
-                }
-            });
-
-            // subscribe to Bitcoin price updates
-            String subscribeBTC = "{\"type\":\"subscribe\",\"symbol\":\"BINANCE:BTCUSDT\"}";
-            clientEndpoint.sendMessage(subscribeBTC);
-
-            // wait for price updates to roll in
-            Thread.sleep(waitTime);
-
-            for (FinnHubMessage message : prices) {
-                System.out.println(message);
-                assertThat(message.getData()).isNotNull();
-                assertThat(message.getType()).isNotNull();
-                for (FinnHubMessage.PriceMessage update : message.getData()) {
-                    assertThat(update.getTimestamp()).isNotNull();
-                    assertThat(update.getPrice()).isNotNull();
-                    assertThat(update.getSymbol()).isNotNull();
-                    assertThat(update.getVolume()).isNotNull();
-                }
-            }
-        } catch (URISyntaxException e) {
-            log.error("URISyntaxException exception: " + e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testFinnHubSubscribe() throws InterruptedException {
+    void testFinnHubSubscribe() {
         int waitTime = 5000; // milliseconds
-        List<String> symbols = List.of(new String[]{"AAPL", "AMZN", "TSLA", "BINANCE:BTCUSDT"});
+        List<String> symbols = List.of(new String[]{"AAPL", "AMZN", "TSLA"});
         FinnHub fh = new FinnHub();
         for (String symbol : symbols)
             fh.subscribe(symbol);
         // wait for updates to roll in
-        Thread.sleep(waitTime);
+        try {
+            Thread.sleep(waitTime);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (String symbol : symbols) {
             System.out.println(fh.getInfo(symbol));
         }

@@ -13,5 +13,7 @@ import lombok.*;
 public class UserData {
     @NonNull
     private String username;
+
+    private PortfolioData portfolio;
     private String email;
 }

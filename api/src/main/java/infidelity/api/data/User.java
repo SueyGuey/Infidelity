@@ -3,10 +3,7 @@ package infidelity.api.data;
 import infidelity.api.data.model.UserData;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,9 +23,17 @@ public class User {
      * to identify and log each user in the database as well as make requests to the API that concern a specific user.
      */
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private String username;
     private String email;
+
+    @Builder.Default
+    @OneToMany
+    private Set<Portfolio> portfolios = new HashSet<>();
+
+    @Builder.Default
+    @OneToMany
+    private Set<Watchlist> watchlists = new HashSet<>();
 
     /**
      * Converts this User to a UserData object that can be passed as a JSON object to the frontend.

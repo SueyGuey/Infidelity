@@ -3,10 +3,13 @@ import '../css/login.css';
 import { validateEmail, validatePassword } from '../textUtils';
 import UserPool from '../authentication/userPool';
 import { CognitoUser, CognitoUserAttribute, ISignUpResult } from 'amazon-cognito-identity-js';
-import { AccountContext } from '../authentication/accounts';
+import { AccountContext, AccountContextType } from '../authentication/accounts';
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createUserBackend } from '../endpoints';
 
 type VerificationProps = {
@@ -22,8 +25,8 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 	const [code, setCode] = useState('');
 	const navigate = useNavigate();
 
-	const context: any = useContext(AccountContext);
-	const authenticate: any = context.authenticate;
+	const context = useContext(AccountContext);
+	const authenticate = context.authenticate;
 
 	function validateForm2(): boolean {
 		return code.length > 0;
@@ -33,7 +36,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 		event.preventDefault();
 		if (props.cognitoUser) {
 			props.cognitoUser.confirmRegistration(code, true, (err?: Error, _result?: any) => {
-				if (err && !err.message.includes('Current status is CONFIRMED')) {
+				if (err) {
 					console.error(err);
 					setVerificationErrStatus('Verification provided is incorrect.');
 				} else {
@@ -120,6 +123,8 @@ export type SignupFormProps = {
 export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps> {
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
+	const [showPassword1, setShowPassword1] = useState(false);
 
 	function handleSignUpSubmit(
 		event: FormEvent<HTMLFormElement> | React.MouseEvent<HTMLElement, MouseEvent>
@@ -192,17 +197,41 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				className="text-field"
 				id="signup-password"
 				label="Password"
-				type="password"
+				type={showPassword ? "text" : "password"}
 				value={props.password}
 				onChange={(e) => props.setPassword(e.target.value)}
+				InputProps={{ // toggle
+					endAdornment: (
+						<InputAdornment position="end">
+							<IconButton
+								aria-label="toggle password visibility"
+								onClick={() => setShowPassword(!showPassword)}
+							>
+							{showPassword ? <Visibility /> : <VisibilityOff />}
+							</IconButton>
+						</InputAdornment>
+					)
+				  }}
 				/>
 			<TextField
 				className="text-field"
 				id="signup-confirm-password"
 				label="Confirm Password"
-				type="password"
 				value={conPassword}
+				type={showPassword1 ? "text" : "password"}
 				onChange={(e) => setConPassword(e.target.value)}
+				InputProps={{ // toggle
+					endAdornment: (
+						<InputAdornment position="end">
+							<IconButton
+								aria-label="toggle password visibility"
+								onClick={() => setShowPassword1(!showPassword1)}
+							>
+							{showPassword1 ? <Visibility /> : <VisibilityOff />}
+							</IconButton>
+						</InputAdornment>
+					)
+				  }}
 				/>
 			{errStatus !== '' && (
 				<div className="login-error-message">

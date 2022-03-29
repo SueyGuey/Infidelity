@@ -1,9 +1,13 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter as Router, Navigate } from 'react-router-dom';
 import userPool from './authentication/userPool';
+// @ts-ignore 
 import { createStore, applyMiddleware } from 'redux';
+// @ts-ignore 
 import ReduxThunkMiddleWare from 'redux-thunk';
+// @ts-ignore 
 import { Provider } from 'react-redux';
+// @ts-ignore 
 import reducers from './redux/reducers';
 /* pages */
 import Dashboard from './components/dashboard';
