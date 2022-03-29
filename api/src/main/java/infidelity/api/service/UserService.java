@@ -1,5 +1,6 @@
 package infidelity.api.service;
 
+import infidelity.api.data.Portfolio;
 import infidelity.api.data.User;
 import infidelity.api.data.model.UserData;
 import infidelity.api.data.repository.UserRepository;
@@ -10,6 +11,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminDeleteUserRequest;
 
+import javax.sound.sampled.Port;
 import java.util.Optional;
 
 @Service
@@ -32,13 +34,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User createUser(UserData data) {
-        User newUser = User.builder()
-                .username(data.getUsername())
-                .email(data.getEmail())
-                .build();
-        userRepository.save(newUser);
-        return newUser;
+    public User createUser(User newUser) {
+        if (newUser.getPortfolios().isEmpty()) {
+            Portfolio firstPortfolio = Portfolio.builder()
+                    .name("My Portfolio")
+                    .balance(10000)
+                    .build();
+            // TODO: save with portfolioRepository first
+            newUser.getPortfolios().add(firstPortfolio);
+        }
+        return userRepository.save(newUser);
     }
 
     /**

@@ -9,7 +9,6 @@ import javax.persistence.Id;
 @Entity
 @Getter
 public class ETF extends Tradeable{
-    @Id
     @Column(nullable = false)
     private String name;
 }

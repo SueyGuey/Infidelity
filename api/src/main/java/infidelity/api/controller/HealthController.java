@@ -1,4 +1,4 @@
-package infidelity.api.data;
+package infidelity.api.controller;
 
 import infidelity.api.data.model.UserData;
 import lombok.extern.slf4j.Slf4j;

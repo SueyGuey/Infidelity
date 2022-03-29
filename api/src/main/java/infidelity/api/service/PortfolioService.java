@@ -5,13 +5,15 @@ import infidelity.api.data.PortfolioRequest;
 import infidelity.api.data.Transaction;
 import infidelity.api.data.TransactionRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PortfolioService {
     @Autowired
-    private UserService user;
+    private UserService userService;
 
     @Autowired
-    private MarketService market;
+    private MarketService marketService;
 
     //TODO: implement function
     public Portfolio createPortfolio(PortfolioRequest newPortfolio){

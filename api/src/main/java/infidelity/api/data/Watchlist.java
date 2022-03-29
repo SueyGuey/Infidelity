@@ -1,11 +1,9 @@
 package infidelity.api.data;
 
 import lombok.*;
+import org.hibernate.annotations.ManyToAny;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +19,9 @@ public class Watchlist {
     @Column(nullable = false)
     private UUID watchlistId;
 
+    private String name;
+
     @Builder.Default
-    @OneToMany
+    @ManyToMany
     private List<Tradeable> items = new ArrayList<>();
 }

@@ -44,7 +44,7 @@ public class UserController {
     public void createUser(@RequestBody User newUser) {
         log.info("POST /user/create");
         System.out.println(newUser);
-        userService.saveUser(newUser);
+        userService.createUser(newUser);
     }
 
     /**

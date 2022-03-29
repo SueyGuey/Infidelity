@@ -17,7 +17,8 @@ public class Portfolio {
     private UUID portfolioId;
 
     private String name;
-    private double balance;
+    @Builder.Default
+    private double balance = 10000;
 
     @Builder.Default
     @OneToMany
