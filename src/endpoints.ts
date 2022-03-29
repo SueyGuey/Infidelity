@@ -5,7 +5,7 @@ enum Backend {
 	Production = 'http://18.207.245.61:8080',
 }
 
-const BACKEND_URL = Backend.Production;
+const BACKEND_URL = Backend.Local;
 
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
 export const CREATE_USER_URL = `${BACKEND_URL}/user/create`;
