@@ -41,10 +41,10 @@ public class UserController {
      * Requires that the data object contain at least the username and email of the new user.
      */
     @PostMapping("/create")
-    public void createUser(@RequestBody User newUser) {
+    public User createUser(@RequestBody User newUser) {
         log.info("POST /user/create");
         System.out.println(newUser);
-        userService.createUser(newUser);
+        return userService.createUser(newUser);
     }
 
     /**

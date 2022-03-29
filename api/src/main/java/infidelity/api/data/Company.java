@@ -17,7 +17,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Company {
     @Id
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
     private String description;
     private String weburl;

@@ -17,7 +17,8 @@ import java.util.UUID;
 public class Watchlist {
     @Id
     @Column(nullable = false)
-    private UUID watchlistId;
+    @Builder.Default
+    private UUID watchlistId = UUID.randomUUID();;
 
     private String name;
 

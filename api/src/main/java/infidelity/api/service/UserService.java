@@ -3,6 +3,7 @@ package infidelity.api.service;
 import infidelity.api.data.Portfolio;
 import infidelity.api.data.User;
 import infidelity.api.data.model.UserData;
+import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
 
     private CognitoIdentityProviderClient cognito;
 
@@ -40,7 +43,8 @@ public class UserService {
                     .name("My Portfolio")
                     .balance(10000)
                     .build();
-            // TODO: save with portfolioRepository first
+            System.out.println("Portfolio ID = " + firstPortfolio.getPortfolioId());
+            firstPortfolio = portfolioRepository.save(firstPortfolio);
             newUser.getPortfolios().add(firstPortfolio);
         }
         return userRepository.save(newUser);

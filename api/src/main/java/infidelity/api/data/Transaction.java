@@ -14,7 +14,8 @@ import java.util.UUID;
 public class Transaction {
     @Id
     @Column(nullable = false)
-    private UUID transactionId;
+    @Builder.Default
+    private UUID transactionId = UUID.randomUUID();;
 
     private long timestamp;
     @ManyToOne
