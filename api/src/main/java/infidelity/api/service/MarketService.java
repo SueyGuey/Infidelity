@@ -1,15 +1,16 @@
 package infidelity.api.service;
 
-import infidelity.api.data.ChangingNumber;
-import infidelity.api.data.Tradeable;
+import infidelity.api.data.*;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -38,10 +39,14 @@ public class MarketService {
         return fh.getInfo(symbol).getPrice();
     }
 
+    /**
+     * update general market information, the function only to be called
+     * once per day or triggered manually.
+     * populate company information
+     */
     public void updateMarket() {
-        // update general market information, the function only to be called
-        // once per day or triggered manually
-        // populate company information
+        List<String> symbols = listSymbols();
+
     }
 
     public Tradeable getInfo(String symbol) {
@@ -57,8 +62,32 @@ public class MarketService {
         return new ArrayList<>();
     }
 
+    /**
+     * Fetches a list of all ticker symbols in the stock market
+     */
     private List<String> listSymbols() {
         fh.listExchange();
-        return new ArrayList<>();
+        return List.of(new String[]{"AAPLL", "FLLLL", "MSFTL", "TSLAL", "GMLLLL"});
+    }
+
+    /**
+     * TODO: handle crypto use case
+     * @param symbol ticker symbol for stock or id of cryptocurrency
+     * @return Updated Tradeable object
+     */
+    private Tradeable updateInfo(String symbol) {
+        Optional<Tradeable> existing = stockRepository.findById(symbol);
+        if (existing.isPresent()) {
+            return existing.get();
+        } else {
+            Company company = Company.builder()
+                    .name("Appllllllle")
+                    .build();
+            Stock stock = Stock.builder()
+                    .symbol(symbol)
+                    .company(company)
+                    .build();
+            return stockRepository.save(stock);
+        }
     }
 }
