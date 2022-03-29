@@ -7,6 +7,8 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class Tradeable {
     @Id
     @Column(nullable = false)
@@ -16,5 +18,5 @@ public abstract class Tradeable {
     private ChangingNumber currentPrice;
     @OneToOne
     @JoinColumn(name = "price_history_id")
-    private NumberHistory priceHistory;
+    private NumberHistory priceHistory = new NumberHistory();
 }

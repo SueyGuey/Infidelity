@@ -82,7 +82,7 @@ public class FinnHub {
         try {
             var values = new HashMap<String, String>() {{
                 put("event", "earnings");
-                put ("symbol", symbol);
+                put("symbol", symbol);
             }};
 
             var objectMapper = new ObjectMapper();
