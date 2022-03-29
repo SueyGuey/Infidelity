@@ -1,6 +1,7 @@
 package infidelity.api.service;
 
 import infidelity.api.data.*;
+import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
 import lombok.extern.slf4j.Slf4j;
@@ -12,12 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static infidelity.api.utils.PropertyUtils.updateProperty;
+
 @Service
 @Slf4j
 public class MarketService {
 
     @Autowired
     private StockRepository stockRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     private final static FinnHub fh = new FinnHub();
 
@@ -45,12 +50,11 @@ public class MarketService {
      * populate company information
      */
     public void updateMarket() {
-        List<String> symbols = listSymbols();
-
+        listSymbols().forEach(this::updateInfo);
     }
 
-    public Tradeable getInfo(String symbol) {
-        return stockRepository.getById(symbol);
+    public Optional<Tradeable> findInfo(String symbol) {
+        return stockRepository.findById(symbol);
     }
 
     public ChangingNumber getPrice(Tradeable item) {
@@ -59,7 +63,7 @@ public class MarketService {
     }
 
     public List<Tradeable> searchMarket(String query) {
-        return new ArrayList<>();
+        return stockRepository.findAll();
     }
 
     /**
@@ -78,11 +82,20 @@ public class MarketService {
     private Tradeable updateInfo(String symbol) {
         Optional<Tradeable> existing = stockRepository.findById(symbol);
         if (existing.isPresent()) {
-            return existing.get();
+            Tradeable old = existing.get();
+            if (old instanceof Stock stock) {
+                updateProperty(stock, Stock::getCompany, stock::setCompany,
+                        companyRepository.save(Company.builder()
+                                .name(String.format("Company-%s", symbol))
+                                .build()));
+                return stockRepository.save(stock);
+            }
+            return old;
         } else {
             Company company = Company.builder()
-                    .name("Appllllllle")
+                    .name(String.format("Company-%s", symbol))
                     .build();
+            companyRepository.save(company);
             Stock stock = Stock.builder()
                     .symbol(symbol)
                     .company(company)

@@ -18,6 +18,5 @@ public abstract class Tradeable {
     private ChangingNumber currentPrice;
     @OneToOne
     @JoinColumn(name = "price_history_id")
-    @Builder.Default
     private NumberHistory priceHistory = new NumberHistory();
 }
