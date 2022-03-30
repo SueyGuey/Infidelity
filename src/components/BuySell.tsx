@@ -4,13 +4,12 @@ import '../css/BuySell.css';
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 
-function BuySell(props: WithUserProfileLoaderProps & WithMarketLoaderProps): ReactElement {
-    const symbol = 'AAPL';
+function BuySell(props: WithUserProfileLoaderProps & WithMarketLoaderProps & {symbol: string}): ReactElement {
     const portfolio = Array.from(props.userProfile.portfolios)[0];
-    const asset = Array.from(portfolio.assets).find(asset => asset.itemSymbol === symbol);
+    const asset = Array.from(portfolio.assets).find(asset => asset.itemSymbol === props.symbol);
     const quantity = asset ? asset.quantity : 0;
     
-    const tradeable = props.marketData.find(item => item.symbol === symbol);
+    const tradeable = props.marketData.find(item => item.symbol === props.symbol);
     const price = tradeable ? tradeable.currentPrice.value : 0;
     return (
         <span className = "bottomSpan buySell">

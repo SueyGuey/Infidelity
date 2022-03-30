@@ -25,7 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
-              <Route path='/stockDash' element={<StockDash/>}/>
+              <Route path='/stockDash/:symbol' element={<StockDash/>}/>
             </Routes>
           </Router>
         </div>

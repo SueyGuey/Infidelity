@@ -9,7 +9,7 @@ import StockGraph from './StockGraph';
 import Search from './SearchColumn';
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 
-function StockDashTop(props: WithUserProfileLoaderProps): ReactElement {
+function StockDashTop(props: WithUserProfileLoaderProps & {symbol: string}): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
 	const [selectedPortfolio, setPortfolio] = React.useState(portfolios[0]);
 	const portfolioValue = 10000;
@@ -22,7 +22,7 @@ function StockDashTop(props: WithUserProfileLoaderProps): ReactElement {
 				<span className = "tradeValues">Crpyto Value<p className = "worthValue">$###.##</p></span> */}
 				<div className = "stockGraph">
 					<div className='graph' id='graph-container'>
-						<p className='portfolioName'>MSFT: <p className = "stockValue">$###.##</p></p>
+						<p className='portfolioName'>{props.symbol}: <p className = "stockValue">$###.##</p></p>
 						<StockGraph/>
 					</div>
 				</div>
