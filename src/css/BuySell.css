@@ -1,0 +1,31 @@
+@font-face {
+  font-family: Arsenal;
+  src: url("../fonts/Arsenal-Regular.ttf");
+}
+
+.BuySellContainer {
+  font-family: Arsenal;
+  font-size: 28.37px;
+  width: 498px;
+  height: 325px;
+  background-color: #e4e4e4;
+  text-align: center;
+}
+
+.Header {
+  background-color: #d9d9d9;
+  width: 498px;
+  height: 57.22px;
+}
+
+.BuyButton {
+  width: 300.66px;
+  height: 50px;
+  color: #36cd4e;
+}
+
+.SellButton {
+  width: 300.66px;
+  height: 50px;
+  background-color: #5b80df;
+}
