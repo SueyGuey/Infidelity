@@ -30,7 +30,7 @@
             "name": "Tech Watchlist",
             "items": [
 				{
-					"company": { "name": "Company-AAPL" },
+					"company": { "name": "Apple Inc" },
 					"symbol": "AAPL",
 					"currentPrice": {
 					"numberId": "a444487f-6742-42e7-b6f1-7b1fb4070c8c",
@@ -39,7 +39,7 @@
 					}
 				},
 				{
-					"company": { "name": "Company-MSFT" },
+					"company": { "name": "Microsoft Corporation" },
 					"symbol": "MSFT",
 					"currentPrice": {
 					"numberId": "fab39f7e-acad-4aaa-ad1d-06c616ea226a",
@@ -54,7 +54,7 @@
             "name": "Auto Industry Watchlist",
             "items": [
 				{
-					"company": { "name": "Company-GM" },
+					"company": { "name": "General Motors Company" },
 					"symbol": "GM",
 					"currentPrice": {
 					"numberId": "d2dfe49d-a029-4575-9eba-381df0da425b",
@@ -63,7 +63,7 @@
 					}
 				},
 				{
-					"company": { "name": "Company-F" },
+					"company": { "name": "Ford Motor Company" },
 					"symbol": "F",
 					"currentPrice": {
 					"numberId": "e4644d0f-b5a9-4b8c-92a5-85f287bc0c0f",
