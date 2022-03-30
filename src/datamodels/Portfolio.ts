@@ -3,7 +3,6 @@ import { ChangingNumber, JSONData } from "./misc";
 export default interface Portfolio {
 	portfolioId: string;
 	name: string;
-	username: string;
 	assets: Set<Asset>;
 	transactions: Set<Transaction>;
 }
