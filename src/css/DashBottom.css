@@ -63,6 +63,38 @@
     width: 17.26vw;
 }
 
+.stockInformation{
+    width: 50vw;
+}
+
+.buySell{
+    width: 23.9vw;
+}
+
+.buySellContainer{
+    position: inherit;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    height: 80%;
+    width: 100%;
+}
+
+.buyButton{
+    position: inherit;
+    margin-top: 1vw;
+    background-color: #36CD4E;
+    width: 14vw;
+    height: 2vw;
+    border-radius: 4vw;
+}
+.sellButton{
+    margin-top: 1vw;
+    background-color: #5B80DF;
+    width: 14vw;
+    height: 2vw;
+    border-radius: 4vw;
+}   
+
 .spanCap{
     width: 100%;
     height: 20%;
