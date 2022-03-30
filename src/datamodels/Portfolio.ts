@@ -5,12 +5,14 @@ export default interface Portfolio {
 	name: string;
 	username: string;
 	assets: Set<Asset>;
+	transactions: Set<Transaction>;
 }
 
 export function portfolioToJson(portfolio: Portfolio): JSONData<Portfolio> {
 	return {
 		...portfolio,
 		assets: Array.from(portfolio.assets),
+		transactions: Array.from(portfolio.transactions),
 	};
 }
 
@@ -18,12 +20,13 @@ export function jsonToPortfolio(portfolio: JSONData<Portfolio>): Portfolio {
 	return {
 		...portfolio,
 		assets: new Set(portfolio.assets),
+		transactions: new Set(portfolio.transactions),
 	};
 }
 
 export type Asset = {
 	assetId: string;
-	item: Tradeable;
+	itemSymbol: string;
 	quantity: number;
 };
 
@@ -57,4 +60,12 @@ export type TransactionRequest = {
 	portfolioName: string;
 	quantity: number;
 	timestamp: number;
+};
+
+export type Transaction = {
+	transactionId: string;
+	timestamp: number;
+	itemSymbol: string;
+	price: number;
+	quantity: number;
 };
