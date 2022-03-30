@@ -4,9 +4,10 @@ import userPool from '../authentication/userPool';
 import TopNavBar from './TopNavBar';
 import logo from '../images/logo.png';
 import '../css/DashSideMenu.css'
+import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 
-export default function DashSideMenu(): ReactElement {
-	//const user = userPool.getCurrentUser();
+function DashSideMenu(props: WithUserProfileLoaderProps): ReactElement {
+    const watchlists = Array.from(props.userProfile.watchlists);
 	return(
 		<div className = "SideMenuContainer">
             <div className = "logoName">
@@ -18,24 +19,25 @@ export default function DashSideMenu(): ReactElement {
             </div>
             <div className = "menu">
                 <ul>
-                    <li className = "menuTypeHeader"><p>My Statistics</p>
-                    <ul>
-                        <li className = "menuItem activePage"><p>Dashboard</p></li>
-                        <li className = "menuItem"><p>Trade History</p></li>
-                        <li className = "menuItem"><p>Summary</p></li>
-                    </ul>
+                    <li className = "menuTypeHeader">
+                        <p>My Statistics</p>
+                        <ul>
+                            <li className = "menuItem activePage"><p>Dashboard</p></li>
+                            <li className = "menuItem"><p>Trade History</p></li>
+                            <li className = "menuItem"><p>Summary</p></li>
+                        </ul>
                     </li>
                     <li className = "menuTypeHeader"><p>My Watchlists</p>
-                    <ul>
-                        <li className = "menuItem"><p>Watchlist A</p></li>
-                        <li className = "menuItem"><p>Watchlist B</p></li>
-                        <li className = "menuItem"><p>Watchlist C</p></li>
-                    </ul>
+                        <ul>
+                            {watchlists.map((watchlist) =>
+                                <li className = "menuItem"><p>{watchlist.name}</p></li>
+                            )}
+                        </ul>
                     </li>
                     <li className = "menuTypeHeader"><p>Search & Purchase</p>
-                    <ul>
-                        <li className = "menuItem"><p>Stock Search</p></li>
-                    </ul>
+                        <ul>
+                            <li className = "menuItem"><p>Stock Search</p></li>
+                        </ul>
                     </li>
                     <li className = "bottomItem"><p>Profile</p></li>
                     <li className = "bottomItem"><p>Settings</p></li>
@@ -45,3 +47,5 @@ export default function DashSideMenu(): ReactElement {
 		</div>
 	);
 }
+
+export default withUserProfileLoader(DashSideMenu);

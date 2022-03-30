@@ -5,25 +5,20 @@ import DashSideMenu from './DashSideMenu';
 import TopNavBar from './TopNavBar';
 import '../css/DashBottom.css'
 import '../css/home.css'
+import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 
-export default function DashBottom(): ReactElement {
+function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
+    const watchlists = Array.from(props.userProfile.watchlists);
 	return(<div className = "dashBottomContain">
         <div className = "dashBottom">
             <span className = "bottomSpan watchLists">
                 <div className = "spanCap"><p>Watchlists
                     <select className = "watchSelect">
-                        <option value = "Default-Watchlist">
-                            Default Watchlist
-                        </option>
-                        <option value = "Watchlist-A">
-                            Watchlist A
-                        </option>
-                        <option value = "Watchlist-B">
-                            Watchlist B
-                        </option>
-                        <option value = "Watchlist-C">
-                            Watchlist C
-                        </option>
+                        {watchlists.map((watchlist) =>
+                            <option value = {watchlist.name}>
+                                {watchlist.name}
+                            </option>
+                        )}
                     </select>
                     </p>
                 </div>
@@ -41,3 +36,5 @@ export default function DashBottom(): ReactElement {
         </div>
     </div>)
 }
+
+export default withUserProfileLoader(DashBottom);

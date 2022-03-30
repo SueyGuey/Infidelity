@@ -7,15 +7,19 @@ import '../css/DashTop.css'
 import '../css/home.css'
 import StockGraph from './StockGraph';
 import Search from './SearchColumn';
+import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 
-export default function DashTop(): ReactElement {
+function DashTop(props: WithUserProfileLoaderProps): ReactElement {
+	const portfolios = Array.from(props.userProfile.portfolios);
+	const [selectedPortfolio, setPortfolio] = React.useState(portfolios[0]);
 	return(
 		<div className = "DashTopContain">
 			<div className = "ActivePortfolio">
 				<p>Active Portfolio: 
 					<select className = "selectPortfolio">
-						<option value = "Portfolio One">Portfolio One</option>
-						<option value = "Portfolio Two">Portfolio Two</option>
+						{portfolios.map((portfolio) =>
+							<option value = {portfolio.name}>{portfolio.name}</option>
+						)}
 					</select>
 					
 				</p>
@@ -37,5 +41,6 @@ export default function DashTop(): ReactElement {
 			</div>
 		</div>
 	);
-
 }
+
+export default withUserProfileLoader(DashTop);

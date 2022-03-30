@@ -2,9 +2,11 @@ package infidelity.api.service;
 
 import infidelity.api.data.Portfolio;
 import infidelity.api.data.User;
+import infidelity.api.data.Watchlist;
 import infidelity.api.data.model.UserData;
 import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
+import infidelity.api.data.repository.WatchlistRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private PortfolioRepository portfolioRepository;
+    @Autowired
+    private WatchlistRepository watchlistRepository;
 
     private CognitoIdentityProviderClient cognito;
 
@@ -41,13 +45,18 @@ public class UserService {
         if (newUser.getPortfolios().isEmpty()) {
             Portfolio firstPortfolio = Portfolio.builder()
                     .name("My Portfolio")
-                    .balance(10000)
+                    .balance(100000)
                     .build();
-            System.out.println("Portfolio ID = " + firstPortfolio.getPortfolioId());
             firstPortfolio = portfolioRepository.save(firstPortfolio);
             newUser.getPortfolios().add(firstPortfolio);
+
+            Watchlist firstWatchlist = Watchlist.builder()
+                    .name("My Watchlist")
+                    .build();
+            firstWatchlist = watchlistRepository.save(firstWatchlist);
+            newUser.getWatchlists().add(firstWatchlist);
         }
-        return userRepository.save(newUser);
+        return saveUser(newUser);
     }
 
     /**

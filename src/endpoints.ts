@@ -5,7 +5,7 @@ enum Backend {
 	Production = 'http://infibackend1-env.eba-tmqnrspg.us-east-1.elasticbeanstalk.com',
 }
 
-const BACKEND_URL = Backend.Production;
+const BACKEND_URL = Backend.Local;
 
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
 export const CREATE_USER_URL = `${BACKEND_URL}/user/create`;
