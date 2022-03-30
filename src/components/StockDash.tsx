@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
@@ -8,12 +8,15 @@ import StockDashBottom from './StockDashBottom';
 import StockDashTop from './StockDashTop';
 
 function StockDash(props: WithUserProfileLoaderProps): ReactElement {
+
+	let { symbol } = useParams();
+
 	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className = "Dashboard">
-			<DashSideMenu/>
-			<StockDashTop/>
-			<StockDashBottom/>
+			<DashSideMenu />
+			<StockDashTop symbol={symbol || 'AAPL'}/>
+			<StockDashBottom symbol={symbol || 'AAPL'}/>
 		</div>
 	) : <Navigate to="/"/>;
 }
