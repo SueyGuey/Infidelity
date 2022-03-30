@@ -1,19 +1,24 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
-import userPool from '../authentication/userPool';
-import DashSideMenu from './DashSideMenu';
-import TopNavBar from './TopNavBar';
 import '../css/Search.css'
-import DashTop from './DashTop';
 import searchIcon from '../images/searchIcon.png';
+import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 
-export default function Search(): ReactElement {
+function Search(props: WithMarketLoaderProps): ReactElement {
+    const data = props.marketData;
+    const [query, setQuery] = React.useState('');
+    const [results, setResults] = React.useState([]);
     return(
         <div className = "searchContainer">
             <div className = "searchBar">
-                <input className = "searchInput" type = "text" value = "Stock Search..."></input>
+                <input className = "searchInput"
+                    type = "text"
+                    placeholder='search...'
+                    value = {query}
+                    onChange = {(e) => setQuery(e.target.value)}></input>
                 <img className = "searchIcon"src = {searchIcon}/>
             </div>
         </div>
     )
 }
+
+export default withMarketLoader(Search);

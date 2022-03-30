@@ -1,10 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { AnyAction } from 'redux';
+import { Tradeable } from '../../datamodels/Portfolio';
 import { Action } from '../actions/types';
 import Loadable from '../redux-config/loadable';
 
 export interface MarketState {
-	marketData: Loadable<any>;
+	marketData: Loadable<Tradeable[]>;
 }
 
 const DEFAULT_STATE: MarketState = {
@@ -17,6 +18,8 @@ export default (
 ): MarketState | { state: MarketState; marketData: MarketState } => {
 	switch (action.type) {
 		case Action.FETCH_TRADEABLE:
+			return { ...state, marketData: action.payload };
+		case Action.FETCH_MARKET_DATA:
 			return { ...state, marketData: action.payload };
 		case Action.SEARCH_MARKET:
 			return { ...state, marketData: action.payload };

@@ -15,7 +15,9 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
                 <div className = "spanCap"><p>Watchlists
                     <select className = "watchSelect">
                         {watchlists.map((watchlist) =>
-                            <option value = {watchlist.name}>
+                            <option
+                                value = {watchlist.name}
+                                key = {watchlist.watchlistId}>
                                 {watchlist.name}
                             </option>
                         )}

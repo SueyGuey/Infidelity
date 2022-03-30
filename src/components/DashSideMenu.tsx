@@ -1,7 +1,4 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
-import userPool from '../authentication/userPool';
-import TopNavBar from './TopNavBar';
 import logo from '../images/logo.png';
 import '../css/DashSideMenu.css'
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
@@ -30,7 +27,10 @@ function DashSideMenu(props: WithUserProfileLoaderProps): ReactElement {
                     <li className = "menuTypeHeader"><p>My Watchlists</p>
                         <ul>
                             {watchlists.map((watchlist) =>
-                                <li className = "menuItem"><p>{watchlist.name}</p></li>
+                                <li className = "menuItem"
+                                    key={watchlist.watchlistId}>
+                                    <p>{watchlist.name}</p>
+                                </li>
                             )}
                         </ul>
                     </li>

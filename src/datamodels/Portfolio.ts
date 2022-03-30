@@ -44,3 +44,17 @@ export type Company = {
 	weburl: string;
 	industry: string;
 }
+
+export type PortfolioRequest = {
+	username: string;
+	name: string;
+	accountBalance: number;
+};
+
+export type TransactionRequest = {
+	username: string;
+	itemSymbol: string;
+	portfolioName: string;
+	quantity: number;
+	timestamp: number;
+};

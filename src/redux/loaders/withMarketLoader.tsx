@@ -7,6 +7,7 @@ import ErrorPage from '../../components/errorPage';
 import { useNavigate } from 'react-router-dom';
 import { fetchTradeable, searchMarket } from '../actions/MarketActions';
 import { MarketState } from '../reducers/MarketReducer';
+import { Tradeable } from '../../datamodels/Portfolio';
 
 export interface WithMarketLoaderProps {
 	marketData: any;
@@ -21,7 +22,7 @@ export default function withMarketLoader<PropType>(
 		const dispatch = useAppDispatch();
 		const navigate = useNavigate();
 
-		const marketData: Loadable<any> = useAppSelector<MarketState>(
+		const marketData: Loadable<Tradeable[]> = useAppSelector<MarketState>(
 			(state: any) => state.marketData
 		).marketData;
 
@@ -29,13 +30,6 @@ export default function withMarketLoader<PropType>(
 			case 'loading':
 				return <LoadingAnimation />;
 			case 'error':
-				if (marketData.errorMessage === 'Refresh Token has expired') {
-					const cognitoUser = userPool.getCurrentUser();
-					if (cognitoUser) {
-						cognitoUser.signOut();
-					}
-					navigate('/');
-				}
 				return <ErrorPage message={marketData.errorMessage} />;
 			case 'success':
 				return <ReactComponent
