@@ -43,5 +43,85 @@
       "value": 1104.0416327713737,
       "lastUpdated": 1648656986395
     }
+  },{
+    "company": { "name": "Company-AMZN" },
+    "symbol": "AMZN",
+    "currentPrice": {
+      "numberId": "a466987f-6741-42e7-b6f1-7b1fb47079d1",
+      "value": 3350.4071154189566,
+      "lastUpdated": 1648656985600
+    }
+  },{
+    "company": { "name": "Company-FB" },
+    "symbol": "FB",
+    "currentPrice": {
+      "numberId": "c466000e-5670-42d7-b6f1-7b1fb47079d1",
+      "value": 229.2071154189566,
+      "lastUpdated": 1648806985600
+    }
+  },{
+    "company": { "name": "Company-AMD" },
+    "symbol": "FB",
+    "currentPrice": {
+      "numberId": "c466000e-5670-69d7-b6f1-7b1fb47123d1",
+      "value": 123.201154189566,
+      "lastUpdated": 1648806985123
+    }
+  },{
+    "company": { "name": "Company-GME" },
+    "symbol": "GME",
+    "currentPrice": {
+      "numberId": "c466000e-5670-42d7-b6f1-7b1fb74290e1",
+      "value": 177.2671154189566,
+      "lastUpdated": 1648126985643
+    }
+  },{
+    "company": { "name": "Company-BAC" },
+    "symbol": "BAC",
+    "currentPrice": {
+      "numberId": "c466030e-5670-42f7-f6f1-7b8fb47079d1",
+      "value": 42.9671154189566,
+      "lastUpdated": 1648826985689
+    }
+  },{
+    "company": { "name": "Company-NVDA" },
+    "symbol": "NVDA",
+    "currentPrice": {
+      "numberId": "c466030e-5670-42e7-f6f1-6b8fb47079e6",
+      "value": 280.2071154189566,
+      "lastUpdated": 1646826965689
+    }
+  },{
+    "company": { "name": "Company-BABA" },
+    "symbol": "BABA",
+    "currentPrice": {
+      "numberId": "c466031e-5670-42e7-f6f1-6b8fb47079e5",
+      "value": 117.1171154189566,
+      "lastUpdated": 1646826935670
+    }
+  },{
+    "company": { "name": "Company-GOOGL" },
+    "symbol": "GOOGL",
+    "currentPrice": {
+      "numberId": "c466031e-5670-42e7-f6f1-6b8fb47079a5",
+      "value": 117.1171154189566,
+      "lastUpdated": 1646826933670
+    }
+  },{
+    "company": { "name": "Company-V" },
+    "symbol": "V",
+    "currentPrice": {
+      "numberId": "c466031e-5670-42e7-f6f1-6b8fb47079w5",
+      "value": 224.5771154189566,
+      "lastUpdated": 1646826935670
+    }
+  },{
+    "company": { "name": "Company-MA" },
+    "symbol": "MA",
+    "currentPrice": {
+      "numberId": "c466031e-5670-42e7-f6f1-6b8fb47079z5",
+      "value": 362.3071154189566,
+      "lastUpdated": 1646826933671
+    }
   }
 ]
