@@ -29,8 +29,8 @@ export type Asset = {
 
 export type Tradeable = {
 	symbol: string;
-	price: ChangingNumber;
-	priceHistory: ChangingNumber[];
+	currentPrice: ChangingNumber;
+	// priceHistory: ChangingNumber[];
 };
 
 export type Stock = Tradeable & {

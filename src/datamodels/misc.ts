@@ -22,6 +22,7 @@ export type FetchError = {
 };
 
 export type ChangingNumber = {
+	numberId: string;
 	value: number;
-	timestamp: number;
+	lastUpdated: number;
 };

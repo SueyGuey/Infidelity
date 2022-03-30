@@ -1,6 +1,7 @@
 package infidelity.api.stockdata;
 
 import com.google.gson.annotations.SerializedName;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -14,6 +15,7 @@ public class FinnHubMessage {
 
     @Getter
     @ToString
+    @AllArgsConstructor
     public static class PriceMessage {
         @SerializedName("s")
         private String symbol;

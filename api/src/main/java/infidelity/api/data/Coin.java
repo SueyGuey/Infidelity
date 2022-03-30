@@ -9,6 +9,5 @@ import javax.persistence.Id;
 @Entity
 @Getter
 public class Coin extends Tradeable{
-    @Column(nullable = false)
     private String name;
 }
