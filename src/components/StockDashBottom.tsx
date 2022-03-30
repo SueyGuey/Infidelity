@@ -6,6 +6,7 @@ import TopNavBar from './TopNavBar';
 import '../css/DashBottom.css'
 import '../css/home.css'
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
+import BuySell from './BuySell';
 
 function StockDashBottom(props: WithUserProfileLoaderProps): ReactElement {
     const watchlists = Array.from(props.userProfile.watchlists);
@@ -16,17 +17,7 @@ function StockDashBottom(props: WithUserProfileLoaderProps): ReactElement {
                     <p>Stock Information</p>
                 </div>
             </span>
-            <span className = "bottomSpan buySell">
-                <div className = "spanCap">
-                    <p>Buy/Sell</p>
-                </div>
-                <div className = "buySellContainer">
-                    <p>Shares Owned: <p className = "stockValue">###.##</p></p>
-                    <p>Valued At: <p className = "stockValue">$###.##</p></p>
-                    <div><button className = "buyButton">Buy</button></div>
-                    <div><button className = "sellButton">Sell</button></div>
-                </div>
-            </span>
+            <BuySell />
         </div>
     </div>)
 }
