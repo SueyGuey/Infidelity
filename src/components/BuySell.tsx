@@ -17,13 +17,26 @@ function BuySell(props: WithUserProfileLoaderProps & WithMarketLoaderProps & {sy
                 <p>Buy/Sell</p>
             </div>
             <div className = "buySellContainer">
-                <p>Shares Owned: <p className = "stockValue">{quantity}</p></p>
-                <p>Valued At: <p className = "stockValue">${quantity * price}</p></p>
-                <div><button className = "buyButton">Buy</button></div>
-                <div><button className = "sellButton">Sell</button></div>
+                <p className = "labelSB">Shares Owned: <p className = "stockValue">{quantity}</p></p>
+                <p className = "labelSB">Valued At: <p className = "stockValue">${(quantity * price).toFixed(5)}</p></p>
+                <div><button className = "buyButton" onClick = {() => buyStockPopUp()}>Buy</button></div>
+                <div><button className = "sellButton" onClick = {() => sellStockPopUp()}>Sell</button></div>
             </div>
         </span>
     );
 }
+
+function buyStockPopUp(){
+    return(
+        alert("Buy Stock.")
+    )
+}
+
+function sellStockPopUp(){
+    return(
+        alert("Sell Stock.")
+    )
+}
+
 
 export default withMarketLoader(withUserProfileLoader(BuySell));

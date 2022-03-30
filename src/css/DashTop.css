@@ -36,8 +36,8 @@
 }
 
 .ActivePortfolio select{
-    position: inherit;
-    margin-top: -1vw;
+    position: absolute;
+    margin-top: -.18vw;
     font-family: Arsenal-Regular;   
     font-size: 1.6vw;
     border: none;
@@ -76,6 +76,7 @@
     font-family: Arsenal-Regular;
 
     box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.20);
+    font-size: 1.5vw;
 }
 
 .tradeValues p{
@@ -103,6 +104,9 @@
 }
 
 .worthValue{
+    position: absolute;
+    top: 1.5vw;
+    margin-top: .25vw;
     font-family: Arsenal-Bold;
     color: rgb(43, 172, 43);
 }

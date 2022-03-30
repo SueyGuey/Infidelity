@@ -1,31 +1,48 @@
-@font-face {
-  font-family: Arsenal;
-  src: url("../fonts/Arsenal-Regular.ttf");
+.buySell{
+  width: 23.9vw;
 }
 
-.BuySellContainer {
-  font-family: Arsenal;
-  font-size: 28.37px;
-  width: 498px;
-  height: 325px;
-  background-color: #e4e4e4;
-  text-align: center;
+.buySellContainer{
+  position: inherit;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-top: 1.5vw;
+  height: 80%;
+  width: 20vw;
 }
 
-.Header {
-  background-color: #d9d9d9;
-  width: 498px;
-  height: 57.22px;
+.labelSB + .labelSB{
+  margin-top: 0vw !important; /*need this or else slight overlap*/
 }
 
-.BuyButton {
-  width: 300.66px;
-  height: 50px;
-  color: #36cd4e;
+.labelSB{
+  width: 20vw;
+  position: inherit;
+  margin-top: -1vw;
+  font-size: 1.5vw;
+  margin-bottom: .5vw;
 }
 
-.SellButton {
-  width: 300.66px;
-  height: 50px;
-  background-color: #5b80df;
+.labelSB p{
+  display: inline;
+  font-size: 1.5vw;
 }
+
+.buySellContainer button{
+  margin-left: 3vw;
+}
+.buyButton{
+  position: absolute;
+  margin-top: 1vw;
+  background-color: #36CD4E;
+  width: 14vw;
+  height: 2vw;
+  border-radius: 4vw;
+}
+.sellButton{
+  margin-top: 3.8vw;
+  background-color: #5B80DF;
+  width: 14vw;
+  height: 2vw;
+  border-radius: 4vw;
+}   

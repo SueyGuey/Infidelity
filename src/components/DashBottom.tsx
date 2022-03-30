@@ -24,15 +24,24 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
                     </select>
                     </p>
                 </div>
+                <div className = "watchlistStocks">
+                    {/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
+                </div>
             </span>
             <span className = "bottomSpan positions">
                 <div className = "spanCap">
                     <p>Positions</p>
                 </div>
+                <div className = "positionsItems">
+                    {/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
+                </div>
             </span>
             <span className = "bottomSpan recentTrade">
                 <div className = "spanCap">
                     <p>Recent Trades</p>
+                </div>
+                <div className = "recentTradeItems">
+                    {/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
                 </div>
             </span>
         </div>

@@ -11,6 +11,7 @@ function StockDashBottom(props: WithUserProfileLoaderProps & {symbol: string}): 
                 <div className = "spanCap">
                     <p>Stock Information</p>
                 </div>
+                <div className = "stockInformationItems"></div>
             </span>
             <BuySell symbol={props.symbol}/>
         </div>
