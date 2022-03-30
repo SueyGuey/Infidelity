@@ -1,7 +1,9 @@
 package infidelity.api.service;
 
+import infidelity.api.data.Portfolio;
 import infidelity.api.data.User;
 import infidelity.api.data.model.UserData;
+import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminDeleteUserRequest;
 
+import javax.sound.sampled.Port;
 import java.util.Optional;
 
 @Service
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
 
     private CognitoIdentityProviderClient cognito;
 
@@ -32,13 +37,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User createUser(UserData data) {
-        User newUser = User.builder()
-                .username(data.getUsername())
-                .email(data.getEmail())
-                .build();
-        userRepository.save(newUser);
-        return newUser;
+    public User createUser(User newUser) {
+        if (newUser.getPortfolios().isEmpty()) {
+            Portfolio firstPortfolio = Portfolio.builder()
+                    .name("My Portfolio")
+                    .balance(10000)
+                    .build();
+            System.out.println("Portfolio ID = " + firstPortfolio.getPortfolioId());
+            firstPortfolio = portfolioRepository.save(firstPortfolio);
+            newUser.getPortfolios().add(firstPortfolio);
+        }
+        return userRepository.save(newUser);
     }
 
     /**

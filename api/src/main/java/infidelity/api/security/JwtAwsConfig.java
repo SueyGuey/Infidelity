@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 public class JwtAwsConfig {
 
-    private String userPoolId;
+    private String userPoolId = "us-east-1_dxaGZOwSL";
     private String identityPoolId;
     private String jwkUrl;
-    private String region = "us-east-2";
+    private String region = "us-east-1";
     private String userNameField = "username";
     private int connectionTimeout = 2000;
     private int readTimeout = 2000;
