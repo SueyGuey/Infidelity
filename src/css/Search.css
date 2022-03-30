@@ -1,11 +1,22 @@
+@font-face {
+    font-family: Arsenal-Bold;
+    src: url("../fonts/Arsenal-Bold.ttf");
+  }
+  @font-face {
+    font-family: Arsenal-Regular;
+    src: url("../fonts/Arsenal-Regular.ttf");
+  }
+
+
 .searchContainer{
     position: inherit;
     height:100%;
     width: 100%;
     background-color: #C4C4C4;
+    overflow-y: scroll;
 }
-
 .searchBar{
+    position: sticky;
     top:0;
     left:0;
     height: 8%;
@@ -16,6 +27,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    box-shadow: .1vw .3vw 1vw rgba(0, 0, 0, 0.1);
 }
 
 .searchInput{
@@ -40,4 +52,29 @@
     height: 1vw;
     width: auto;
     left: 2vw;
+}
+
+.searchResult{
+    margin-top: .75vw;
+    margin-left: 1.5vw;
+    width: 80%;
+    height: 4vw;
+    background-color: #e0e0e0;
+    font-family: Arsenal-Regular;
+    padding-left: 1vw;
+    border-radius: .5vw;
+}
+
+.searchResult + .searchResult{
+    margin-top: .5vw;
+}
+
+.searchResultSymbol{
+    font-family: Arsenal-Bold;
+    padding-top: .1vw;
+}
+
+.searchResultPrice{
+    font-family: Arsenal-Bold;
+    color: #4da755;/*#2c50b4*/
 }

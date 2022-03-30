@@ -1,3 +1,8 @@
+@font-face {
+  font-family: Arsenal-Regular;
+  src: url("../fonts/Arsenal-Regular.ttf");
+}
+
 .buySell{
   width: 23.9vw;
 }
@@ -30,7 +35,8 @@
 
 .buySellContainer button{
   margin-left: 4vw;
-  font-size: 1vw;
+  font-size: 1.4vw;
+  font-family: Arsenal-Regular;
 }
 .buyButton{
   position: absolute;

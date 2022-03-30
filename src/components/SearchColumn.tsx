@@ -31,7 +31,7 @@ function Search(props: WithMarketLoaderProps): ReactElement {
                         key={item.symbol}>
                         <p className = "searchResultSymbol">{item.symbol}</p>
                         <p className = "searchResultName">{item.company.name}</p>
-                        <p className = "searchResultPrice">{item.currentPrice.value}</p>
+                        <p className = "searchResultPrice">{(item.currentPrice.value).toFixed(4)}</p>
                     </div>
                 )}
             </div>
