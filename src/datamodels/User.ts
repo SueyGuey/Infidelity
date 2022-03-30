@@ -1,19 +1,28 @@
 import { JSONData } from "./misc";
+import Portfolio from "./Portfolio";
+import { jsonToPortfolio, portfolioToJson } from "./Portfolio";
+import Watchlist, { jsonToWatchlist, watchlistToJson } from "./Watchlist";
 
 export default interface User {
 	username: string;
 	email: string;
+	portfolios: Set<Portfolio>;
+	watchlists: Set<Watchlist>;
 }
 
-export function userToData(user: User): JSONData<User> {
+export function userToJson(user: User): JSONData<User> {
 	return {
 		...user,
+		portfolios: Array.from(user.portfolios).map(portfolioToJson),
+		watchlists: Array.from(user.watchlists).map(watchlistToJson),
 	};
 }
 
-export function dataToUser(data: JSONData<User>): User {
+export function jsonToUser(data: JSONData<User>): User {
 	return {
 		...data,
+		portfolios: new Set(data.portfolios.map(jsonToPortfolio)),
+		watchlists: new Set(data.watchlists.map(jsonToWatchlist)),
 	};
 }
 

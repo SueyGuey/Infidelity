@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { FetchError, JSONData } from '../../datamodels/misc';
-import User, { dataToUser, userToData } from '../../datamodels/User';
+import User, { jsonToUser, userToJson } from '../../datamodels/User';
 import { EDIT_USER_URL, GET_USER_URL } from '../../endpoints';
 import authFetchWrapper from '../authFetch';
 import Loadable from '../redux-config/loadable';
@@ -38,7 +38,7 @@ export const fetchUserProfile = (username: string) => {
 								payload: { status: 'error', errorMessage: data.error },
 							});
 						} else {
-							const user = dataToUser(data as JSONData<User>);
+							const user = jsonToUser(data as JSONData<User>);
 							dispatch({
 								type: Action.FETCH_USER_PROFILE,
 								payload: { status: 'success', data: user },
@@ -76,7 +76,7 @@ export const updateUserProfile = (newData: User) => {
 				payload: { status: 'success', data: newData as User },
 			});
 			try {
-				const userJSON = userToData(newData);
+				const userJSON = userToJson(newData);
 				const _result = await (
 					await fetch(EDIT_USER_URL, {
 						method: 'PUT',
