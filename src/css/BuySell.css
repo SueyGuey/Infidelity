@@ -12,7 +12,7 @@
 }
 
 .labelSB + .labelSB{
-  margin-top: 0vw !important; /*need this or else slight overlap*/
+  margin-top: 0vw !important; /*need this or else overlap*/
 }
 
 .labelSB{
@@ -29,20 +29,21 @@
 }
 
 .buySellContainer button{
-  margin-left: 3vw;
+  margin-left: 4vw;
+  font-size: 1vw;
 }
 .buyButton{
   position: absolute;
   margin-top: 1vw;
   background-color: #36CD4E;
-  width: 14vw;
+  width: 13vw;
   height: 2vw;
   border-radius: 4vw;
 }
 .sellButton{
   margin-top: 3.8vw;
   background-color: #5B80DF;
-  width: 14vw;
+  width: 13vw;
   height: 2vw;
   border-radius: 4vw;
 }   

@@ -26,6 +26,13 @@ function App() {
               <Route path="/" element={<Home/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
               <Route path='/stockDash/:symbol' element={<StockDash/>}/>
+
+              <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/dashboard/tradeHistory' element={<Dashboard/>}/>
+              <Route path='/dashboard/summary' element={<Dashboard/>}/>
+              <Route path='/dashboard/profile' element={<Dashboard/>}/>
+              <Route path='/dashboard/settings' element={<Dashboard/>}/>
+              <Route path='/dashboard/searchLarge' element={<Dashboard/>}/>
             </Routes>
           </Router>
         </div>
