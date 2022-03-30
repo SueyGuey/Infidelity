@@ -4,9 +4,11 @@ import infidelity.api.data.*;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
+import infidelity.api.stockdata.FinnHubMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mapping.TraversalContext;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,25 +25,21 @@ public class MarketService {
     private StockRepository stockRepository;
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private ChangingNumberRepository changingNumberRepository;
 
     private final static FinnHub fh = new FinnHub();
 
-    public double getCurrentPrice(String symbol) {
-        fh.doThing(symbol);
-
-        if (!fh.hasData(symbol)) {
-            fh.subscribe(symbol);
-        }
-        // Busy waiting loop
-        // TODO: find a better solution using callbacks
-        while (!fh.hasData(symbol)) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return fh.getInfo(symbol).getPrice();
+    public ChangingNumber getCurrentPrice(String symbol) {
+         FinnHubMessage.PriceMessage message = fh.getInfo(symbol);
+         long now = DateTime.now().getMillis();
+         if (now - message.getTimestamp() > 5000) {
+             message = fh.fetchInfo(symbol);
+         }
+         return ChangingNumber.builder()
+                 .value(message.getPrice())
+                 .lastUpdated(message.getTimestamp())
+                 .build();
     }
 
     /**
@@ -57,12 +55,13 @@ public class MarketService {
         return stockRepository.findById(symbol);
     }
 
-    public ChangingNumber getPrice(Tradeable item) {
-        // TODO: update the price
-        return item.getCurrentPrice();
+    public Tradeable getInfo(String symbol) {
+        return updateInfo(symbol);
     }
 
     public List<Tradeable> searchMarket(String query) {
+        stockRepository.deleteAll();
+        updateMarket();
         return stockRepository.findAll();
     }
 
@@ -82,24 +81,21 @@ public class MarketService {
     private Tradeable updateInfo(String symbol) {
         Optional<Tradeable> existing = stockRepository.findById(symbol);
         if (existing.isPresent()) {
-            Tradeable old = existing.get();
-            if (old instanceof Stock) {
-                Stock stock = (Stock) old;
-                updateProperty(stock, Stock::getCompany, stock::setCompany,
-                        companyRepository.save(Company.builder()
-                                .name(String.format("Company-%s", symbol))
-                                .build()));
-                return stockRepository.save(stock);
-            }
-            return old;
+            Tradeable tradeable = existing.get();
+            ChangingNumber price = getCurrentPrice(tradeable.getSymbol());
+            if (tradeable.getCurrentPrice().update(price.value, price.lastUpdated));
+            return stockRepository.save(tradeable);
         } else {
             Company company = Company.builder()
                     .name(String.format("Company-%s", symbol))
                     .build();
             companyRepository.save(company);
+            ChangingNumber price = getCurrentPrice(symbol);
+            changingNumberRepository.save(price);
             Stock stock = Stock.builder()
                     .symbol(symbol)
                     .company(company)
+                    .price(price)
                     .build();
             return stockRepository.save(stock);
         }

@@ -13,6 +13,7 @@ import reducers from './redux/reducers';
 import Dashboard from './components/dashboard';
 import Home from './components/home';
 import './App.css';
+import StockDash from './components/StockDash';
 
 function App() {
   const loggedIn = userPool.getCurrentUser() !== null;
@@ -24,6 +25,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>}/>
               <Route path='/dashboard' element={<Dashboard/>}/>
+              <Route path='/stockDash' element={<StockDash/>}/>
             </Routes>
           </Router>
         </div>

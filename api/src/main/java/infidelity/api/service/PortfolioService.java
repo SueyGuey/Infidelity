@@ -52,7 +52,7 @@ public class PortfolioService {
             Transaction transaction = new Transaction();
             transaction.setItem(tradeable.get());
             transaction.setTimestamp(request.getTimeStamp());
-            transaction.setPrice(marketService.getCurrentPrice(request.getItemSymbol()));
+            transaction.setPrice(marketService.getCurrentPrice(request.getItemSymbol()).value);
             transaction.setQuantity(request.getQuantity());
 
             //Update portfolio

@@ -4,6 +4,7 @@ import { Tradeable } from '../../datamodels/Portfolio';
 import { getTradeableBackend, searchMarketBackend, SEARCH_MARKET_URL } from '../../endpoints';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
+import mock_stock_data from '../../mock_data/stocks.json';
 
 type MarketDataAction = {
 	type: Action;
@@ -13,25 +14,30 @@ type MarketDataAction = {
 export const fetchMarketData = () => {
 	return async (dispatch: Dispatch<MarketDataAction>) => {
 		dispatch({ type: Action.FETCH_MARKET_DATA, payload: { status: 'loading' } });
-		fetch(SEARCH_MARKET_URL('AAPL'))
-			.then(async (response: Response) => {
-				const data: Tradeable[] | FetchError = await response.json();
-				if ('error' in data) {
-					dispatch({
-						type: Action.FETCH_MARKET_DATA,
-						payload: { status: 'error', errorMessage: data.error },
-					});
-				} else {
-					console.log(data);
-					dispatch({
-						type: Action.FETCH_MARKET_DATA,
-						payload: { status: 'success', data: data },
-					});
-				}
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+		// fetch(SEARCH_MARKET_URL('AAPL'))
+		// 	.then(async (response: Response) => {
+		// 		const data: Tradeable[] | FetchError = await response.json();
+		// 		if ('error' in data) {
+		// 			dispatch({
+		// 				type: Action.FETCH_MARKET_DATA,
+		// 				payload: { status: 'error', errorMessage: data.error },
+		// 			});
+		// 		} else {
+		// 			console.log(data);
+		// 			dispatch({
+		// 				type: Action.FETCH_MARKET_DATA,
+		// 				payload: { status: 'success', data: data },
+		// 			});
+		// 		}
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(error);
+		// 	});
+		const data: Tradeable[] = mock_stock_data;
+		dispatch({
+			type: Action.FETCH_MARKET_DATA,
+			payload: { status: 'success', data: data },
+		});
 	};
 };
 

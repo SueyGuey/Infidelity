@@ -11,12 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 public abstract class Tradeable {
     @Id
-    @Column(nullable = false)
+    @Column
     private String symbol;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "current_price_id")
     private ChangingNumber currentPrice;
     @OneToOne
     @JoinColumn(name = "price_history_id")
-    private NumberHistory priceHistory = new NumberHistory();
+    private NumberHistory priceHistory;
 }

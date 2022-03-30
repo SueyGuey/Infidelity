@@ -1,0 +1,77 @@
+{
+    "username": "hamrobe",
+    "email": "hamrobe502@gmail.com",
+    "portfolios": [
+        {
+            "portfolioId": "42e4fa85-18cc-4239-955d-11ebda0f67d0",
+            "name": "My Portfolio",
+            "balance": 100000,
+            "transactions": [
+				{
+					"transactionId": "42e4fa85-18cc-4239-955d-11ebda0f67d0",
+					"timestamp": 1648656985384,
+					"itemSymbol": "AAPL",
+					"price": 262.47,
+					"quantity": 100
+				}
+			],
+            "assets": [
+				{
+					"assetId": "0a8f8f5d-f8f5-4f7b-b8f8-f8f8f8f8f8f8",
+					"itemSymbol": "AAPL",
+					"quantity": 100
+				}
+			]
+        }
+    ],
+    "watchlists": [
+        {
+            "watchlistId": "3d538a2f-8663-44f8-8d84-18966f889086",
+            "name": "My Watchlist",
+            "items": [
+				{
+					"company": { "name": "Company-AAPLL" },
+					"symbol": "AAPLL",
+					"currentPrice": {
+						"numberId": "a444487f-6742-42e7-b6f1-7b1fb4070c8c",
+						"value": 262.47471154189566,
+						"lastUpdated": 1648656985384
+					}
+				},
+				{
+					"company": { "name": "Company-FLLLL" },
+					"symbol": "FLLLL",
+					"currentPrice": {
+					  "numberId": "e4644d0f-b5a9-4b8c-92a5-85f287bc0c0f",
+					  "value": 82.73549820981258,
+					  "lastUpdated": 1648656985728
+					}
+				}
+			]
+        },
+        {
+            "watchlistId": "3d538a2f-8663-44f8-8d84-18966f889086",
+            "name": "My Watchlist",
+            "items": [
+				{
+					"company": { "name": "Company-AAPLL" },
+					"symbol": "AAPLL",
+					"currentPrice": {
+						"numberId": "a444487f-6742-42e7-b6f1-7b1fb4070c8c",
+						"value": 262.47471154189566,
+						"lastUpdated": 1648656985384
+					}
+				},
+				{
+					"company": { "name": "Company-FLLLL" },
+					"symbol": "FLLLL",
+					"currentPrice": {
+					  "numberId": "e4644d0f-b5a9-4b8c-92a5-85f287bc0c0f",
+					  "value": 82.73549820981258,
+					  "lastUpdated": 1648656985728
+					}
+				}
+			]
+        }
+    ]
+}
