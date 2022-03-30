@@ -31,7 +31,7 @@ function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 				<div className = "portfolioGraph">
 					<div className='graph' id='graph-container'>
 						<p className='portfolioName'>Porfolio Value</p>
-						<StockGraph/>
+						<StockGraph symbol='MSFT'/>
 					</div>
 				</div>
 			</div>
