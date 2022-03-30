@@ -32,12 +32,8 @@ public class MarketController {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
-        Optional<Tradeable> opt = market.findInfo(symbol);
-        return opt.map(
-                tradeable -> new ResponseEntity<>(gson.toJson(tradeable), HttpStatus.OK)
-        ).orElseGet(
-                () -> new ResponseEntity<>(HttpStatus.BAD_REQUEST)
-        );
+        Tradeable item = market.getInfo(symbol);
+        return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
     }
 
     @GetMapping("/search/{query}")
