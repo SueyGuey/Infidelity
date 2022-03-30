@@ -1,46 +1,46 @@
 [
   {
-    "company": { "name": "Company-AAPLL" },
-    "symbol": "AAPLL",
+    "company": { "name": "Company-AAPL" },
+    "symbol": "AAPL",
     "currentPrice": {
       "numberId": "a444487f-6742-42e7-b6f1-7b1fb4070c8c",
-      "value": 262.47471154189566,
+      "value": 178.4271154189566,
       "lastUpdated": 1648656985384
     }
   },
   {
-    "company": { "name": "Company-FLLLL" },
-    "symbol": "FLLLL",
+    "company": { "name": "Company-F" },
+    "symbol": "F",
     "currentPrice": {
       "numberId": "e4644d0f-b5a9-4b8c-92a5-85f287bc0c0f",
-      "value": 82.73549820981258,
+      "value": 17.49549820981258,
       "lastUpdated": 1648656985728
     }
   },
   {
-    "company": { "name": "Company-GMLLLL" },
-    "symbol": "GMLLLL",
+    "company": { "name": "Company-GM" },
+    "symbol": "GM",
     "currentPrice": {
       "numberId": "d2dfe49d-a029-4575-9eba-381df0da425b",
-      "value": 184.89483518543625,
+      "value": 45.6983518543625,
       "lastUpdated": 1648656986713
     }
   },
   {
-    "company": { "name": "Company-MSFTL" },
-    "symbol": "MSFTL",
+    "company": { "name": "Company-MSFT" },
+    "symbol": "MSFT",
     "currentPrice": {
       "numberId": "fab39f7e-acad-4aaa-ad1d-06c616ea226a",
-      "value": 140.05417012754867,
+      "value": 315.51417012754867,
       "lastUpdated": 1648656986047
     }
   },
   {
-    "company": { "name": "Company-TSLAL" },
-    "symbol": "TSLAL",
+    "company": { "name": "Company-TSLA" },
+    "symbol": "TSLA",
     "currentPrice": {
       "numberId": "40188123-c7f8-4172-8317-8b19527079d1",
-      "value": 245.9616327713737,
+      "value": 1104.0416327713737,
       "lastUpdated": 1648656986395
     }
   }
