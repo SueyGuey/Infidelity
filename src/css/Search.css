@@ -63,6 +63,7 @@
     font-family: Arsenal-Regular;
     padding-left: 1vw;
     border-radius: .5vw;
+    font-size: 1vw;
 }
 
 .searchResult + .searchResult{
