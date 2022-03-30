@@ -106,7 +106,11 @@
     font-family: Arsenal-Bold;
     color: rgb(43, 172, 43);
 }
-
+.stockValue{
+    font-family: Arsenal-Bold;
+    color: rgb(43, 172, 43);
+    display: inline;
+}
 .searchSide{
     position: inherit;
     top: 0;
@@ -118,4 +122,22 @@
     border-radius: .5vw;
     overflow: hidden;
     box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.15);
+}
+
+.stockValueContainer{
+    padding-left: 4vw;
+    position: inherit;
+    top:-5vw;
+    display: flex;
+    width: 54vw;
+    height: 36vw;
+    /* background-color: red; */
+}
+
+.stockGraph{
+    position: inherit;
+    top: 6vw;
+    left: 2.1vw;
+    height: calc(100% - 6vw);
+    width: calc(100% - 4vw);
 }
