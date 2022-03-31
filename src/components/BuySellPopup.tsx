@@ -37,6 +37,12 @@ function buyOrSell(isBuy: number){
                 <button className = "doBuy">Buy</button>
             </div>
         )
+    }else if(isBuy == 2){
+        // STATE FOR COMPLETION OF SELLING STOCK
+    }else if(isBuy == 3){
+        // STATE FOR COMPLETION OF BUYING STOCK
+    }else{
+        //something has gone wrong state?
     }
 }
 
