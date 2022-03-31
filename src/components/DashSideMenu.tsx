@@ -5,17 +5,32 @@ import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/load
 import { Navigate, useNavigate } from 'react-router-dom';
 
 function setActive(activeID: string){
-    var x = document.getElementById(activeID);
-    if(x != null){
-        x.classList.add("activePage");
+    var x = document.getElementsByClassName("menuItem");
+    var y = document.getElementsByClassName("bottomItem");
+
+    for (let i = 0; i < x.length; i++) {
+        if(x[i].id == activeID){
+            x[i].classList.add("activePage");
+        }else{
+            x[i].classList.remove("activePage");
+        }
     }
+
+    for (let i = 0; i < y.length; i++) {
+        if(y[i].id == activeID){
+            y[i].classList.add("activePage");
+        }else{
+            y[i].classList.remove("activePage");
+        }
+    }
+
 }
 
-function DashSideMenu(props: WithUserProfileLoaderProps): ReactElement {
+function DashSideMenu(props: WithUserProfileLoaderProps & {active: string}): ReactElement {
     const watchlists = Array.from(props.userProfile.watchlists);
     const navigate = useNavigate();
-    // const active = "dashboard";
-    // setActive(active)
+    const active = props.active;
+    setActive(active)
 	return(
 		<div className = "SideMenuContainer">
             <div className = "logoName">
@@ -47,7 +62,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps): ReactElement {
                     </li>
                     <li className = "menuTypeHeader" onClick = {() => navigate(`/dashboard/searchLarge`)}><p>Search & Purchase</p>
                         <ul>
-                            <li className = "menuItem"><p>Stock Search</p></li>
+                            <li id = "searchLarge" className = "menuItem"><p>Stock Search</p></li>
                         </ul>
                     </li>
                     <li id = "profile" className = "bottomItem" onClick = {() => navigate(`/dashboard/profile`)}><p>Profile</p></li>

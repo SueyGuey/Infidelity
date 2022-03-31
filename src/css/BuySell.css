@@ -53,3 +53,7 @@
   height: 2vw;
   border-radius: 4vw;
 }   
+
+.buySellPopUp{
+  position: fixed;
+}

@@ -10,11 +10,12 @@ import StockDashTop from './StockDashTop';
 function StockDash(props: WithUserProfileLoaderProps): ReactElement {
 
 	let { symbol } = useParams();
+	let { active } = useParams();
 
 	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className = "Dashboard">
-			<DashSideMenu />
+			<DashSideMenu active = {active || "searchLarge"}/>
 			<StockDashTop symbol={symbol || 'AAPL'}/>
 			<StockDashBottom symbol={symbol || 'AAPL'}/>
 		</div>
