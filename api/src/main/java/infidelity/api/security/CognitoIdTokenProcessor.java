@@ -75,7 +75,8 @@ public class CognitoIdTokenProcessor {
     }
 
     UserMetadata metadataFromClaims(JWTClaimsSet claims) throws Exception {
-        String username = claims.getSubject();
+        String cogId = claims.getSubject();
+        String username = getClaimOrNull(claims, "username");
         String tokenUsage = Optional.ofNullable(claims.getClaims().get("token_use")).map(Object::toString).orElse("access");
         UserMetadata userMetadata = null;
         if ("id".equals(tokenUsage)) {
@@ -87,7 +88,7 @@ public class CognitoIdTokenProcessor {
                     .build();
         } else {
             return metadataResolver.resolveMetadataForUserId(username)
-                    .orElseThrow(() -> new IllegalArgumentException("Unable to find User with cogId: " + username));
+                    .orElseThrow(() -> new IllegalArgumentException("Unable to find User with username: " + username));
         }
     }
 

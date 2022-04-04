@@ -1,19 +1,27 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
-import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
-import TopNavBar from './TopNavBar';
+import DashSideMenu from './DashSideMenu';
+import withUserProfileLoader, {
+	WithUserProfileLoaderProps,
+} from '../redux/loaders/withUserProfileLoader';
+import '../css/Dashboard.css';
+import DashTop from './DashTop';
+import DashBottom from './DashBottom';
 
-function Dashboard(props: WithUserProfileLoaderProps): ReactElement {
+function Dashboard(props: WithUserProfileLoaderProps & { item: string }): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
+	const { active } = useParams();
 	return user ? (
-		<div>
-			<TopNavBar/>
-			<p>Welcome to the Dashboard :)</p>
-			<p>Username: {user.getUsername()}</p>
+		<div className="Dashboard">
+			<DashSideMenu active={active || props.item} />
+			<DashTop />
+			<DashBottom />
 		</div>
-	) : <Navigate to="/"/>;
+	) : (
+		<Navigate to="/" />
+	);
 }
 
 export default withUserProfileLoader(Dashboard);

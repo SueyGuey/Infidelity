@@ -1,0 +1,147 @@
+@font-face {
+    font-family: Arsenal-Bold;
+    src: url("../fonts/Arsenal-Bold.ttf");
+  }
+  @font-face {
+    font-family: Arsenal-Regular;
+    src: url("../fonts/Arsenal-Regular.ttf");
+  }
+
+.DashTopContain{
+    position: absolute;
+    display: flex;
+    border: none;
+    height: 65%;
+    width: 82%;
+    top: 0;
+    right: 0;
+    /* background-color: bisque; */
+}
+
+.ActivePortfolio{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: inherit;
+    width: 100%;
+    height: 8%;
+    margin-top: 1vw;
+    font-family: Arsenal-Bold;
+}
+
+.ActivePortfolio p{
+    font-size: 1.7vw;
+    margin-right: 21vw;
+}
+
+.ActivePortfolio select{
+    position: absolute;
+    margin-top: -.18vw;
+    font-family: Arsenal-Regular;   
+    font-size: 1.6vw;
+    border: none;
+    border-radius: .25vw;
+    box-shadow: inset .1vw .1vw .1vw rgba(0, 0, 0, 0.25);
+    background-color: rgba(240,240,240,1);
+    margin-left: .5vw;
+}
+
+.portfolioValueContainer{
+    padding-left: 4vw;
+    position: inherit;
+    top:3.5vw;
+    display: flex;
+    width: fit-content;
+    height: 27vw;
+    /* background-color: red; */
+}
+
+.tradeValues{
+    display: inline-block;
+    top: 0;
+    left: 0;
+    height: 10vw;
+    width: 12vw;
+    height: 5vw;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: .3vw;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    font-family: Arsenal-Regular;
+
+    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.20);
+    font-size: 1.5vw;
+}
+
+.tradeValues p{
+    font-size: 1.5vw;
+}
+
+.tradeValues + .tradeValues{
+    margin-left: 1.5vw;
+}
+
+.portfolioGraph{
+    position: inherit;
+    top: 6vw;
+    left: 2.1vw;
+    height: calc(100% - 6vw);
+    width: calc(100% - 4vw);
+    /* background-color: #f0f0f0; */
+}
+
+.portfolioName{
+    padding-left: 1vw;
+    padding-top: .5vw;
+    font-size: 1.2vw;
+    font-family: Arsenal-Regular;
+}
+
+.worthValue{
+    position: absolute;
+    top: 1.5vw;
+    margin-top: .25vw;
+    font-family: Arsenal-Bold;
+    color: rgb(43, 172, 43);
+}
+.stockValue{
+    font-family: Arsenal-Bold;
+    color: rgb(43, 172, 43);
+    display: inline;
+}
+.searchSide{
+    position: inherit;
+    top: 0;
+    right: 0;
+    margin-top: 1.5vw;
+    margin-right:1vw;
+    height: 28.75vw;
+    width: 21vw;
+    border-radius: .5vw;
+    overflow: hidden;
+    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.15);
+}
+
+.stockValueContainer{
+    padding-left: 4vw;
+    position: inherit;
+    top:-5vw;
+    display: flex;
+    width: 52.7vw;
+    height: 36vw;
+    /* background-color: red; */
+}
+
+.stockGraph{
+    position: inherit;
+    top: 6vw;
+    left: 2.1vw;
+    height: calc(100% - 6vw);
+    width: calc(100% - 4vw);
+}

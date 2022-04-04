@@ -1,17 +1,18 @@
 import { Dispatch } from 'react';
 import { FetchError, JSONData } from '../../datamodels/misc';
-import User, { dataToUser, userToData } from '../../datamodels/User';
+import User, { jsonToUser, userToJson } from '../../datamodels/User';
 import { EDIT_USER_URL, GET_USER_URL } from '../../endpoints';
 import authFetchWrapper from '../authFetch';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
+import mock_user from '../../mock_data/user.json';
 
 type UserProfileAction = {
 	type: Action;
 	payload: Loadable<User>;
 };
 
-export const fetchUserProfile = (cog_id: string) => {
+export const fetchUserProfile = (username: string) => {
 	return async (dispatch: Dispatch<UserProfileAction>) => {
 		const fetchUserProfileCallback = async (bearerToken: string) => {
 			if (bearerToken === 'Refresh Token has expired') {
@@ -23,22 +24,22 @@ export const fetchUserProfile = (cog_id: string) => {
 			}
 			dispatch({ type: Action.FETCH_USER_PROFILE, payload: { status: 'loading' } });
 			try {
-				fetch(GET_USER_URL(cog_id), {
+				fetch(GET_USER_URL(username), {
 					headers: {
 						Authorization: `Bearer ${bearerToken}`,
 						'Content-Type': 'application/json',
 					},
 				})
 					.then(async (response: Response) => {
-						const data: Partial<JSONData<User>> | FetchError = await response.json();
+						const data: JSONData<User> | FetchError = mock_user;
 						// first check if data has returned an error
 						if ('error' in data) {
-							dispatch({
-								type: Action.FETCH_USER_PROFILE,
-								payload: { status: 'error', errorMessage: data.error },
-							});
+							// dispatch({
+							// 	type: Action.FETCH_USER_PROFILE,
+							// 	payload: { status: 'error', errorMessage: data.error },
+							// });
 						} else {
-							const user = dataToUser(data as JSONData<User>);
+							const user = jsonToUser(data as JSONData<User>);
 							dispatch({
 								type: Action.FETCH_USER_PROFILE,
 								payload: { status: 'success', data: user },
@@ -76,7 +77,7 @@ export const updateUserProfile = (newData: User) => {
 				payload: { status: 'success', data: newData as User },
 			});
 			try {
-				const userJSON = userToData(newData);
+				const userJSON = userToJson(newData);
 				const _result = await (
 					await fetch(EDIT_USER_URL, {
 						method: 'PUT',

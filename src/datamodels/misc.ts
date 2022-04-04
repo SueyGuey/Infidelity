@@ -20,3 +20,9 @@ export type FetchError = {
 	status?: number;
 	timestamp?: string;
 };
+
+export type ChangingNumber = {
+	numberId: string;
+	value: number;
+	lastUpdated: number;
+};
