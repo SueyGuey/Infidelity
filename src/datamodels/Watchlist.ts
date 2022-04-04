@@ -1,5 +1,5 @@
-import { JSONData } from "./misc";
-import { Tradeable } from "./Portfolio";
+import { JSONData } from './misc';
+import { Tradeable } from './Portfolio';
 
 export default interface Watchlist {
 	watchlistId: string;

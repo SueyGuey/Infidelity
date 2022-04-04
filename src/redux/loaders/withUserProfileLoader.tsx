@@ -52,11 +52,13 @@ export default function withUserProfileLoader<PropType>(
 				}
 				return <ErrorPage message={userProfile.errorMessage} />;
 			case 'success':
-				return <ReactComponent
+				return (
+					<ReactComponent
 						userProfile={userProfile.data as User}
 						updateUser={updateData}
 						{...props}
-					/>;
+					/>
+				);
 			default:
 				return <></>;
 		}

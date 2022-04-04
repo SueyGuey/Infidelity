@@ -1,5 +1,5 @@
-import { PortfolioRequest, TransactionRequest } from "./datamodels/Portfolio";
-import { NewUserInfo } from "./datamodels/User";
+import { PortfolioRequest, TransactionRequest } from './datamodels/Portfolio';
+import { NewUserInfo } from './datamodels/User';
 
 enum Backend {
 	Local = 'http://localhost:8080',
@@ -24,44 +24,44 @@ export async function stockPrice(symbol: string): Promise<number> {
 }
 
 export function createUserBackend(user: NewUserInfo) {
-	console.log("CREATING USER");
+	console.log('CREATING USER');
 	fetch(CREATE_USER_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(user),
-	})
+	});
 }
 
 export async function getTradeableBackend(symbol: string) {
-	console.log("GET TRADEABLE");
-	return await (fetch(GET_TRADEABLE_URL(symbol)).then(res => res.json()));
+	console.log('GET TRADEABLE');
+	return await fetch(GET_TRADEABLE_URL(symbol)).then((res) => res.json());
 }
 
 export async function searchMarketBackend(query: string) {
-	console.log("SEARCH MARKET");
-	return await (fetch(SEARCH_MARKET_URL(query)).then(res => res.json()));
+	console.log('SEARCH MARKET');
+	return await fetch(SEARCH_MARKET_URL(query)).then((res) => res.json());
 }
 
 export function makeTradeBackend(trade: TransactionRequest) {
-	console.log("MAKE TRADE");
+	console.log('MAKE TRADE');
 	fetch(MAKE_TRADE_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(trade),
-	})
+	});
 }
 
 export function newPortfolioBackend(portfolio: PortfolioRequest) {
-	console.log("NEW PORTFOLIO");
+	console.log('NEW PORTFOLIO');
 	fetch(NEW_PORTFOLIO_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(portfolio),
-	})
+	});
 }

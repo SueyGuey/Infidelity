@@ -70,9 +70,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 			<div className="verification-container">
 				<h3>Verify Account</h3>
 				<br />
-				<p>
-					Please enter the code we sent to your email address below
-				</p>
+				<p>Please enter the code we sent to your email address below</p>
 				<br />
 				<TextField
 					autoFocus={true}
@@ -99,7 +97,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 					className="resend-code-button"
 					variant="text"
 					onClick={(e) => handleResendCode(e)}>
-						Resend Code
+					Resend Code
 				</Button>
 			</div>
 		</form>
@@ -107,7 +105,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 }
 
 export type SignupFormProps = {
-	username: string
+	username: string;
 	email: string;
 	password: string;
 	accessCode: string;
@@ -164,7 +162,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 					} else if (data) {
 						createUserBackend({
 							username: props.username,
-							email: props.email
+							email: props.email,
 						});
 						props.setCognitoUser(data.user);
 						props.setUserId(data.userSub);
@@ -197,42 +195,42 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 				className="text-field"
 				id="signup-password"
 				label="Password"
-				type={showPassword ? "text" : "password"}
+				type={showPassword ? 'text' : 'password'}
 				value={props.password}
 				onChange={(e) => props.setPassword(e.target.value)}
-				InputProps={{ // toggle
+				InputProps={{
+					// toggle
 					endAdornment: (
 						<InputAdornment position="end">
 							<IconButton
 								aria-label="toggle password visibility"
-								onClick={() => setShowPassword(!showPassword)}
-							>
-							{showPassword ? <Visibility /> : <VisibilityOff />}
+								onClick={() => setShowPassword(!showPassword)}>
+								{showPassword ? <Visibility /> : <VisibilityOff />}
 							</IconButton>
 						</InputAdornment>
-					)
-				  }}
-				/>
+					),
+				}}
+			/>
 			<TextField
 				className="text-field"
 				id="signup-confirm-password"
 				label="Confirm Password"
 				value={conPassword}
-				type={showPassword1 ? "text" : "password"}
+				type={showPassword1 ? 'text' : 'password'}
 				onChange={(e) => setConPassword(e.target.value)}
-				InputProps={{ // toggle
+				InputProps={{
+					// toggle
 					endAdornment: (
 						<InputAdornment position="end">
 							<IconButton
 								aria-label="toggle password visibility"
-								onClick={() => setShowPassword1(!showPassword1)}
-							>
-							{showPassword1 ? <Visibility /> : <VisibilityOff />}
+								onClick={() => setShowPassword1(!showPassword1)}>
+								{showPassword1 ? <Visibility /> : <VisibilityOff />}
 							</IconButton>
 						</InputAdornment>
-					)
-				  }}
-				/>
+					),
+				}}
+			/>
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
@@ -241,7 +239,9 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 			<Button
 				className="signup-button"
 				variant="outlined"
-				onClick={(e) => handleSignUpSubmit(e)}>Create Account</Button>
+				onClick={(e) => handleSignUpSubmit(e)}>
+				Create Account
+			</Button>
 		</div>
 	);
 }

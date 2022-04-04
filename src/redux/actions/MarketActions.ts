@@ -42,10 +42,12 @@ export const fetchMarketData = () => {
 };
 
 export const fetchTradeable = (symbol: string) => {
-	return async (dispatch: Dispatch<{
-								type: Action;
-								payload: Loadable<Tradeable>;
-							}>) => {
+	return async (
+		dispatch: Dispatch<{
+			type: Action;
+			payload: Loadable<Tradeable>;
+		}>
+	) => {
 		dispatch({ type: Action.FETCH_TRADEABLE, payload: { status: 'loading' } });
 		getTradeableBackend(symbol)
 			.then(async (response: Response) => {

@@ -1,4 +1,4 @@
-import { ChangingNumber, JSONData } from "./misc";
+import { ChangingNumber, JSONData } from './misc';
 
 export default interface Portfolio {
 	portfolioId: string;
@@ -38,14 +38,14 @@ export type Tradeable = {
 export type Stock = Tradeable & {
 	company: Company;
 	volume: ChangingNumber;
-}
+};
 
 export type Company = {
 	name: string;
 	description: string;
 	weburl: string;
 	industry: string;
-}
+};
 
 export type PortfolioRequest = {
 	username: string;
