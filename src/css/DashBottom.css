@@ -63,6 +63,10 @@
     width: 17.26vw;
 }
 
+.stockInformation{
+    width: 50vw;
+}
+
 .spanCap{
     width: 100%;
     height: 20%;
@@ -78,13 +82,46 @@
     font-size: 1.3vw;
 }
 .spanCap select{
-    position: inherit;
+    position: absolute;
     display: inline;
-    right: 0vw;
-    margin-left: 4vw;
+    left: 0vw;
+    margin-left: 11.5vw;
+    margin-top: .2vw;
     font-family: Arsenal-Regular;   
     font-size: 1.0vw;
     border: none;
     border-radius: .25vw;
     background-color: rgba(240,240,240,1);
+}
+
+.watchlistStocks{
+    position: inherit;
+    border: solid;
+    bottom: 0;
+    height: 75%;
+    width: 100%;
+}
+
+.positionsItems{
+    position: inherit;
+    border: solid;
+    bottom: 0;
+    height: 75%;
+    width: 100%;
+}
+
+.recentTradeItems{
+    position: inherit;
+    border: solid;
+    bottom: 0;
+    height: 75%;
+    width: 100%;
+}
+
+.stockInformationItems{
+    position: inherit;
+    border: solid;
+    bottom: 0;
+    height: 75%;
+    width: 100%;
 }

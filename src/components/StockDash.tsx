@@ -4,20 +4,22 @@ import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
 import withUserProfileLoader, { WithUserProfileLoaderProps } from '../redux/loaders/withUserProfileLoader';
 import '../css/Dashboard.css'
-import DashTop from './DashTop';
-import DashBottom from './DashBottom';
+import StockDashBottom from './StockDashBottom';
+import StockDashTop from './StockDashTop';
 
-function Dashboard(props: WithUserProfileLoaderProps & {item: string}): ReactElement {
-	console.log(props.userProfile);
-	const user = userPool.getCurrentUser();
+function StockDash(props: WithUserProfileLoaderProps): ReactElement {
+
+	let { symbol } = useParams();
 	let { active } = useParams();
+
+	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className = "Dashboard">
-			<DashSideMenu active = {active || props.item}/>
-			<DashTop/>
-			<DashBottom/>
+			<DashSideMenu active = {active || "searchLarge"}/>
+			<StockDashTop symbol={symbol || 'AAPL'}/>
+			<StockDashBottom symbol={symbol || 'AAPL'}/>
 		</div>
 	) : <Navigate to="/"/>;
 }
 
-export default withUserProfileLoader(Dashboard);
+export default withUserProfileLoader(StockDash);

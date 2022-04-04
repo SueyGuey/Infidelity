@@ -2,6 +2,7 @@ package infidelity.api.stockdata;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import javax.websocket.DeploymentException;
@@ -85,7 +86,24 @@ public class FinnHub {
     }
 
     public FinnHubMessage.PriceMessage getInfo(String symbol) {
-        return info.get(symbol);
+        if (info.containsKey(symbol)) {
+            return info.get(symbol);
+        } else {
+            FinnHubMessage.PriceMessage message = fetchInfo(symbol);
+            info.put(symbol, message);
+            return message;
+        }
+    }
+
+    public FinnHubMessage.PriceMessage fetchInfo(String symbol) {
+        double currentPrice = 40 + Math.random() * 300;
+        if (info.containsKey(symbol)) {
+            currentPrice = info.get(symbol).getPrice();
+        }
+        long now = DateTime.now().getMillis();
+        double price = currentPrice + (Math.random() - 0.5) * 0.2 + Math.random() * 0.02;
+        double volume = 4275;
+        return new FinnHubMessage.PriceMessage(symbol, price, now, volume);
     }
 
     public void doThing(String symbol) {

@@ -1,8 +1,6 @@
 package infidelity.api.data;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.joda.time.DateTime;
 
 import javax.persistence.Column;
@@ -12,20 +10,17 @@ import java.util.UUID;
 
 @Entity
 @Getter
-@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class ChangingNumber {
     @Id
-    @Column(nullable = false)
-    private UUID numberId;
+    @Column
+    @Builder.Default
+    private UUID numberId = UUID.randomUUID();
 
     public double value;
     public long lastUpdated;
-
-    public ChangingNumber(double val, long timestamp) {
-        value = val;
-        lastUpdated = timestamp;
-    }
 
     public boolean upToDate(long within) {
         long now = DateTime.now().getMillis();

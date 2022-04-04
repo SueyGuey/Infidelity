@@ -5,11 +5,13 @@ import userPool from '../../authentication/userPool';
 import LoadingAnimation from './loading';
 import ErrorPage from '../../components/errorPage';
 import { useNavigate } from 'react-router-dom';
-import { fetchTradeable, searchMarket } from '../actions/MarketActions';
+import { fetchMarketData, fetchTradeable, searchMarket } from '../actions/MarketActions';
 import { MarketState } from '../reducers/MarketReducer';
+import { Tradeable } from '../../datamodels/Portfolio';
+import { useEffect } from 'react';
 
 export interface WithMarketLoaderProps {
-	marketData: any;
+	marketData: Tradeable[];
 	getTradeable: (symbol: string) => any;
 	searchMarket: (query: string) => any;
 }
@@ -19,27 +21,25 @@ export default function withMarketLoader<PropType>(
 ): React.FC<PropType> {
 	return function ComponentWithMarket(props: PropType): JSX.Element {
 		const dispatch = useAppDispatch();
-		const navigate = useNavigate();
 
-		const marketData: Loadable<any> = useAppSelector<MarketState>(
+		const marketData: Loadable<Tradeable[]> = useAppSelector<MarketState>(
 			(state: any) => state.marketData
 		).marketData;
+
+		useEffect(() => {
+			if (!marketData.data) {
+				dispatch(fetchMarketData());
+			}
+		}, [dispatch]);
 
 		switch (marketData.status) {
 			case 'loading':
 				return <LoadingAnimation />;
 			case 'error':
-				if (marketData.errorMessage === 'Refresh Token has expired') {
-					const cognitoUser = userPool.getCurrentUser();
-					if (cognitoUser) {
-						cognitoUser.signOut();
-					}
-					navigate('/');
-				}
 				return <ErrorPage message={marketData.errorMessage} />;
 			case 'success':
 				return <ReactComponent
-						marketData={marketData.data}
+						marketData={marketData.data as Tradeable[]}
 						searchMarket={(query: string) => dispatch(searchMarket(query))}
 						getTradeable={(symbol: string) => dispatch(fetchTradeable(symbol))}
 						{...props}

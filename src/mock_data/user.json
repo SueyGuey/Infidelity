@@ -1,0 +1,77 @@
+{
+    "username": "hamrobe",
+    "email": "hamrobe502@gmail.com",
+    "portfolios": [
+        {
+            "portfolioId": "42e4fa85-18cc-4239-955d-11ebda0f67d0",
+            "name": "My Portfolio",
+            "balance": 100000,
+            "transactions": [
+				{
+					"transactionId": "42e4fa85-18cc-4239-955d-11ebda0f67d0",
+					"timestamp": 1648656985384,
+					"itemSymbol": "AAPL",
+					"price": 163.98,
+					"quantity": 100
+				}
+			],
+            "assets": [
+				{
+					"assetId": "0a8f8f5d-f8f5-4f7b-b8f8-f8f8f8f8f8f8",
+					"itemSymbol": "AAPL",
+					"quantity": 100
+				}
+			]
+        }
+    ],
+    "watchlists": [
+        {
+            "watchlistId": "3d538a2f-8663-44f8-8d84-18966f889086",
+            "name": "Tech Watchlist",
+            "items": [
+				{
+					"company": { "name": "Apple Inc" },
+					"symbol": "AAPL",
+					"currentPrice": {
+					"numberId": "a444487f-6742-42e7-b6f1-7b1fb4070c8c",
+					"value": 178.4271154189566,
+					"lastUpdated": 1648656985384
+					}
+				},
+				{
+					"company": { "name": "Microsoft Corporation" },
+					"symbol": "MSFT",
+					"currentPrice": {
+					"numberId": "fab39f7e-acad-4aaa-ad1d-06c616ea226a",
+					"value": 315.51417012754867,
+					"lastUpdated": 1648656986047
+					}
+				}
+			]
+        },
+        {
+            "watchlistId": "3d538a2f-8663-44f8-8d84-18966f889186",
+            "name": "Auto Industry Watchlist",
+            "items": [
+				{
+					"company": { "name": "General Motors Company" },
+					"symbol": "GM",
+					"currentPrice": {
+					"numberId": "d2dfe49d-a029-4575-9eba-381df0da425b",
+					"value": 45.6983518543625,
+					"lastUpdated": 1648656986713
+					}
+				},
+				{
+					"company": { "name": "Ford Motor Company" },
+					"symbol": "F",
+					"currentPrice": {
+					"numberId": "e4644d0f-b5a9-4b8c-92a5-85f287bc0c0f",
+					"value": 17.49549820981258,
+					"lastUpdated": 1648656985728
+					}
+				}
+			]
+        }
+    ]
+}

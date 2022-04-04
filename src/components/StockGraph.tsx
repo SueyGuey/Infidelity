@@ -1,5 +1,5 @@
 import React, { ReactElement} from 'react';
-import { tsvParse, timeParse } from  "d3";
+import { tsvParse, csvParse, timeParse } from  "d3";
 import Chart from './Chart';
 import { type } from 'os';
 
@@ -18,16 +18,19 @@ function parseData(parse: any) {
 
 const parseDate = timeParse("%Y-%m-%d");
 
-function getData() {
-	const promiseMSFT = fetch("https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/MSFT.tsv")
+function getData(symbol: string) {
+	const filename = symbol === "GE" ? "GE_full.tsv" :
+		symbol === "AAPL" ? "AAPL_full.tsv" : "MSFT.tsv";
+	const url = `https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/${filename}`;
+	const promiseMSFT = fetch(url)
 		.then(response => response.text())
 		.then(data => tsvParse(data, parseData(parseDate)))
 	return promiseMSFT;
 }
 
-class StockGraph extends React.Component<any, any> {
+class StockGraph extends React.Component<{symbol: string}, any> {
 	componentDidMount() {
-		getData().then(data => {
+		getData(this.props.symbol).then(data => {
 			this.setState({ data })
 		})
 	}
