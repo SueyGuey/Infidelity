@@ -14,7 +14,7 @@ import Dashboard from './components/dashboard';
 import Home from './components/home';
 import './App.css';
 import StockDash from './components/StockDash';
-import BuySellPopup from './components/BuySellPopup';
+import TransactionCompletePop from './components/TransactionCompletePop';
 
 function App() {
   const loggedIn = userPool.getCurrentUser() !== null;
@@ -28,8 +28,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home/>}/>
               {/* FOR TESTING */}
-              <Route path="/popUp/0" element={<BuySellPopup buy = {item || 0}/>}/>
-              <Route path="/popUp/1" element={<BuySellPopup buy = {item || 1}/>}/>
+              <Route path="/popUp/0" element={<TransactionCompletePop buy = {item || 0}/>}/>
+              <Route path="/popUp/1" element={<TransactionCompletePop buy = {item || 1}/>}/>
               {/* for testing end. */}
               <Route path='/dashboard' element={<Dashboard item = {item || "dashboard"}/>}/>
               <Route path='/stockDash/:symbol' element={<StockDash/>}/>

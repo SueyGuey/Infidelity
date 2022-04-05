@@ -30,9 +30,11 @@ function BuySell(props: WithUserProfileLoaderProps & WithMarketLoaderProps & {sy
 }
 
 function buyStockPopUp(buy: any, isBuy: any){
-    return(
-       <BuySellPopup buy = {buy || isBuy}/>
-    )
+    if(buy == 0){
+        
+    }else if(buy == 1){
+
+    }
 }
 
 
