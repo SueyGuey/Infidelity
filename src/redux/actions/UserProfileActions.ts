@@ -31,6 +31,7 @@ export const fetchUserProfile = (username: string) => {
 					},
 				})
 					.then(async (response: Response) => {
+						// const data: JSONData<User> | FetchError = await response.json();
 						const data: JSONData<User> | FetchError = mock_user;
 						// first check if data has returned an error
 						if ('error' in data) {

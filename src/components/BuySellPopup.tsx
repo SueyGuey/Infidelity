@@ -9,7 +9,11 @@ import '../css/Dashboard.css';
 import '../css/BuySellPopUp.css';
 import { Checkbox } from '@mui/material';
 
-function BuySellPopup(props: WithUserProfileLoaderProps & { buy: any }): ReactElement {
+type BuySellProps = {
+	buy: any;
+} & WithUserProfileLoaderProps;
+
+function BuySellPopup(props: BuySellProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const { active } = useParams();
