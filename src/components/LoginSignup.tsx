@@ -4,10 +4,12 @@ import Signup from './signup';
 import '../css/home.css';
 
 export default function LoginSignup(): ReactElement {
+	//hook to set hook state
 	const [tabNumber, setTabNumber] = useState(1);
 
 	return (
 		<div className="login-signup-container">
+			{/* switches between login and signup tab */}
 			<div className="tabContainer">
 				<button
 					className={tabNumber === 1 ? 'tabs active-tabs' : 'tabs'}
@@ -21,6 +23,7 @@ export default function LoginSignup(): ReactElement {
 				</button>
 			</div>
 
+			{/* switches between login and signup boxes*/}
 			<div className="contentContainer">
 				<div className={tabNumber === 1 ? 'content  active-content' : 'content'}>
 					<Login />

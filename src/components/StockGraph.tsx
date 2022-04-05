@@ -3,6 +3,7 @@ import { tsvParse, csvParse, timeParse } from 'd3';
 import Chart from './Chart';
 import { type } from 'os';
 
+//the data model which we will be graphing
 function parseData(parse: any) {
 	return function (d: any) {
 		d.date = parse(d.date);
@@ -18,6 +19,7 @@ function parseData(parse: any) {
 
 const parseDate = timeParse('%Y-%m-%d');
 
+//reads in static data from a csv
 function getData(symbol: string) {
 	const filename =
 		symbol === 'GE' ? 'GE_full.tsv' : symbol === 'AAPL' ? 'AAPL_full.tsv' : 'MSFT.tsv';
@@ -35,10 +37,12 @@ class StockGraph extends React.Component<{ symbol: string }, any> {
 		});
 	}
 	render() {
+		//placeholder text
 		if (this.state == null) {
 			return <div>Loading...</div>;
 		}
 
+		//graph of svg type and passing in data
 		return <Chart type={'svg'} data={this.state.data} />;
 	}
 }

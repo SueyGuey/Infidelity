@@ -5,6 +5,7 @@ import '../css/home.css';
 import LoginSignup from './LoginSignup';
 import StockGraph from './StockGraph';
 
+//our landing page
 export default function Home(): ReactElement {
 	return (
 		<div>

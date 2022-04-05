@@ -54,6 +54,7 @@ function tooltipContent(ys: any) {
 	};
 }
 
+//takes in props of svg vs canvas and the data set
 class AreaChart extends React.Component<any, any> {
 	render() {
 		const { data, type, width, ratio } = this.props;
@@ -80,6 +81,7 @@ class AreaChart extends React.Component<any, any> {
 			.accessor((d: any) => d.ema50);
 
 		return (
+			//The actual chart, xExtents contains parameter for date interval
 			<ChartCanvas
 				ratio={ratio}
 				width={width}
@@ -92,7 +94,7 @@ class AreaChart extends React.Component<any, any> {
 				xScale={scaleTime()}
 				panEvent={false}
 				zoomEvent={false}
-				xExtents={[new Date(2015, 0, 1), new Date(2016, 0, 2)]}>
+				xExtents={[new Date(2015, 0, 1), new Date(2016, 0, 2)]} >
 				<Chart id={0} yExtents={(d: any) => d.close}>
 					{/* This sets the gradient for the area under the line */}
 					<defs>

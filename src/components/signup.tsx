@@ -121,6 +121,7 @@ export type SignupFormProps = {
 export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps> {
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');
+	//for toggling password to be visible to the user
 	const [showPassword, setShowPassword] = useState(false);
 	const [showPassword1, setShowPassword1] = useState(false);
 
