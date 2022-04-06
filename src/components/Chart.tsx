@@ -94,7 +94,7 @@ class AreaChart extends React.Component<any, any> {
 				xScale={scaleTime()}
 				panEvent={false}
 				zoomEvent={false}
-				xExtents={[new Date(2015, 0, 1), new Date(2016, 0, 2)]} >
+				xExtents={[new Date(2015, 0, 1), new Date(2016, 0, 2)]}>
 				<Chart id={0} yExtents={(d: any) => d.close}>
 					{/* This sets the gradient for the area under the line */}
 					<defs>

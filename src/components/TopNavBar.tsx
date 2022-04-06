@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import logo from '../images/logo.png';
 import '../css/TopNavBar.css';
 
