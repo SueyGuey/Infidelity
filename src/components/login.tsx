@@ -18,7 +18,7 @@ function Login(): ReactElement {
 	const [showVerification, setVerification] = useState(false);
 	const [cogUser, setCogUser] = useState<CognitoUser>();
 	const [showPassword, setShowPassword] = useState(false);
-	
+
 	const navigate = useNavigate();
 	const context = useContext(AccountContext);
 	const authenticate = context.authenticate;
@@ -32,9 +32,7 @@ function Login(): ReactElement {
 			.catch((err: Error) => {
 				const errorMessage = err.message;
 				if (errorMessage === 'Incorrect username or password.') {
-					setErrStatus(
-						"Incorrect username or password"
-					);
+					setErrStatus('Incorrect username or password');
 					const e = document.getElementsByClassName(
 						'loginFooter'
 					) as HTMLCollectionOf<HTMLElement>;
@@ -49,7 +47,7 @@ function Login(): ReactElement {
 					setCogUser(newCogUser);
 					setVerification(true);
 				} else {
-					setErrStatus("Error logging in.")
+					setErrStatus('Error logging in.');
 					console.error(err);
 				}
 			});
@@ -62,7 +60,7 @@ function Login(): ReactElement {
 			username={username}
 			password={password}></SignupVerification>
 	) : (
-		<div className='login-container'>
+		<div className="login-container">
 			<TextField
 				className="text-field"
 				id="login-username-field"
@@ -74,31 +72,30 @@ function Login(): ReactElement {
 				className="text-field"
 				id="outlined"
 				label="Password"
-				type={showPassword ? "text" : "password"}
+				type={showPassword ? 'text' : 'password'}
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
-				InputProps={{ // <-- This is where the toggle button is added.
+				InputProps={{
+					// <-- This is where the toggle button is added.
 					endAdornment: (
 						<InputAdornment position="end">
 							<IconButton
 								aria-label="toggle password visibility"
-								onClick={() => setShowPassword(!showPassword)}
-							>
-							{showPassword ? <Visibility /> : <VisibilityOff />}
+								onClick={() => setShowPassword(!showPassword)}>
+								{showPassword ? <Visibility /> : <VisibilityOff />}
 							</IconButton>
 						</InputAdornment>
-					)
-				  }}
-				/>
+					),
+				}}
+			/>
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
 				</div>
 			)}
-			<Button
-				className="login-button"
-				variant="contained"
-				onClick={handleSubmit}>Log In</Button>
+			<Button className="login-button" variant="contained" onClick={handleSubmit}>
+				Log In
+			</Button>
 		</div>
 	);
 }

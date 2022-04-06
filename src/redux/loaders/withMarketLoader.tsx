@@ -38,12 +38,14 @@ export default function withMarketLoader<PropType>(
 			case 'error':
 				return <ErrorPage message={marketData.errorMessage} />;
 			case 'success':
-				return <ReactComponent
+				return (
+					<ReactComponent
 						marketData={marketData.data as Tradeable[]}
 						searchMarket={(query: string) => dispatch(searchMarket(query))}
 						getTradeable={(symbol: string) => dispatch(fetchTradeable(symbol))}
 						{...props}
-					/>;
+					/>
+				);
 			default:
 				return <></>;
 		}

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import { AnyAction } from 'redux';
 import { Tradeable } from '../../datamodels/Portfolio';
 import { Action } from '../actions/types';

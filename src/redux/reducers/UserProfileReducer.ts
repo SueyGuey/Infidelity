@@ -1,4 +1,3 @@
-/* eslint-disable import/no-anonymous-default-export */
 import { AnyAction } from 'redux';
 import User from '../../datamodels/User';
 import { Action } from '../actions/types';

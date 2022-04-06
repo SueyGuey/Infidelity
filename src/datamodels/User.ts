@@ -1,7 +1,7 @@
-import { JSONData } from "./misc";
-import Portfolio from "./Portfolio";
-import { jsonToPortfolio, portfolioToJson } from "./Portfolio";
-import Watchlist, { jsonToWatchlist, watchlistToJson } from "./Watchlist";
+import { JSONData } from './misc';
+import Portfolio from './Portfolio';
+import { jsonToPortfolio, portfolioToJson } from './Portfolio';
+import Watchlist, { jsonToWatchlist, watchlistToJson } from './Watchlist';
 
 export default interface User {
 	username: string;
@@ -29,4 +29,4 @@ export function jsonToUser(data: JSONData<User>): User {
 export type NewUserInfo = {
 	username: string;
 	email: string;
-}
+};

@@ -29,6 +29,7 @@
   display: flex;
 }
 
+/* tabs in charge of toggling between login/sign up */
 .tabs {
   font-size: .78vw;
   border-top-right-radius: .5vw;
