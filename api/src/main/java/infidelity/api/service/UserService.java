@@ -3,7 +3,6 @@ package infidelity.api.service;
 import infidelity.api.data.Portfolio;
 import infidelity.api.data.User;
 import infidelity.api.data.Watchlist;
-import infidelity.api.data.model.UserData;
 import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
 import infidelity.api.data.repository.WatchlistRepository;
@@ -14,7 +13,6 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminDeleteUserRequest;
 
-import javax.sound.sampled.Port;
 import java.util.Optional;
 
 @Service

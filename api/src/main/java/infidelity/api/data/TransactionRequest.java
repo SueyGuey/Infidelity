@@ -1,6 +1,6 @@
 package infidelity.api.data;
 
-import lombok.*;
+import lombok.Getter;
 
 @Getter
 public class TransactionRequest {

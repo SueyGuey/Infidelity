@@ -1,6 +1,9 @@
 package infidelity.api.service;
 
-import infidelity.api.data.*;
+import infidelity.api.data.ChangingNumber;
+import infidelity.api.data.Company;
+import infidelity.api.data.Stock;
+import infidelity.api.data.Tradeable;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
@@ -8,14 +11,10 @@ import infidelity.api.stockdata.FinnHubMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mapping.TraversalContext;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static infidelity.api.utils.PropertyUtils.updateProperty;
 
 @Service
 @Slf4j

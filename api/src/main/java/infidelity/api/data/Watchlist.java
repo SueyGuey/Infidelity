@@ -1,9 +1,11 @@
 package infidelity.api.data;
 
 import lombok.*;
-import org.hibernate.annotations.ManyToAny;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
