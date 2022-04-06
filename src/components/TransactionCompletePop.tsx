@@ -12,7 +12,7 @@ function TransactionCompletePop(props: WithUserProfileLoaderProps & {buy: any}):
 		<div className = "buySellConfirmationPopUp">
             {/* <div><button className = "x">X</button></div> */}
             <div className = "sellContainer">
-            <p className = "totalEst">Congratulations! You have sold: <br/> <p className = "estValue">###,###</p> Shares of {}</p>
+            {buyOrSellConfirm(props.buy)}
                 <p>At <p className = "estValue"> $###.##</p> per share</p>
                 <p>Totaling: <p className = "estValue"> $###,###.##</p> infiDollars</p>
                 <button className = "doClose">Keep Trading</button>
