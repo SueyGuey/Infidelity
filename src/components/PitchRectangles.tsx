@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import '../css/PitchRectangles.css';
 import one from '../images/pitchOne.png';
 import two from '../images/pitchTwo.png';

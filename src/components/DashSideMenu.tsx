@@ -66,7 +66,12 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 						</ul>
 					</li>
 					<li className="menuTypeHeader">
-						<p>My Watchlists</p>
+						<p>
+							My Watchlists
+							<button className="addWatchlistButton">
+								<p>+</p>
+							</button>
+						</p>
 						<ul>
 							{watchlists.map((watchlist) => (
 								<li className="menuItem" key={watchlist.watchlistId}>

@@ -12,6 +12,7 @@ function StockDashTop(
 	props: WithUserProfileLoaderProps & WithMarketLoaderProps & { symbol: string }
 ): ReactElement {
 	const stock = props.marketData.find((stock) => stock.symbol === props.symbol);
+	//Displays placeholder text if stock is not found
 	const price = stock ? stock.currentPrice.value.toFixed(2) : '###.##';
 	return (
 		<div className="DashTopContain">
