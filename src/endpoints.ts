@@ -3,7 +3,7 @@ import { NewUserInfo } from './datamodels/User';
 
 enum Backend {
 	Local = 'http://localhost:8080',
-	Production = 'http://infibackend1-env.eba-tmqnrspg.us-east-1.elasticbeanstalk.com',
+	Production = 'https://api.infidelity.trade',
 }
 
 const BACKEND_URL = Backend.Production;
