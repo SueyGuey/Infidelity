@@ -14,6 +14,9 @@ function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 	return (
 		<div className="DashTopContain">
 			<div className="ActivePortfolio">
+				<button className="newPortfolioButton">
+					<p>+</p>
+				</button>
 				<p>Active Portfolio:</p>
 				<select className="selectPortfolio">
 					{portfolios.map((portfolio) => (

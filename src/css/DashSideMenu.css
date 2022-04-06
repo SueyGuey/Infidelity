@@ -88,3 +88,13 @@
     width: 100%;
     background-color: #f0f0f0;
 }
+
+.addWatchlistButton{
+    margin-left: 1.5vw;
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 1vw;
+}
+
+.addWatchlistButton p{
+    font-family: Arsenal-Bold;
+}

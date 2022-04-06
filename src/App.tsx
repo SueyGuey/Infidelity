@@ -10,6 +10,9 @@ import Dashboard from './components/dashboard';
 import Home from './components/home';
 import './App.css';
 import StockDash from './components/StockDash';
+import TransactionCompletePop from './components/TransactionCompletePop';
+import AddWatchlistPop from './components/AddWatchlistPop';
+import AddPortfolioPop from './components/AddPortfolioPop';
 import BuySellPopup from './components/BuySellPopup';
 
 function App() {
@@ -26,6 +29,16 @@ function App() {
 						{/* FOR TESTING */}
 						<Route path="/popUp/0" element={<BuySellPopup buy={item || 0} />} />
 						<Route path="/popUp/1" element={<BuySellPopup buy={item || 1} />} />
+						<Route
+							path="/popUp/2"
+							element={<TransactionCompletePop buy={item || 0} />}
+						/>
+						<Route
+							path="/popUp/3"
+							element={<TransactionCompletePop buy={item || 1} />}
+						/>
+						<Route path="/popUp/4" element={<AddPortfolioPop />} />
+						<Route path="/popUp/5" element={<AddWatchlistPop />} />
 						{/* for testing end. */}
 						<Route
 							path="/dashboard"

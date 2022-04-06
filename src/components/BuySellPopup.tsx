@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
-import DashSideMenu from './DashSideMenu';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
@@ -16,8 +15,17 @@ type BuySellProps = {
 function BuySellPopup(props: BuySellProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
-	const { active } = useParams();
-	return user ? <div className="buySellPopUp">{buyOrSell(props.buy)}</div> : <Navigate to="/" />;
+	const { _active } = useParams();
+	return user ? (
+		<div className="buySellPopUp">
+			<div>
+				<button className="x">X</button>
+			</div>
+			{buyOrSell(props.buy)}
+		</div>
+	) : (
+		<Navigate to="/" />
+	);
 }
 
 function buyOrSell(isBuy: number) {
