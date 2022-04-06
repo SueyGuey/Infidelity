@@ -50,7 +50,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & {active: string}): Rea
                             <li id = "summary" className = "menuItem" onClick = {() => navigate(`/dashboard/summary`)}><p>Summary</p></li>
                         </ul>
                     </li>
-                    <li className = "menuTypeHeader"><p>My Watchlists</p>
+                    <li className = "menuTypeHeader"><p>My Watchlists<button className = "addWatchlistButton"><p>+</p></button></p>
                         <ul>
                             {watchlists.map((watchlist) =>
                                 <li className = "menuItem"
