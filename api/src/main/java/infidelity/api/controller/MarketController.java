@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Endpoint for stock market data
+ * REST api controller for stock market data, company information, stock and cryptocurrency
+ * prices, and historical data requests from the frontend. This data is not protected by the same
+ * authentication layer as /users/ endpoints, so users don't need to be logged in to see market information.
+ * This allows us to display charts and prices for popular tickers on the landing page of the frontend.
  */
 @RestController
 @RequestMapping(path = "/market")

@@ -14,7 +14,9 @@ import java.util.Optional;
  * REST api controller for User-related requests. Handles user creation,
  * user data retrieval, and user deletion requests from the frontend.
  *
- * These requests are protected by Cognito
+ * These requests are protected by a layer of authentication such that
+ * Bearer tokens are required in the request header or else a 403 Forbidden
+ * error will be returned.
  */
 @RestController
 @RequestMapping(path = "/user")
