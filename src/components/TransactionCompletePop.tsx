@@ -10,6 +10,7 @@ function TransactionCompletePop(props: WithUserProfileLoaderProps & {buy: any}):
 	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className = "buySellConfirmationPopUp">
+            {/* <div><button className = "x">X</button></div> */}
             <div className = "sellContainer">
             <p className = "totalEst">Congratulations! You have sold: <br/> <p className = "estValue">###,###</p> Shares of {}</p>
                 <p>At <p className = "estValue"> $###.##</p> per share</p>

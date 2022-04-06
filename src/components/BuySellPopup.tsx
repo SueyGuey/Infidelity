@@ -13,6 +13,7 @@ function BuySellPopup(props: WithUserProfileLoaderProps & {buy: any}): ReactElem
 	let { active } = useParams();
 	return user ? (
 		<div className = "buySellPopUp">
+            <div><button className = "x">X</button></div>
             {buyOrSell(props.buy)}
 		</div>
 	) : <Navigate to="/"/>;

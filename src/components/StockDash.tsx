@@ -21,7 +21,7 @@ function StockDash(props: WithUserProfileLoaderProps): ReactElement {
 			<StockDashTop symbol={symbol || 'AAPL'}/>
 			<StockDashBottom symbol={symbol || 'AAPL'}/>
 			{/* <div className = "buyPopup"><BuySellPopup buy = {item || 1}/></div> */}
-			{/* <div className = "sellPopup"><BuySellPopup buy = {item || 0}/></div> */}
+			<div className = "sellPopup"><BuySellPopup buy = {item || 0}/></div>
 		</div>
 	) : <Navigate to="/"/>;
 }

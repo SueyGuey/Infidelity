@@ -24,6 +24,17 @@
     border-radius: .5vw;
 }
 
+.x{
+    position: absolute;
+    right: 0.5vw;
+    top: 0.5vw;
+    width: 1.5vw;
+    height: 1.5vw;
+    border-radius: 1vw;
+    background-color: #d0d0d0;
+    color: black;
+}
+
 .sharePrompt{
     font-family: Arsenal-Bold;
     margin-top: 1vw;
@@ -53,7 +64,7 @@
     width: 10vw;
     height: 2vw;
     border-radius: 4vw;
-    font-family: Arsenal-Bold;
+    font-family: Arsenal-Regular;
     font-size: 1.5vw;
 }   
 
@@ -65,7 +76,7 @@
     width: 10vw;
     height: 2vw;
     border-radius: 4vw;
-    font-family: Arsenal-Bold;
+    font-family: Arsenal-Regular;
     font-size: 1.5vw;
 }
 
@@ -76,7 +87,7 @@
     width: 10vw;
     height: 2vw;
     border-radius: 4vw;
-    font-family: Arsenal-Bold;
+    font-family: Arsenal-Regular;
     font-size: 1.5vw;
 }   
 
@@ -92,4 +103,27 @@
     border-radius: .5vw;
     padding-top: 1vw;
     background-color: #e0e0e0;
+}
+
+.watchNamePrompt{
+    font-family: Arsenal-Bold;
+    margin-top: 2.3vw;
+    margin-left: -1vw;
+    margin-bottom: 1vw;
+}
+
+.watchNamePrompt + .confirmContain{
+    margin-left: -1.5vw;
+}
+
+.portNamePrompt{
+    margin-top: 1vw;
+    margin-left: 1.62vw;
+    font-family: Arsenal-Bold;
+    margin-bottom: 0.5vw;
+}
+
+.balanceStartPrompt{
+    font-family: Arsenal-Bold;
+    margin-bottom: 1vw;
 }
