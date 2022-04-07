@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @ToString
-public class FinnHubMessage {
+public class FHPriceMessage {
     private List<PriceMessage> data;
     private String type;
 

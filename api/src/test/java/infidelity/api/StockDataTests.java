@@ -1,14 +1,11 @@
 package infidelity.api;
 
 import infidelity.api.stockdata.FinnHub;
-import infidelity.api.stockdata.FinnHubMessage;
-import infidelity.api.stockdata.FHMessageDecoder;
+import infidelity.api.stockdata.FHPriceDecoder;
 import infidelity.api.stockdata.WebsocketClientEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.websocket.DeploymentException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -25,7 +22,7 @@ public class StockDataTests {
 
     private final String maybeAnotherAPI = "wss://real.okcoin.cn:10440/websocket/okcoinapi";
 
-    private final FHMessageDecoder decoder = new FHMessageDecoder();
+    private final FHPriceDecoder decoder = new FHPriceDecoder();
 
     private final FinnHub fh = new FinnHub();
 
@@ -78,5 +75,20 @@ public class StockDataTests {
         for (String symbol : symbols) {
             System.out.println(fh.getInfo(symbol));
         }
+    }
+
+    @Test
+    void testFinnHubListExchange() {
+        FinnHub fh = new FinnHub();
+        List<String> totalSymbols = fh.listExchange();
+        assertThat(totalSymbols).hasSizeGreaterThan(1000);
+        log.info("Total stock symbols: " + totalSymbols.size());
+    }
+
+    @Test
+    void testFinnHubCompanyProfile() {
+        FinnHub fh = new FinnHub();
+        String symbol = "AAPL";
+        fh.getCompanyProfile(symbol);
     }
 }

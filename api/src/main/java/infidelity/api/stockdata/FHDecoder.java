@@ -4,14 +4,18 @@ import com.google.gson.Gson;
 
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
+import java.lang.reflect.ParameterizedType;
 
-public class FHSymbolDecoder implements Decoder.Text<FHSymbolResponse[]> {
+public abstract class FHDecoder<T> implements Decoder.Text<T> {
 
     private static final Gson gson = new Gson();
 
     @Override
-    public FHSymbolResponse[] decode(String s) {
-        return gson.fromJson(s, FHSymbolResponse[].class);
+    @SuppressWarnings("unchecked")
+    public T decode(String s) {
+        Class<T> type = ((Class<T>) ((ParameterizedType) getClass()
+                .getGenericSuperclass()).getActualTypeArguments()[0]);
+        return gson.fromJson(s, type);
     }
 
     @Override

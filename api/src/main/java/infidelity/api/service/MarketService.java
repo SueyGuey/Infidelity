@@ -8,7 +8,7 @@ import infidelity.api.data.repository.ChangingNumberRepository;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
-import infidelity.api.stockdata.FinnHubMessage;
+import infidelity.api.stockdata.FHPriceMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class MarketService {
      * @see Tradeable#symbol
      */
     public ChangingNumber getCurrentPrice(String symbol) {
-         FinnHubMessage.PriceMessage message = fh.getInfo(symbol);
+         FHPriceMessage.PriceMessage message = fh.getInfo(symbol);
          long now = DateTime.now().getMillis();
          if (now - message.getTimestamp() > 5000) {
              message = fh.fetchInfo(symbol);

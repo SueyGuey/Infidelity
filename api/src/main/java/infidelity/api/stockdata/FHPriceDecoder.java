@@ -5,13 +5,13 @@ import com.google.gson.Gson;
 import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 
-public class FHMessageDecoder implements Decoder.Text<FinnHubMessage> {
+public class FHPriceDecoder implements Decoder.Text<FHPriceMessage> {
 
     private static final Gson gson = new Gson();
 
     @Override
-    public FinnHubMessage decode(String s) {
-        return gson.fromJson(s, FinnHubMessage.class);
+    public FHPriceMessage decode(String s) {
+        return gson.fromJson(s, FHPriceMessage.class);
     }
 
     @Override
@@ -21,11 +21,11 @@ public class FHMessageDecoder implements Decoder.Text<FinnHubMessage> {
 
     @Override
     public void init(EndpointConfig endpointConfig) {
-        // Custom initialization logic
+        // no-op
     }
 
     @Override
     public void destroy() {
-        // Close resources
+        // no-op
     }
 }

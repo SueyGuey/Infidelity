@@ -1,23 +1,17 @@
 package infidelity.api.stockdata;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import infidelity.api.data.Company;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
-import javax.websocket.DeploymentException;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -27,7 +21,7 @@ public class FinnHub {
     private final String FINNHUB_ENDPOINT = "https://finnhub.io/api/v1/webhook/add?token=";
 
     private WebsocketClientEndpoint clientEndpoint;
-    private final FHMessageDecoder decoder = new FHMessageDecoder();
+    private final FHPriceDecoder decoder = new FHPriceDecoder();
     private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
 
     private WebsocketStompClient stompClient;
@@ -35,11 +29,11 @@ public class FinnHub {
     /**
      * Map of all most recently updated prices
      */
-    private Map<String, FinnHubMessage.PriceMessage> info = new HashMap<>();
+    private Map<String, FHPriceMessage.PriceMessage> info = new HashMap<>();
 
     public FinnHub() {
         // BELOW IS WEBSOCKET CODE
-        //*
+        /*
         try {
             // open websocket
             clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + FINNHUB_KEYS[0]));
@@ -66,12 +60,12 @@ public class FinnHub {
 
     private void handleMessage(String messageStr) {
         if (!decoder.willDecode(messageStr)) return;
-        FinnHubMessage message = decoder.decode(messageStr);
+        FHPriceMessage message = decoder.decode(messageStr);
         System.out.println(message);
-        List<FinnHubMessage.PriceMessage> data = message.getData();
+        List<FHPriceMessage.PriceMessage> data = message.getData();
         if (data.isEmpty()) return;
         // only use the most recent update
-        FinnHubMessage.PriceMessage mostRecent = data.get(data.size() - 1);
+        FHPriceMessage.PriceMessage mostRecent = data.get(data.size() - 1);
         info.put(mostRecent.getSymbol(), mostRecent);
     }
 
@@ -89,17 +83,17 @@ public class FinnHub {
         return info.containsKey(symbol) && info.get(symbol) != null;
     }
 
-    public FinnHubMessage.PriceMessage getInfo(String symbol) {
+    public FHPriceMessage.PriceMessage getInfo(String symbol) {
         if (info.containsKey(symbol)) {
             return info.get(symbol);
         } else {
-            FinnHubMessage.PriceMessage message = fetchInfo(symbol);
+            FHPriceMessage.PriceMessage message = fetchInfo(symbol);
             info.put(symbol, message);
             return message;
         }
     }
 
-    public FinnHubMessage.PriceMessage fetchInfo(String symbol) {
+    public FHPriceMessage.PriceMessage fetchInfo(String symbol) {
         double currentPrice = 40 + Math.random() * 300;
         if (info.containsKey(symbol)) {
             currentPrice = info.get(symbol).getPrice();
@@ -107,10 +101,10 @@ public class FinnHub {
         long now = DateTime.now().getMillis();
         double price = currentPrice + (Math.random() - 0.5) * 0.2 + Math.random() * 0.02;
         double volume = 4275;
-        return new FinnHubMessage.PriceMessage(symbol, price, now, volume);
+        return new FHPriceMessage.PriceMessage(symbol, price, now, volume);
     }
 
-    public void doThing(String symbol) {
+    public void getPrice1(String symbol) {
         try {
             var values = new HashMap<String, String>() {{
                 put("event", "earnings");
@@ -140,28 +134,62 @@ public class FinnHub {
         // standard http connection
     }
 
+    /**
+     * Lists all available symbols in the US stock market.
+     * Takes about 4 seconds to complete when just returning common stocks.
+     * @return
+     */
     public List<String> listExchange() {
-        String url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&currency=USD&token=c8oia22ad3iatn99l4u0";
+        String url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&currency=USD&securityType=Common%20Stock&token=" + FINNHUB_KEYS[0];
         List<String> results = new ArrayList<>();
+        Set<String> types = new HashSet<>();
         try {
-            HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-            con.setRequestMethod("GET");
-            System.out.println(con.getContentLength());
-            System.out.println(con.getContent());
-            String response = con.getResponseMessage();
-            if (!symbolDecoder.willDecode(response)) {
-                log.error("Error parsing response {}", response);
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            String body = response.body();
+
+            if (!symbolDecoder.willDecode(body)) {
+                log.error("Error parsing response {}", body);
             } else {
-                List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(response));
-                for (int i = 0; i < 10; i++) {
-                    String symbol = symbols.get(i).getSymbol();
-                    System.out.println(symbol);
+                List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(body));
+                for (FHSymbolResponse entity : symbols) {
+                    String symbol = entity.getSymbol();
+                    String type = entity.getType();
+                    types.add(type);
                     results.add(symbol);
                 }
+                for (String type : types) {
+                    log.info("Type {}", type);
+                }
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return results;
+    }
+
+    public Company getCompanyProfile(String symbol) {
+        String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" + symbol + "&token=" + FINNHUB_KEYS[0];
+        Company company = null;
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            log.info("Status {}", response.statusCode());
+            String body = response.body();
+            log.info("Company Profile Response for {}:\n{}", symbol, body);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return company;
     }
 }
