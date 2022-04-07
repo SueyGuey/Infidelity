@@ -120,8 +120,40 @@
 
 .stockInformationItems{
     position: inherit;
-    border: solid;
+    padding-right:0.3vw;
+    padding-left: 0.7vw;
+    /*border: solid;*/
+    display: flex;
     bottom: 0;
     height: 75%;
     width: 100%;
+}
+
+.stockInfo-span{
+    position: inherit;
+    display: inline-block;
+    height: 100%;
+    width: 49%;
+    background-color: #E9E9E9;
+    margin-right: -1.5vw;
+}
+
+.stockInfo-span p{
+    font-family: Arsenal-Regular;
+    font-size: 1.5vw;
+    padding-bottom: .5vw;
+    padding-top: .5vw;
+    padding-left: 1vw;
+    border-bottom: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.20);
+    border-radius: .2vw;
+}
+
+.stockInfo-span .stockValue{
+    border-style: none;
+    display: inline;
+}
+
+.blue{
+    color: rgb(59, 42, 218);
 }

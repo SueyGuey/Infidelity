@@ -23,7 +23,7 @@ function StockDash(props: WithUserProfileLoaderProps): ReactElement {
 			<StockDashBottom symbol={symbol || 'AAPL'} />
 			{/* <div className = "buyPopup"><BuySellPopup buy = {item || 1}/></div> */}
 			<div className="sellPopup">
-				<BuySellPopup buy={item || 0} />
+				{/* <BuySellPopup buy={item || 0} /> */}
 			</div>
 		</div>
 	) : (
