@@ -1,7 +1,8 @@
 package infidelity.api;
 
+import infidelity.api.data.Company;
 import infidelity.api.stockdata.FinnHub;
-import infidelity.api.stockdata.FHPriceDecoder;
+import infidelity.api.stockdata.decode.FHPriceDecoder;
 import infidelity.api.stockdata.WebsocketClientEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -89,6 +90,8 @@ public class StockDataTests {
     void testFinnHubCompanyProfile() {
         FinnHub fh = new FinnHub();
         String symbol = "AAPL";
-        fh.getCompanyProfile(symbol);
+        Company company = fh.getCompanyProfile(symbol);
+        assertThat(company).isNotNull();
+        log.info("Company profile for " + symbol + ": " + company.toString());
     }
 }

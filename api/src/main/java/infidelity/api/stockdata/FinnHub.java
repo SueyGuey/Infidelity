@@ -2,6 +2,7 @@ package infidelity.api.stockdata;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import infidelity.api.data.Company;
+import infidelity.api.stockdata.decode.*;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class FinnHub {
     private WebsocketClientEndpoint clientEndpoint;
     private final FHPriceDecoder decoder = new FHPriceDecoder();
     private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
+    private final FHCompanyDecoder companyDecoder = new FHCompanyDecoder();
 
     private WebsocketStompClient stompClient;
 
@@ -184,9 +186,19 @@ public class FinnHub {
                     .build();
             HttpResponse<String> response = client.send(request,
                     HttpResponse.BodyHandlers.ofString());
-            log.info("Status {}", response.statusCode());
             String body = response.body();
-            log.info("Company Profile Response for {}:\n{}", symbol, body);
+
+            if (!companyDecoder.willDecode(body)) {
+                log.error("Error parsing response {}", body);
+            } else {
+                FHCompanyResponse companyData = companyDecoder.decode(body);
+                company = Company.builder()
+                        .name(companyData.getName())
+                        .industry(companyData.getFinnhubIndustry())
+                        .weburl(companyData.getWeburl())
+                        .country(companyData.getCountry())
+                        .build();
+            }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

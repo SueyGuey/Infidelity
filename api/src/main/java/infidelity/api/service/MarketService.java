@@ -8,7 +8,7 @@ import infidelity.api.data.repository.ChangingNumberRepository;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
-import infidelity.api.stockdata.FHPriceMessage;
+import infidelity.api.stockdata.decode.FHPriceMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;

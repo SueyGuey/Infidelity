@@ -1,4 +1,4 @@
-package infidelity.api.stockdata;
+package infidelity.api.stockdata.decode;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;

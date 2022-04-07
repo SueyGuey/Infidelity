@@ -1,4 +1,4 @@
-package infidelity.api.stockdata;
+package infidelity.api.stockdata.decode;
 
 import com.google.gson.Gson;
 
@@ -6,7 +6,7 @@ import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 import java.lang.reflect.ParameterizedType;
 
-public abstract class FHDecoder<T> implements Decoder.Text<T> {
+public abstract class BaseDecoder<T> implements Decoder.Text<T> {
 
     private static final Gson gson = new Gson();
 
@@ -19,9 +19,7 @@ public abstract class FHDecoder<T> implements Decoder.Text<T> {
     }
 
     @Override
-    public boolean willDecode(String s) {
-        return s != null && s.contains("\"symbol\"");
-    }
+    public abstract boolean willDecode(String s);
 
     @Override
     public void init(EndpointConfig endpointConfig) {
