@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.springframework.data.util.Pair;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.TreeMap;
@@ -34,7 +31,7 @@ public class NumberHistory {
      */
     @Builder.Default
     @ElementCollection
-    private NavigableMap<Long, Double> data = new TreeMap<>();
+    private Map<Long, Double> data = new TreeMap<>();
 
     /**
      * Search for the closest value to the given timestamp. If the timestamp is before the first
@@ -45,21 +42,29 @@ public class NumberHistory {
      * @return the closest timestamp to the given timestamp, and the value at that timestamp
      */
     public Pair<Long, Double> findValueAt(long timestamp) {
-        Long floorKey = data.floorKey(timestamp);
-        Long ceilingKey = data.ceilingKey(timestamp);
+        NavigableMap<Long, Double> orderedData;
+        if (data instanceof NavigableMap) {
+            System.out.println("data is a NavigableMap");
+            orderedData = (NavigableMap<Long, Double>) data;
+        } else {
+            System.out.println("data is not a NavigableMap");
+            orderedData = new TreeMap<>(data);
+        }
+        Long floorKey = orderedData.floorKey(timestamp);
+        Long ceilingKey = orderedData.ceilingKey(timestamp);
         // If the timestamp is before the first value, return the first value
         if (floorKey == null) {
-            return Pair.of(data.firstEntry().getKey(), data.firstEntry().getValue());
+            return Pair.of(orderedData.firstEntry().getKey(), orderedData.firstEntry().getValue());
         }
         // If the timestamp is after the last value, return the last value
         if (ceilingKey == null) {
-            return Pair.of(data.lastEntry().getKey(), data.lastEntry().getValue());
+            return Pair.of(orderedData.lastEntry().getKey(), orderedData.lastEntry().getValue());
         }
         // If the timestamp is between two values, return the value that is closest to the given timestamp
         if (Math.abs(timestamp - floorKey) < Math.abs(timestamp - ceilingKey)) {
-            return Pair.of(floorKey, data.get(floorKey));
+            return Pair.of(floorKey, orderedData.get(floorKey));
         } else {
-            return Pair.of(ceilingKey, data.get(ceilingKey));
+            return Pair.of(ceilingKey, orderedData.get(ceilingKey));
         }
     }
 }
