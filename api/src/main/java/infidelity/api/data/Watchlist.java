@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * A watchlist is a list of stocks that a user has subscribed to and can view easily on their dashboard.
+ * A User can have multiple watchlists and add stocks, cryptocurrencies, and ETFs to their watchlists.
+ */
 @Entity
 @Getter
 @Setter

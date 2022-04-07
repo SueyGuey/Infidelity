@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * A collection of generally static information about a company
+ * A collection of generally static information about a company. This is used to display information about the company
+ * to the user in the frontend when they are viewing the company's stock page.
+ * @see Stock
  */
 @Entity
 @Getter
