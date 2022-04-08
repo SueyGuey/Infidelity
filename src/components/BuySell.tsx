@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Button from '@mui/material/Button';
 import '../css/BuySell.css';
 import withUserProfileLoader, {
@@ -18,7 +18,19 @@ function BuySell(
 	const tradeable = props.marketData.find((item) => item.symbol === props.symbol);
 	const price = tradeable ? tradeable.currentPrice.value : 0;
 	const { buy } = useParams();
+	const [popUp, setPopUp] = useState(-1);
+
+	const popUpRender = function popUpRender(item: any, popUp: number){
+		if(popUp === -1){
+			return(<div></div>);
+		}else{
+			return(<div className = "popUpContainer"><button className="x-button" onClick={()=> setPopUp(-1)}>X</button><BuySellPopup buy = {item || popUp}/></div>);
+		}	
+	}
+
 	return (
+		<div id = "whole">
+			{popUpRender(buy, popUp)}
 		<span className="bottomSpan buySell">
 			<div className="spanCap">
 				<p>Buy/Sell</p>
@@ -31,22 +43,19 @@ function BuySell(
 					Valued At: <p className="stockValue">${(quantity * price).toFixed(5)}</p>
 				</p>
 				<div>
-					<button className="buyButton" onClick={() => buyStockPopUp(buy, 1)}>
+					<button className="buyButton" onClick={() => setPopUp(1)}>
 						Buy
 					</button>
 				</div>
 				<div>
-					<button className="sellButton" onClick={() => buyStockPopUp(buy, 0)}>
+					<button className="sellButton" onClick={() => setPopUp(0)}>
 						Sell
 					</button>
 				</div>
 			</div>
-		</span>
+		</span></div>
 	);
 }
 
-function buyStockPopUp(buy: any, isBuy: any) {
-	return <BuySellPopup buy={buy || isBuy} />;
-}
-
 export default withMarketLoader(withUserProfileLoader(BuySell));
+

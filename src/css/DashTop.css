@@ -166,3 +166,13 @@
     margin-left: .6vw;
     margin-top: -1.2vw;
 }
+
+.addToWatchlistButton{
+    background-color: #e0e0e0;
+    margin-left: 0.3vw;
+    margin-right: 0.4vw;
+    width: 1.5vw;
+    border-radius: 1vw;
+    aspect-ratio: 1/1;
+
+}

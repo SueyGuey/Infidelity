@@ -19,7 +19,7 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 	return user ? (
 		<div className="buySellPopUp">
 			<div>
-				<button className="x">X</button>
+				{/* <button className="x">X</button> */}
 			</div>
 			{buyOrSell(props.buy)}
 		</div>
