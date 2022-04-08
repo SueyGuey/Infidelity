@@ -9,23 +9,25 @@ import '../css/Dashboard.css';
 import '../css/BuySellPopUp.css';
 import { Checkbox } from '@mui/material';
 
-function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
+function AddToWatchlist(props: WithUserProfileLoaderProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
+	const watchlists = Array.from(props.userProfile.watchlists);
 	return user ? (
 		<div className="buySellPopUp">
 			<div className="sellContainer">
-				<p className="portNamePrompt">
-					Name of Portfolio: <input className="toSellInput"></input>
+				<p className="watchNamePrompt">
+					Add To Watchlist:
+					<select className="watchSelect" multiple>
+						{watchlists.map((watchlist) => (
+							<option value={watchlist.name} key={watchlist.watchlistId}>
+								{watchlist.name}
+							</option>
+						))}
+					</select>
 				</p>
-				<p className="balanceStartPrompt">
-					Enter Initial Balance: <input className="toSellInput"></input>
-				</p>
-				<div className="confirmContain">
-					<Checkbox />
-					<p className="confirmText">Confirm</p>
-				</div>
-				<button className="doBuy">Create</button>
+				<p className="selectWatchTxt">(Hold ctrl to add to multiple watchlists)</p>
+				<button className="watchAdj">Add</button>
 			</div>
 		</div>
 	) : (
@@ -33,4 +35,4 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 	);
 }
 
-export default withUserProfileLoader(AddPortfolioPop);
+export default withUserProfileLoader(AddToWatchlist);

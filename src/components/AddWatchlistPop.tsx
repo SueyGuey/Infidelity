@@ -14,9 +14,6 @@ function AddWatchListPop(props: WithUserProfileLoaderProps): ReactElement {
 	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className="buySellPopUp">
-			<div>
-				<button className="x">X</button>
-			</div>
 			<div className="sellContainer">
 				<p className="watchNamePrompt">
 					Name of Watchlist: <input className="toSellInput"></input>

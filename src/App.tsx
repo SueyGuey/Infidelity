@@ -14,6 +14,7 @@ import TransactionCompletePop from './components/TransactionCompletePop';
 import AddWatchlistPop from './components/AddWatchlistPop';
 import AddPortfolioPop from './components/AddPortfolioPop';
 import BuySellPopup from './components/BuySellPopup';
+import AddToWatchList from './components/AddToWatchList';
 
 function App() {
 	const loggedIn = userPool.getCurrentUser() !== null;
@@ -39,6 +40,7 @@ function App() {
 						/>
 						<Route path="/popUp/4" element={<AddPortfolioPop />} />
 						<Route path="/popUp/5" element={<AddWatchlistPop />} />
+						<Route path="/popUp/6" element={<AddToWatchList />} />
 						{/* for testing end. */}
 						<Route
 							path="/dashboard"
