@@ -120,7 +120,9 @@
 
 .sharePrompt input{
     border-radius: 1vw;
-    border: none;
+    border-style: double;
+    border-color: rgba(140,140,140,.5);
     margin-top: .25vw;
     width: 10vw;
+    background-color: rgba(240,240,240,1);
 }
