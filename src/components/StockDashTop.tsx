@@ -20,6 +20,7 @@ function StockDashTop(
 				<div className="stockGraph">
 					<div className="graph" id="graph-container">
 						<p className="portfolioName">
+							<button className="addToWatchlistButton">+W</button>
 							{props.symbol}: <p className="stockValue">${price}</p>
 						</p>
 						<StockGraph symbol={props.symbol} />
