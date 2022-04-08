@@ -35,7 +35,7 @@ public class WebsocketClientEndpoint {
      */
     @OnOpen
     public void onOpen(Session userSession) {
-        log.info("opening websocket");
+        log.info("New session opened: {}", userSession.getId());
         this.session = userSession;
         if (this.openHandler != null) {
             this.openHandler.handleOpen();
@@ -50,12 +50,15 @@ public class WebsocketClientEndpoint {
      */
     @OnClose
     public void onClose(Session userSession, CloseReason reason) {
-        log.info("closing websocket");
-        this.session = null;
+        log.info("Session " + userSession.getId() + " closed because of " + reason.getReasonPhrase());
+        if (userSession.getId().equals(this.session.getId())) {
+            this.session = null;
+        }
     }
 
     @OnError
     public void onError(Session session, Throwable t) {
+        log.error("Error in websocket connection session {}: {}", session.getId(), t.getMessage());
         t.printStackTrace();
     }
 
@@ -64,6 +67,7 @@ public class WebsocketClientEndpoint {
      */
     @OnMessage
     public void onMessage(String message) {
+        log.info("Received message (session id {}): {}", this.session.getId(), message);
         if (this.messageHandler != null) {
             this.messageHandler.handleMessage(message);
         }
@@ -82,6 +86,7 @@ public class WebsocketClientEndpoint {
      * Send a message.
      */
     public void sendMessage(String message) {
+        log.info("Sending message (session id {}): {}", this.session.getId(), message);
         this.session.getAsyncRemote().sendText(message);
     }
 

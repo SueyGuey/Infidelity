@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
+import javax.websocket.DeploymentException;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -26,6 +28,8 @@ public class FinnHub {
     private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
     private final FHCompanyDecoder companyDecoder = new FHCompanyDecoder();
 
+    private Set<String> subscribedSymbols = new HashSet<>();
+
     private WebsocketStompClient stompClient;
 
     /**
@@ -34,17 +38,18 @@ public class FinnHub {
     private Map<String, FHPriceMessage.PriceMessage> info = new HashMap<>();
 
     public FinnHub() {
+        log.info("Initializing FinnHub");
         // BELOW IS WEBSOCKET CODE
-        /*
+        //*
         try {
             // open websocket
             clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + FINNHUB_KEYS[0]));
-            // add listener
-            clientEndpoint.addMessageHandler(FinnHub.this::handleMessage);
+            clientEndpoint.addMessageHandler(this::handleMessage);
         } catch (URISyntaxException e) {
             log.error("URISyntaxException exception: " + e.getMessage());
         } catch (Exception e) {
             if (e instanceof DeploymentException) {
+                log.error("DeploymentException exception: " + e.getMessage());
                 try {
                     clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_ENDPOINT + FINNHUB_KEYS[1]));
                 } catch (URISyntaxException ure) {
@@ -61,6 +66,7 @@ public class FinnHub {
     }
 
     private void handleMessage(String messageStr) {
+//        log.info("Received message: \"" + messageStr.substring(0, Math.min(messageStr.length(), 20)) + "...\"");
         if (!decoder.willDecode(messageStr)) return;
         FHPriceMessage message = decoder.decode(messageStr);
         System.out.println(message);
@@ -77,8 +83,10 @@ public class FinnHub {
      */
     public void subscribe(String symbol) {
         String subMsg = String.format("{\"type\":\"subscribe\",\"symbol\":\"%s\"}", symbol);
-        if (clientEndpoint != null)
+        if (clientEndpoint != null) {
             clientEndpoint.sendMessage(subMsg);
+            subscribedSymbols.add(symbol);
+        }
     }
 
     public boolean hasData(String symbol) {
@@ -96,40 +104,35 @@ public class FinnHub {
     }
 
     public FHPriceMessage.PriceMessage fetchInfo(String symbol) {
-        double currentPrice = 40 + Math.random() * 300;
-        if (info.containsKey(symbol)) {
-            currentPrice = info.get(symbol).getPrice();
+        if (!subscribedSymbols.contains(symbol)) {
+            subscribe(symbol);
         }
-        long now = DateTime.now().getMillis();
-        double price = currentPrice + (Math.random() - 0.5) * 0.2 + Math.random() * 0.02;
-        double volume = 4275;
-        return new FHPriceMessage.PriceMessage(symbol, price, now, volume);
+        while(!hasData(symbol)) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return info.get(symbol);
     }
 
-    public void getPrice1(String symbol) {
+    public FHPriceMessage.PriceMessage getPrice1(String symbol) {
+        String url = String.format("https://finnhub.io/api/v1/quote?symbol=%s&token=%s", symbol, FINNHUB_KEYS[0]);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .build();
         try {
-            var values = new HashMap<String, String>() {{
-                put("event", "earnings");
-                put("symbol", symbol);
-            }};
-
-            var objectMapper = new ObjectMapper();
-            String requestBody = objectMapper
-                    .writeValueAsString(values);
-
-            HttpClient client = HttpClient.newHttpClient();
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(FINNHUB_ENDPOINT))
-                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
-                    .build();
-
-            HttpResponse<String> response = client.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-
-            System.out.println(response.body());
-        } catch (IOException | InterruptedException e) {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.readValue(response.body(), FHPriceMessage.PriceMessage.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void search(String query) {

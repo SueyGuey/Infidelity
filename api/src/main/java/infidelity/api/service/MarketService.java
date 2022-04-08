@@ -32,8 +32,8 @@ public class MarketService {
     private CompanyRepository companyRepository;
     @Autowired
     private ChangingNumberRepository changingNumberRepository;
-
-    private final static FinnHub fh = new FinnHub();
+    @Autowired
+    private FinnHub fh;
 
     /**
      * Uses FinnHub to retrieve the latest price of any Tradeable item - stocks, ETFs, cryptocurrencies
@@ -44,6 +44,7 @@ public class MarketService {
     public ChangingNumber getCurrentPrice(String symbol) {
          FHPriceMessage.PriceMessage message = fh.getInfo(symbol);
          long now = DateTime.now().getMillis();
+         System.out.println(now + "\n" + message.getTimestamp());
          if (now - message.getTimestamp() > 5000) {
              message = fh.fetchInfo(symbol);
          }
@@ -120,5 +121,9 @@ public class MarketService {
                     .build();
             return stockRepository.save(stock);
         }
+    }
+
+    public void subscribe(String symbol) {
+        fh.subscribe(symbol);
     }
 }

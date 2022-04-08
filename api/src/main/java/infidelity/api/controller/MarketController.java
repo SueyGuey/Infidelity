@@ -3,6 +3,7 @@ package infidelity.api.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import infidelity.api.data.ChangingNumber;
 import infidelity.api.data.Tradeable;
 import infidelity.api.data.model.HibernateProxyTypeAdapter;
 import infidelity.api.service.MarketService;
@@ -44,6 +45,12 @@ public class MarketController {
         return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
     }
 
+    @GetMapping("/price/{symbol}")
+    public ResponseEntity<ChangingNumber> getPrice(@PathVariable String symbol) {
+        log.info("GET /market/price/{}", symbol);
+        return new ResponseEntity<>(market.getCurrentPrice(symbol), HttpStatus.OK);
+    }
+
     /**
      * Search the database for a list of tradeable entities that match the search query
      * @param query Search query from the frontend - user generated
@@ -67,5 +74,10 @@ public class MarketController {
     @PutMapping("/updateInfo")
     public void updateInfo() {
         market.updateMarket();
+    }
+
+    @PutMapping("/subscribe/{symbol}")
+    public void subscribe(@PathVariable String symbol) {
+        market.subscribe(symbol);
     }
 }
