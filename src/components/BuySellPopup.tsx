@@ -16,16 +16,7 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const { _active } = useParams();
-	return user ? (
-		<div className="buySellPopUp">
-			<div>
-				{/* <button className="x">X</button> */}
-			</div>
-			{buyOrSell(props.buy)}
-		</div>
-	) : (
-		<Navigate to="/" />
-	);
+	return user ? <div className="buySellPopUp">{buyOrSell(props.buy)}</div> : <Navigate to="/" />;
 }
 
 function buyOrSell(isBuy: number) {

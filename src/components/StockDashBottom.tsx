@@ -15,19 +15,33 @@ function StockDashBottom(props: WithUserProfileLoaderProps & { symbol: string })
 						<p>Stock Information</p>
 					</div>
 					<div className="stockInformationItems">
-						<span className = "stockInfo-span">
-							<p className = "stockInfoTitle">52-week High: <p className = "stockValue blue">$###.##</p></p>
-							<p className = "stockInfoTitle">52-week Low: <p className = "stockValue blue">$###.##</p></p>
-							<p className = "stockInfoTitle">52-week Range: <p className = "stockValue blue">$###.##</p></p>
-							<p className = "stockInfoTitle">Average Volume:<p className = "stockValue blue">###.##</p></p>
-						
+						<span className="stockInfo-span">
+							<p className="stockInfoTitle">
+								52-week High: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p className="stockInfoTitle">
+								52-week Low: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p className="stockInfoTitle">
+								52-week Range: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p className="stockInfoTitle">
+								Average Volume:<p className="stockValue blue">###.##</p>
+							</p>
 						</span>
-						<span className = "stockInfo-span">
-							<p>Day-High: <p className = "stockValue blue">$###.##</p></p>
-							<p>Day-Low: <p className = "stockValue blue">$###.##</p></p>
-							<p>Market Cap: <p className = "stockValue blue">$###.##</p></p>
-							<p>Current Volume:<p className = "stockValue blue">###.##</p></p>
-						
+						<span className="stockInfo-span">
+							<p>
+								Day-High: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p>
+								Day-Low: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p>
+								Market Cap: <p className="stockValue blue">$###.##</p>
+							</p>
+							<p>
+								Current Volume:<p className="stockValue blue">###.##</p>
+							</p>
 						</span>
 					</div>
 				</span>
