@@ -20,42 +20,49 @@ function BuySell(
 	const { buy } = useParams();
 	const [popUp, setPopUp] = useState(-1);
 
-	const popUpRender = function popUpRender(item: any, popUp: number){
-		if(popUp === -1){
-			return(<div></div>);
-		}else{
-			return(<div className = "popUpContainer"><button className="x-button" onClick={()=> setPopUp(-1)}>X</button><BuySellPopup buy = {item || popUp}/></div>);
-		}	
-	}
+	const popUpRender = function popUpRender(item: any, popUp: number) {
+		if (popUp === -1) {
+			return <div></div>;
+		} else {
+			return (
+				<div className="popUpContainer">
+					<button className="x-button" onClick={() => setPopUp(-1)}>
+						X
+					</button>
+					<BuySellPopup buy={item || popUp} />
+				</div>
+			);
+		}
+	};
 
 	return (
-		<div id = "whole">
+		<div id="whole">
 			{popUpRender(buy, popUp)}
-		<span className="bottomSpan buySell">
-			<div className="spanCap">
-				<p>Buy/Sell</p>
-			</div>
-			<div className="buySellContainer">
-				<p className="labelSB">
-					Shares Owned: <p className="stockValue">{quantity}</p>
-				</p>
-				<p className="labelSB">
-					Valued At: <p className="stockValue">${(quantity * price).toFixed(5)}</p>
-				</p>
-				<div>
-					<button className="buyButton" onClick={() => setPopUp(1)}>
-						Buy
-					</button>
+			<span className="bottomSpan buySell">
+				<div className="spanCap">
+					<p>Buy/Sell</p>
 				</div>
-				<div>
-					<button className="sellButton" onClick={() => setPopUp(0)}>
-						Sell
-					</button>
+				<div className="buySellContainer">
+					<p className="labelSB">
+						Shares Owned: <p className="stockValue">{quantity}</p>
+					</p>
+					<p className="labelSB">
+						Valued At: <p className="stockValue">${(quantity * price).toFixed(5)}</p>
+					</p>
+					<div>
+						<button className="buyButton" onClick={() => setPopUp(1)}>
+							Buy
+						</button>
+					</div>
+					<div>
+						<button className="sellButton" onClick={() => setPopUp(0)}>
+							Sell
+						</button>
+					</div>
 				</div>
-			</div>
-		</span></div>
+			</span>
+		</div>
 	);
 }
 
 export default withMarketLoader(withUserProfileLoader(BuySell));
-
