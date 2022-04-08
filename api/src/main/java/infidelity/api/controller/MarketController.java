@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * REST api controller for stock market data, company information, stock and cryptocurrency
@@ -41,8 +42,12 @@ public class MarketController {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
-        Tradeable item = market.getInfo(symbol);
-        return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+        Optional<Tradeable> item = market.findInfo(symbol);
+        if (item.isPresent()) {
+            return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/price/{symbol}")

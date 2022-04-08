@@ -1,10 +1,8 @@
 package infidelity.api.stockdata;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import infidelity.api.data.Company;
 import infidelity.api.stockdata.decode.*;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import javax.websocket.DeploymentException;
@@ -27,6 +25,7 @@ public class FinnHub {
     private final FHPriceDecoder decoder = new FHPriceDecoder();
     private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
     private final FHCompanyDecoder companyDecoder = new FHCompanyDecoder();
+    private final FHSearchDecoder searchDecoder = new FHSearchDecoder();
 
     private Set<String> subscribedSymbols = new HashSet<>();
 
@@ -57,22 +56,15 @@ public class FinnHub {
                 }
             }
         }
-        //*/
-        // stompClient = new WebsocketStompClient();
-    }
-
-    private void handleOpen() {
-        subscribe("AAPL");
     }
 
     private void handleMessage(String messageStr) {
-//        log.info("Received message: \"" + messageStr.substring(0, Math.min(messageStr.length(), 20)) + "...\"");
         if (!decoder.willDecode(messageStr)) return;
         FHPriceMessage message = decoder.decode(messageStr);
         System.out.println(message);
         List<FHPriceMessage.PriceMessage> data = message.getData();
         if (data.isEmpty()) return;
-        // only use the most recent update
+        // only use the most recent update, which is the last element in the list
         FHPriceMessage.PriceMessage mostRecent = data.get(data.size() - 1);
         info.put(mostRecent.getSymbol(), mostRecent);
     }
@@ -93,17 +85,17 @@ public class FinnHub {
         return info.containsKey(symbol) && info.get(symbol) != null;
     }
 
-    public FHPriceMessage.PriceMessage getInfo(String symbol) {
+    public FHPriceMessage.PriceMessage getPrice(String symbol) {
         if (info.containsKey(symbol)) {
             return info.get(symbol);
         } else {
-            FHPriceMessage.PriceMessage message = fetchInfo(symbol);
+            FHPriceMessage.PriceMessage message = fetchPrice(symbol);
             info.put(symbol, message);
             return message;
         }
     }
 
-    public FHPriceMessage.PriceMessage fetchInfo(String symbol) {
+    public FHPriceMessage.PriceMessage fetchPrice(String symbol) {
         if (!subscribedSymbols.contains(symbol)) {
             subscribe(symbol);
         }
@@ -117,37 +109,14 @@ public class FinnHub {
         return info.get(symbol);
     }
 
-    public FHPriceMessage.PriceMessage getPrice1(String symbol) {
-        String url = String.format("https://finnhub.io/api/v1/quote?symbol=%s&token=%s", symbol, FINNHUB_KEYS[0]);
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .build();
-        try {
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(response.body(), FHPriceMessage.PriceMessage.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void search(String query) {
-        // standard http connection
-    }
-
     /**
      * Lists all available symbols in the US stock market.
      * Takes about 4 seconds to complete when just returning common stocks.
-     * @return
+     * @return list of symbols
      */
     public List<String> listExchange() {
         String url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&currency=USD&securityType=Common%20Stock&token=" + FINNHUB_KEYS[0];
         List<String> results = new ArrayList<>();
-        Set<String> types = new HashSet<>();
         try {
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
@@ -163,13 +132,7 @@ public class FinnHub {
             } else {
                 List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(body));
                 for (FHSymbolResponse entity : symbols) {
-                    String symbol = entity.getSymbol();
-                    String type = entity.getType();
-                    types.add(type);
-                    results.add(symbol);
-                }
-                for (String type : types) {
-                    log.info("Type {}", type);
+                    results.add(entity.getSymbol());
                 }
             }
         } catch (IOException | InterruptedException e) {
@@ -178,10 +141,41 @@ public class FinnHub {
         return results;
     }
 
-    public Company getCompanyProfile(String symbol) {
-        String url = "https://finnhub.io/api/v1/stock/profile2?symbol=" + symbol + "&token=" + FINNHUB_KEYS[0];
-        Company company = null;
+    /**
+     * Searches the stock market for tradeable entities
+     * @param query search query provided by user from the UI
+     * @return FHSearchResponse object containing the search results
+     */
+    public FHSearchResponse search(String query) {
+        String url = String.format("https://finnhub.io/api/v1/search?q=%s&token=%s", query, FINNHUB_KEYS[0]);
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
         try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String body = response.body();
+            if (!searchDecoder.willDecode(body)) {
+                log.error("Error parsing response {}", body);
+            } else {
+                return searchDecoder.decode(body);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Fetches company information for a given symbol from the API. This includes all the properties
+     * in the FHCompanyResponse object, but unfortunately the API does not provide a way to get a description.
+     * @param symbol symbol to fetch information for
+     * @return FHCompanyResponse object containing the company information
+     */
+    public FHCompanyResponse getCompanyProfile(String symbol) {
+        try {
+            String url = String.format("https://finnhub.io/api/v1/stock/profile2?symbol=%s&token=%s", symbol, FINNHUB_KEYS[0]);
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
@@ -194,17 +188,11 @@ public class FinnHub {
             if (!companyDecoder.willDecode(body)) {
                 log.error("Error parsing response {}", body);
             } else {
-                FHCompanyResponse companyData = companyDecoder.decode(body);
-                company = Company.builder()
-                        .name(companyData.getName())
-                        .industry(companyData.getFinnhubIndustry())
-                        .weburl(companyData.getWeburl())
-                        .country(companyData.getCountry())
-                        .build();
+                return companyDecoder.decode(body);
             }
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return company;
+        return null;
     }
 }

@@ -67,4 +67,13 @@ public class NumberHistory {
             return Pair.of(ceilingKey, orderedData.get(ceilingKey));
         }
     }
+
+    /**
+     * Add a new value to the history.
+     * @param timestamp the timestamp of the new value
+     * @param value the new value
+     */
+    public void add(double value, long timestamp) {
+        data.put(timestamp, value);
+    }
 }
