@@ -1,16 +1,23 @@
 package infidelity.api.controller;
 
 import infidelity.api.data.User;
-import infidelity.api.data.model.UserData;
 import infidelity.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
 
+/**
+ * REST api controller for User-related requests. Handles user creation,
+ * user data retrieval, and user deletion requests from the frontend.
+ *
+ * These requests are protected by a layer of authentication such that
+ * Bearer tokens are required in the request header or else a 403 Forbidden
+ * error will be returned.
+ */
 @RestController
 @RequestMapping(path = "/user")
 @Slf4j

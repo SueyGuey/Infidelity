@@ -1,4 +1,4 @@
-package infidelity.api.service;
+package infidelity.api.data.repository;
 
 import infidelity.api.data.ChangingNumber;
 import org.springframework.data.jpa.repository.JpaRepository;
