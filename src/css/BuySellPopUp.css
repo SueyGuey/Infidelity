@@ -7,12 +7,9 @@
     src: url("../fonts/Arsenal-Bold.ttf");
   }
   
-.disabled{
-    display: none;
-}
 
 .buySellPopUp, .buySellConfirmationPopUp{
-    position: absolute;
+    position: fixed;
     top: calc(50% - 7.55vw);
     left: calc(50% - 15vw);
     height: 15vw;
