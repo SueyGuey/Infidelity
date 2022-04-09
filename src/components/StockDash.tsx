@@ -25,6 +25,7 @@ import BuySellPopup from './BuySellPopup';
  * Contains the graphical information of stock price, stock information and the buy and sell 
  * section. (See BuySell.tsx, BuySellPopup.tsx)
  */
+
 function StockDash(props: WithUserProfileLoaderProps): ReactElement {
 	const { symbol } = useParams();
 	const { active } = useParams();
