@@ -98,3 +98,7 @@
 .addWatchlistButton p{
     font-family: Arsenal-Bold;
 }
+
+.popUpContainer{
+    z-index: 1000;
+}

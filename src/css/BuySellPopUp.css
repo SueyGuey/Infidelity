@@ -97,7 +97,7 @@
 
 .watchNamePrompt{
     font-family: Arsenal-Bold;
-    margin-top: 2.3vw;
+    margin-top: 2.1vw;
     margin-left: -1vw;
     margin-bottom: 1vw;
 }
@@ -125,4 +125,62 @@
     margin-top: .25vw;
     width: 10vw;
     background-color: rgba(240,240,240,1);
+}
+
+.watchNamePrompt input{
+    border-radius: 1vw;
+    border-style: double;
+    border-color: rgba(140,140,140,.5);
+    margin-top: .25vw;
+    width: 10vw;
+    background-color: rgba(240,240,240,1);
+}
+
+.portNamePrompt input{
+    border-radius: 1vw;
+    border-style: double;
+    border-color: rgba(140,140,140,.5);
+    margin-top: .25vw;
+    width: 10vw;
+    background-color: rgba(240,240,240,1);
+}
+
+.balanceStartPrompt input{
+    border-radius: 1vw;
+    border-style: double;
+    border-color: rgba(140,140,140,.5);
+    margin-top: .25vw;
+    width: 10vw;
+    background-color: rgba(240,240,240,1);
+}
+
+.watchNamePrompt .watchSelect{
+    position: absolute;
+    margin-left: 1vw;
+    border-radius: .2vw;
+    border-color: rgba(140,140,140,.5);
+    margin-top: -.25vw;
+    height: 8vw;
+    font-size: 1vw;
+    font-family: Arsenal-Regular;
+    width: 12vw;
+    background-color: rgba(240,240,240,1);
+}
+
+.watchAdj{
+    margin-top: 6vw;
+    margin-left: 6.5vw;
+    position: absolute;
+    background-color: #36CD4E;
+    width: 10vw;
+    height: 2vw;
+    border-radius: 4vw;
+    font-family: Arsenal-Regular;
+    font-size: 1.5vw;
+}
+
+.selectWatchTxt{
+    font-size: .6vw;
+    margin-top: -1vw;
+    margin-left: -1vw;
 }
