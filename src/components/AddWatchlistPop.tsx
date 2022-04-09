@@ -1,3 +1,8 @@
+/**
+ * AddWatchlistPop.tsx
+ * Popup for user to add a certain tradeable to a watchlist
+ */
+
 import React, { ReactElement } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';

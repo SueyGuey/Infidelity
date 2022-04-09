@@ -1,3 +1,9 @@
+/**
+ * App.tsx
+ * This contains everything for our app, including running all of our pages
+ * This is also responsible for routing
+ */
+
 import React from 'react';
 import { Routes, Route, BrowserRouter as Router, Navigate, useParams } from 'react-router-dom';
 import userPool from './authentication/userPool';
@@ -16,6 +22,7 @@ import AddPortfolioPop from './components/AddPortfolioPop';
 import BuySellPopup from './components/BuySellPopup';
 
 function App() {
+	//We have to logged in
 	const loggedIn = userPool.getCurrentUser() !== null;
 	const store = createStore(reducers, {}, applyMiddleware(ReduxThunkMiddleWare));
 	const { item } = useParams();

@@ -1,3 +1,8 @@
+/**
+ * withMarketLoader.tsx
+ * Loads in the market
+ */
+
 import * as React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux-config/hooks';
 import Loadable from '../redux-config/loadable';
@@ -10,6 +15,7 @@ import { MarketState } from '../reducers/MarketReducer';
 import { Tradeable } from '../../datamodels/Portfolio';
 import { useEffect } from 'react';
 
+//Loads the tradeable
 export interface WithMarketLoaderProps {
 	marketData: Tradeable[];
 	getTradeable: (symbol: string) => any;
@@ -32,6 +38,7 @@ export default function withMarketLoader<PropType>(
 			}
 		}, [dispatch]);
 
+		//handle cases of whether we can find query or not
 		switch (marketData.status) {
 			case 'loading':
 				return <LoadingAnimation />;

@@ -1,3 +1,8 @@
+/**
+ * UserProfileReducers
+ * 
+ */
+
 import { AnyAction } from 'redux';
 import User from '../../datamodels/User';
 import { Action } from '../actions/types';
@@ -7,6 +12,7 @@ export interface UserProfileState {
 	userProfile: Loadable<User>;
 }
 
+//default loading
 const DEFAULT_STATE: UserProfileState = {
 	userProfile: { status: 'loading' },
 };

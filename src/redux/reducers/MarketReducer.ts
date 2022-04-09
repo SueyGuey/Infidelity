@@ -1,3 +1,8 @@
+/**
+ * MarketReducer.ts
+ * Fetching the market state
+ */
+
 import { AnyAction } from 'redux';
 import { Tradeable } from '../../datamodels/Portfolio';
 import { Action } from '../actions/types';

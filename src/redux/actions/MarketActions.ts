@@ -1,3 +1,8 @@
+/**
+ * MarketActions.ts
+ * Contains all the actions that can be performed by the user related to the market
+ */
+
 import { Dispatch } from 'react';
 import { FetchError } from '../../datamodels/misc';
 import { Tradeable } from '../../datamodels/Portfolio';
@@ -11,6 +16,7 @@ type MarketDataAction = {
 	payload: Loadable<Tradeable[]>;
 };
 
+//For getting data from the market
 export const fetchMarketData = () => {
 	return async (dispatch: Dispatch<MarketDataAction>) => {
 		dispatch({ type: Action.FETCH_MARKET_DATA, payload: { status: 'loading' } });
@@ -41,6 +47,7 @@ export const fetchMarketData = () => {
 	};
 };
 
+//Getting a particular tradeable item from the market
 export const fetchTradeable = (symbol: string) => {
 	return async (
 		dispatch: Dispatch<{
@@ -72,6 +79,7 @@ export const fetchTradeable = (symbol: string) => {
 	};
 };
 
+//Searches the market based on input string query
 export const searchMarket = (query: string) => {
 	return async (dispatch: Dispatch<MarketDataAction>) => {
 		dispatch({ type: Action.SEARCH_MARKET, payload: { status: 'loading' } });

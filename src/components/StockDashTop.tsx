@@ -1,3 +1,9 @@
+/**
+ * StockDashTop.tsx
+ * This is the top bar of a particular stock displaying price as well as a symbol
+ * Also has a button to add to watchlist.
+ */
+
 import React, { ReactElement } from 'react';
 import '../css/DashTop.css';
 import '../css/home.css';

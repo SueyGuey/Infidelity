@@ -1,3 +1,8 @@
+/**
+ * StockGraph.tsx
+ * This is for fetching and parsing in data which will be then passed into Chart component from Chart.tsx
+ */
+
 import React, { ReactElement } from 'react';
 import { tsvParse, csvParse, timeParse } from 'd3';
 import Chart from './Chart';
@@ -37,7 +42,7 @@ class StockGraph extends React.Component<{ symbol: string }, any> {
 		});
 	}
 	render() {
-		//placeholder text
+		//placeholder text when loading the graph
 		if (this.state == null) {
 			return <div>Loading...</div>;
 		}

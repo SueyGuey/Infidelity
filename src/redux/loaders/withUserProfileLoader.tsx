@@ -1,3 +1,8 @@
+/**
+ * withUserProfileLoader.tsx
+ * Loading the user's pofile
+ */
+
 import { useEffect } from 'react';
 import * as React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux-config/hooks';
@@ -10,6 +15,7 @@ import LoadingAnimation from './loading';
 import ErrorPage from '../../components/errorPage';
 import { useNavigate } from 'react-router-dom';
 
+//Fetches the user
 export interface WithUserProfileLoaderProps {
 	userProfile: User;
 	updateUser: (newData: User) => void;
