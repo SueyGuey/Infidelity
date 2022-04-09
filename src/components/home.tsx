@@ -10,7 +10,7 @@ export default function Home(): ReactElement {
 	return (
 		<div>
 			{/* Navigation bar for navigation to non-app informational pages */}
-			<TopNavBar /> 
+			<TopNavBar />
 			<div className="top">
 				<LoginSignup />
 				{/* The login and sign up container, togglable between login and sign up */}

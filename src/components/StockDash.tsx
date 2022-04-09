@@ -15,14 +15,13 @@ import StockDashBottom from './StockDashBottom';
 import StockDashTop from './StockDashTop';
 import BuySellPopup from './BuySellPopup';
 
-
 /**
  * This is the StockDash component. It is visually similar to the style of the user dashboard.
- * The Side menu remains persistant in all stock pages to allow for seemless traversal back to 
- * the user dashboard or any relevant implemented pages. It also contains a search container to 
+ * The Side menu remains persistant in all stock pages to allow for seemless traversal back to
+ * the user dashboard or any relevant implemented pages. It also contains a search container to
  * continue navigating through stocks easily on user whim.
- * 
- * Contains the graphical information of stock price, stock information and the buy and sell 
+ *
+ * Contains the graphical information of stock price, stock information and the buy and sell
  * section. (See BuySell.tsx, BuySellPopup.tsx)
  */
 

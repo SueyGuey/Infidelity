@@ -10,10 +10,9 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 
 /*
-* This is the bottom half of the user dashboard. It contains the watchlist container,
-* the positions container, and the recent trades container. 
-*/
-
+ * This is the bottom half of the user dashboard. It contains the watchlist container,
+ * the positions container, and the recent trades container.
+ */
 
 function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);

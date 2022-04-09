@@ -28,7 +28,7 @@ function App() {
 	const store = createStore(reducers, {}, applyMiddleware(ReduxThunkMiddleWare));
 	const { item } = useParams();
 	const { buy } = useParams();
-	
+
 	// App contains routes to display all appropriate pages. Restricting content in App.tsx
 	// reduces clutter.
 	return (

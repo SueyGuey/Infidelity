@@ -20,7 +20,9 @@ function Search(props: WithMarketLoaderProps): ReactElement {
 
 	const navigate = useNavigate();
 	return (
-		<div className="searchContainer"> {/* the main search container */}
+		<div className="searchContainer">
+			{' '}
+			{/* the main search container */}
 			<div className="searchBar">
 				<input
 					className="searchInput"
@@ -31,14 +33,13 @@ function Search(props: WithMarketLoaderProps): ReactElement {
 				<img className="searchIcon" src={searchIcon} />
 			</div>
 			{/* The top search bar, contains the inputfield */}
-
 			{/* The search results, contains the formatted search reuslts for the user to see */}
 			<div className="searchResults">
 				{results.map((item) => (
 					<div
 						className="searchResult"
 						onClick={() => {
-							navigate(`/stockDash/${item.symbol}`); 
+							navigate(`/stockDash/${item.symbol}`);
 							//navigates to the corresponding stock page when the result is clicked
 						}}
 						key={item.symbol}>

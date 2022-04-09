@@ -16,7 +16,7 @@ function Login(): ReactElement {
 	const [username, setUsername] = useState(''); //handles entry of username
 	const [password, setPassword] = useState(''); //handles entry of password
 	const [showVerification, setVerification] = useState(false); //handles verification state
-	const [cogUser, setCogUser] = useState<CognitoUser>(); 
+	const [cogUser, setCogUser] = useState<CognitoUser>();
 	const [showPassword, setShowPassword] = useState(false); //show or hide password when logging in
 
 	const navigate = useNavigate();

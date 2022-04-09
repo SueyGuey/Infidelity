@@ -25,6 +25,7 @@ function BuySell(
 	const tradeable = props.marketData.find((item) => item.symbol === props.symbol);
 	const price = tradeable ? tradeable.currentPrice.value : 0;
 	const { buy } = useParams();
+	const { symbol } = useParams();
 	//Enables/disables popup
 	const [popUp, setPopUp] = useState(-1);
 
@@ -38,7 +39,7 @@ function BuySell(
 					<button className="x-button" onClick={() => setPopUp(-1)}>
 						X
 					</button>
-					<BuySellPopup buy={item || popUp} />
+					<BuySellPopup buy={item || popUp} symbol={symbol || props.symbol} />
 				</div>
 			);
 		}
