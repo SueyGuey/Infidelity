@@ -166,14 +166,14 @@
     background-color: #e5e5e5;
     font-family: Arsenal-Regular;
     padding-left: 1vw;
-    border-radius: .3vw;
+    border-bottom-left-radius: .3vw;
     font-size: 1vw;
     border-bottom: solid;
     border-bottom-color: rgba(0, 0, 0, 0.20);
 }
 
 .watchListItems + .watchListItems{
-    margin-top: .1vw;
+    margin-top: 0vw;
 }
 .watchlist-symbol{
     display: inline;
