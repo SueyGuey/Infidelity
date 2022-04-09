@@ -96,10 +96,10 @@
 
 .watchlistStocks{
     position: inherit;
-    border: solid;
     bottom: 0;
     height: 75%;
     width: 100%;
+    overflow-y: auto;
 }
 
 .positionsItems{
@@ -156,4 +156,35 @@
 
 .blue{
     color: rgb(59, 42, 218);
+}
+
+.watchListItems{
+    margin-top: .5vw;
+    margin-left: 1.5vw;
+    width: 80%;
+    height: 1.6vw;
+    background-color: #e5e5e5;
+    font-family: Arsenal-Regular;
+    padding-left: 1vw;
+    border-radius: .3vw;
+    font-size: 1vw;
+}
+
+.watchListItems + .watchListItems{
+    margin-top: .25vw;
+}
+.watchlist-symbol{
+    display: inline;
+}
+
+.watchlist-sep{
+    display: inline;
+    font-family: Arsenal-Bold;
+}
+
+.watchlist-value{
+    display: inline;
+    margin-top: .25vw;
+    font-family: Arsenal-Bold;
+    color: rgb(43, 172, 43);
 }
