@@ -139,6 +139,4 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 	return user ? <div className="buySellPopUp">{buyOrSell(props.buy)}</div> : <Navigate to="/" />;
 }
 
-//dummy functions for now to test that confirmation of purchase/sale is working.
-
 export default withMarketLoader(withUserProfileLoader(BuySellPopup));
