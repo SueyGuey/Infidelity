@@ -28,6 +28,7 @@ function BuySell(
 	//Enables/disables popup
 	const [popUp, setPopUp] = useState(-1);
 
+	//the function that determines to or not to display a pop up
 	const popUpRender = function popUpRender(item: any, popUp: number) {
 		if (popUp === -1) {
 			return <div></div>;
@@ -59,11 +60,13 @@ function BuySell(
 					</p>
 					<div>
 						<button className="buyButton" onClick={() => setPopUp(1)}>
+							{/*Displays BUY version of pop up*/}
 							Buy
 						</button>
 					</div>
 					<div>
 						<button className="sellButton" onClick={() => setPopUp(0)}>
+							{/*Displays SELL version of pop up*/}
 							Sell
 						</button>
 					</div>

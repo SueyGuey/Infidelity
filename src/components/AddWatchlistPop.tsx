@@ -11,8 +11,8 @@ import { Checkbox } from '@mui/material';
 
 /**
  * This is the Add Watchlist Pop Up Code
- * When clicking the '+' button next to 'My Watchlists' on the side menu in dashboard, 
- * this will pop up Entering the watchlist name, and clicking confirm and then 'Create' 
+ * When clicking the '+' button next to 'My Watchlists' on the side menu in dashboard,
+ * this will pop up Entering the watchlist name, and clicking confirm and then 'Create'
  * will create the new watchlist for the user's current porfolio.
  * ***/
 

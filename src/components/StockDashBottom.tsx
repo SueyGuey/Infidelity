@@ -11,6 +11,12 @@ import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import BuySell from './BuySell';
+/**
+ * This is the Stock Dashboard's bottom component, containing the Stock Information area giving a quick
+ * overview of some basic stock information the user may want to know and also includes
+ * Buy/Sell information area (panel: see BuySell.tsx , and BuySellPopup.tsx). Where a user should
+ * be able to purchase and sell stocks on completion of feature.
+ */
 
 function StockDashBottom(props: WithUserProfileLoaderProps & { symbol: string }): ReactElement {
 	return (

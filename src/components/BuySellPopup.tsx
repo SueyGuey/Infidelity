@@ -8,6 +8,13 @@ import '../css/Dashboard.css';
 import '../css/BuySellPopUp.css';
 import { Checkbox } from '@mui/material';
 
+/**
+ * This is the Buy-Sell pop up file. This file is what constructs either a buy or sell
+ * version of the BuySellPopUp depending on which button is clicked on the stock page.
+ * This, when hooked up to the backend, will provide the shares to buy or sell to the backend
+ * if the user has made a valid sale or purchase of that stock.
+ * */
+
 type BuySellProps = {
 	buy: any;
 } & WithUserProfileLoaderProps;
@@ -18,6 +25,7 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 	const { _active } = useParams();
 	const [confirm, setConfirm] = useState(0);
 
+	/*The function that swaps what is displayed. 0 is sell, 1 is buy.*/
 	const buyOrSell = function buyOrSell(isBuy: number) {
 		if (isBuy === 0) {
 			return (
@@ -68,9 +76,11 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 		}
 	};
 
+	//returns the proper pop up
 	return user ? <div className="buySellPopUp">{buyOrSell(props.buy)}</div> : <Navigate to="/" />;
 }
 
+//dummy functions for now to test that confirmation of purchase/sale is working.
 function doSale(confirm: any) {
 	if (confirm === 1) {
 		alert('sold stock');

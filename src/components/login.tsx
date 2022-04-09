@@ -12,17 +12,18 @@ import IconButton from '@mui/material/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login(): ReactElement {
-	const [errStatus, setErrStatus] = useState('');
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
-	const [showVerification, setVerification] = useState(false);
-	const [cogUser, setCogUser] = useState<CognitoUser>();
-	const [showPassword, setShowPassword] = useState(false);
+	const [errStatus, setErrStatus] = useState(''); //handles display of error status
+	const [username, setUsername] = useState(''); //handles entry of username
+	const [password, setPassword] = useState(''); //handles entry of password
+	const [showVerification, setVerification] = useState(false); //handles verification state
+	const [cogUser, setCogUser] = useState<CognitoUser>(); 
+	const [showPassword, setShowPassword] = useState(false); //show or hide password when logging in
 
 	const navigate = useNavigate();
 	const context = useContext(AccountContext);
 	const authenticate = context.authenticate;
 
+	//on attempting to login, logs in if information is valid. Gives various error messages displayed below otherwise.
 	function handleSubmit(event: React.SyntheticEvent): void {
 		event.preventDefault();
 		authenticate(username, password)
@@ -68,6 +69,7 @@ function Login(): ReactElement {
 				value={username}
 				onChange={(e) => setUsername(e.target.value)}
 			/>
+			{/* Users can log in using either username or email associated with account */}
 			<TextField
 				className="text-field"
 				id="outlined"
@@ -88,14 +90,18 @@ function Login(): ReactElement {
 					),
 				}}
 			/>
+			{/* Users enter password here, can toggle visibility */}
+
 			{errStatus !== '' && (
 				<div className="login-error-message">
 					<p>{errStatus}</p>
 				</div>
 			)}
+			{/* displays error message if error is thrown */}
 			<Button className="login-button" variant="contained" onClick={handleSubmit}>
 				Log In
 			</Button>
+			{/* Submit login attempt */}
 		</div>
 	);
 }

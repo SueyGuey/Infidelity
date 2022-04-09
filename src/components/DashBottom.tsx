@@ -9,6 +9,12 @@ import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 
+/*
+* This is the bottom half of the user dashboard. It contains the watchlist container,
+* the positions container, and the recent trades container. 
+*/
+
+
 function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);
 	return (
@@ -19,6 +25,7 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 						<p>
 							Watchlists
 							<select className="watchSelect">
+								{/* can select to view a watchlist's stocks from the user's watchlists */}
 								{watchlists.map((watchlist) => (
 									<option value={watchlist.name} key={watchlist.watchlistId}>
 										{watchlist.name}

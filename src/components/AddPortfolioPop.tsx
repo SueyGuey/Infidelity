@@ -20,8 +20,8 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const [confirm, setConfirm] = useState(0); //the checkbox state, allows user input to go through or not
-	const [portfolioName, setPortfolioName] = useState('');//for input text, portfolio name
-	const [startingBal, setStartBalance] = useState(10000.0);//for input numbers , starting balance
+	const [portfolioName, setPortfolioName] = useState(''); //for input text, portfolio name
+	const [startingBal, setStartBalance] = useState(10000.0); //for input numbers , starting balance
 	return user ? (
 		<div className="buySellPopUp">
 			<div className="sellContainer">
@@ -63,8 +63,9 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 }
 
 function createPortfolio(confirm: any, name: string, startingBal: number) {
-	alert('click;');//debugging alert
-	if (confirm == 0) {//if user did not confirm action
+	alert('click;'); //debugging alert
+	if (confirm == 0) {
+		//if user did not confirm action
 		alert('did not confirm');
 	} else {
 		alert('created portfolio ' + { name } + ' with $' + { startingBal } + 'to start!');

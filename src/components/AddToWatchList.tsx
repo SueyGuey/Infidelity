@@ -11,7 +11,7 @@ import { Checkbox } from '@mui/material';
 
 /**
  * This is the Add To Watchlist Pop Up Code
- * When clicking the '+W' button next to a Stock Ticker on the stock graph 
+ * When clicking the '+W' button next to a Stock Ticker on the stock graph
  * this will pop up Entering selecting watchlists to add the stock to and
  * clicking Add will add the stock to the selected watchlist(s)
  * ***/

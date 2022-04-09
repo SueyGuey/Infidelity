@@ -17,6 +17,16 @@ import IconButton from '@mui/material/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createUserBackend } from '../endpoints';
 
+/**
+ * This is the SignUp component, contained within the Login/Signup visual seen by the user.
+ * When signup tab is active on home page, this component is displayed.
+ * 
+ * To sign up, enter the email, username and password (twice to confirm). Once 'create an account'
+ * is clicked, the verification is sent to the user email, they will have to enter the correct 
+ * verification code to complete account creation.
+ */
+
+
 //Data needed to verify a user on AWS Cognito
 type VerificationProps = {
 	cognitoUser?: CognitoUser;

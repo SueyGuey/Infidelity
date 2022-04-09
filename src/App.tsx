@@ -28,6 +28,9 @@ function App() {
 	const store = createStore(reducers, {}, applyMiddleware(ReduxThunkMiddleWare));
 	const { item } = useParams();
 	const { buy } = useParams();
+	
+	// App contains routes to display all appropriate pages. Restricting content in App.tsx
+	// reduces clutter.
 	return (
 		<Provider store={store}>
 			<div className="App">
@@ -35,7 +38,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						{/* FOR TESTING */}
-						<Route path="/popUp/0" element={<BuySellPopup buy={item || 0} />} />
+						{/* <Route path="/popUp/0" element={<BuySellPopup buy={item || 0} />} />
 						<Route path="/popUp/1" element={<BuySellPopup buy={item || 1} />} />
 						<Route
 							path="/popUp/2"
@@ -47,7 +50,7 @@ function App() {
 						/>
 						<Route path="/popUp/4" element={<AddPortfolioPop />} />
 						<Route path="/popUp/5" element={<AddWatchlistPop />} />
-						<Route path="/popUp/6" element={<AddToWatchList />} />
+						<Route path="/popUp/6" element={<AddToWatchList />} /> */}
 						{/* for testing end. */}
 						<Route
 							path="/dashboard"

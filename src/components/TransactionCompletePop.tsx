@@ -1,6 +1,7 @@
 /**
  * TransactionComplete.tsx
- * The confirmation screen saying that the transaction was complete as well as some info about the transaction
+ * The confirmation pop ip saying that the transaction was complete as well as 
+ * some info about the transaction which just completed.
  */
 
 import React, { ReactElement } from 'react';

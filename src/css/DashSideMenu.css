@@ -101,4 +101,4 @@
 
 .popUpContainer{
     z-index: 1000;
-}
+} /*Makes sure the pop up is ALWAYS at screen front.*/
