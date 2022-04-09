@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+/**
+ * REST api controller for portfolio-related requests. These endpoints also are
+ * under the /user/ prefix, so making requests to these functions requires user
+ * authentication tokens (i.e. you must be logged in).
+ */
 @RestController
 @RequestMapping(path = "/user/portfolio")
 @Slf4j

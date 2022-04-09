@@ -1,3 +1,8 @@
+/**
+ * UserProfileActions.ts
+ * Contains the actions performed on the user
+ */
+
 import { Dispatch } from 'react';
 import { FetchError, JSONData } from '../../datamodels/misc';
 import User, { jsonToUser, userToJson } from '../../datamodels/User';
@@ -12,6 +17,7 @@ type UserProfileAction = {
 	payload: Loadable<User>;
 };
 
+//Gets the user profile, handles errors
 export const fetchUserProfile = (username: string) => {
 	return async (dispatch: Dispatch<UserProfileAction>) => {
 		const fetchUserProfileCallback = async (bearerToken: string) => {
@@ -70,6 +76,7 @@ export const fetchUserProfile = (username: string) => {
 	};
 };
 
+//updates the user's profiles
 export const updateUserProfile = (newData: User) => {
 	return async (dispatch: Dispatch<UserProfileAction>) => {
 		const updateUserProfileCallback = async (bearerToken: string) => {

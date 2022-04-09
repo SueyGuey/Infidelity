@@ -7,10 +7,14 @@ import org.springframework.stereotype.Service;
 
 import javax.websocket.DeploymentException;
 import java.io.IOException;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,8 +140,9 @@ public class FinnHub {
         // standard http connection
     }
 
-    public void listExchange() {
+    public List<String> listExchange() {
         String url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&currency=USD&token=c8oia22ad3iatn99l4u0";
+        List<String> results = new ArrayList<>();
         try {
             HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
             con.setRequestMethod("GET");
@@ -149,11 +154,14 @@ public class FinnHub {
             } else {
                 List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(response));
                 for (int i = 0; i < 10; i++) {
-                    System.out.println(symbols.get(i).getSymbol());
+                    String symbol = symbols.get(i).getSymbol();
+                    System.out.println(symbol);
+                    results.add(symbol);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return results;
     }
 }

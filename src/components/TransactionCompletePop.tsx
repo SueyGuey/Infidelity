@@ -1,3 +1,8 @@
+/**
+ * TransactionComplete.tsx
+ * The confirmation screen saying that the transaction was complete as well as some info about the transaction
+ */
+
 import React, { ReactElement } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
@@ -7,6 +12,7 @@ import withUserProfileLoader, {
 import '../css/Dashboard.css';
 import '../css/BuySellPopUp.css';
 
+//A popup displaying the price and amount you just bought or sold a tradeable for with a total value
 function TransactionCompletePop(props: WithUserProfileLoaderProps & { buy: any }): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
@@ -29,6 +35,7 @@ function TransactionCompletePop(props: WithUserProfileLoaderProps & { buy: any }
 	);
 }
 
+//Confirmation page for buying/selling a 'number' amount of shares at a certain price
 function buyOrSellConfirm(isBuy: number) {
 	if (isBuy === 0) {
 		return (

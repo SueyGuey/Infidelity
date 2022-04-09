@@ -1,3 +1,9 @@
+/**
+ * StockDashTop.tsx
+ * This is the top bar of a particular stock displaying price as well as a symbol
+ * Also has a button to add to watchlist.
+ */
+
 import React, { ReactElement } from 'react';
 import '../css/DashTop.css';
 import '../css/home.css';
@@ -20,6 +26,7 @@ function StockDashTop(
 				<div className="stockGraph">
 					<div className="graph" id="graph-container">
 						<p className="portfolioName">
+							<button className="addToWatchlistButton">+W</button>
 							{props.symbol}: <p className="stockValue">${price}</p>
 						</p>
 						<StockGraph symbol={props.symbol} />

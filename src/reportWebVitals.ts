@@ -1,3 +1,8 @@
+/**
+ * reportWebVitals.ts
+ * Gets web vitals
+ */
+
 import { ReportHandler } from 'web-vitals/base';
 
 const reportWebVitals = (onPerfEntry?: ReportHandler) => {

@@ -19,7 +19,6 @@ public class JWKJsonDeserializer extends StdDeserializer<JWK> {
 
     @Override
     public JWK deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
-        // JsonNode node = p.getCodec().readTree(p);
         Map<String, Object> map = p.readValueAs(new TypeReference<Map<String, Object>>(){});
         Preconditions.checkNotNull(map, "map");
         JSONObject minidevJson = new JSONObject(map);

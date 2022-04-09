@@ -1,3 +1,8 @@
+/**
+ * misc.ts
+ * Contains miscellaneous data models such as JSONData, errors and storing a changing number
+ */
+
 type JSON = string | number | boolean | null | JSON[] | { [key: string]: JSON };
 
 export type JSONData<T> = {

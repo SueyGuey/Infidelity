@@ -1,3 +1,8 @@
+/**
+ * authFetch.ts
+ *
+ */
+
 import { CognitoUserSession } from 'amazon-cognito-identity-js';
 import userPool from '../authentication/userPool';
 

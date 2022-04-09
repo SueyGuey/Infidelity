@@ -1,3 +1,9 @@
+/**
+ * Portfolio.ts
+ * Contains all data models for items in the portfolio
+ * All of these data models map to classes of identical names in Java
+ */
+
 import { ChangingNumber, JSONData } from './misc';
 
 export default interface Portfolio {

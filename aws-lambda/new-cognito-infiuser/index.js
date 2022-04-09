@@ -1,3 +1,8 @@
+/**
+ * index.js
+ * Connects to the mysql database
+ */
+
 const config = require("./config");
 const mysql = require("mysql");
 

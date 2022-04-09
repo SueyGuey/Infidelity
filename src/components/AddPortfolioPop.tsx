@@ -1,3 +1,10 @@
+/**
+ * AddPortfolioPop.tsx
+ * A file for component which loads a popup for portfolio creation
+ * You can type in name of portfolio, initial balance and then check off confirm
+ * Then hit create to create a new portfolio
+ */
+
 import React, { ReactElement } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
