@@ -1,6 +1,8 @@
 /**
  * withUserProfileLoader.tsx
- * Loading the user's pofile
+ * Higher order component which wraps the component with a loading spinner.
+ * This is used to load the user profile data from the backend.
+ * The relevant data is passed to the wrapped component as props.
  */
 
 import { useEffect } from 'react';

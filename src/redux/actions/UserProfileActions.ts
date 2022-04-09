@@ -37,14 +37,14 @@ export const fetchUserProfile = (username: string) => {
 					},
 				})
 					.then(async (response: Response) => {
-						// const data: JSONData<User> | FetchError = await response.json();
-						const data: JSONData<User> | FetchError = mock_user;
+						const data: JSONData<User> | FetchError = await response.json();
+						// const data: JSONData<User> | FetchError = mock_user;
 						// first check if data has returned an error
 						if ('error' in data) {
-							// dispatch({
-							// 	type: Action.FETCH_USER_PROFILE,
-							// 	payload: { status: 'error', errorMessage: data.error },
-							// });
+							dispatch({
+								type: Action.FETCH_USER_PROFILE,
+								payload: { status: 'error', errorMessage: data.error },
+							});
 						} else {
 							const user = jsonToUser(data as JSONData<User>);
 							dispatch({

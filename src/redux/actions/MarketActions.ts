@@ -1,6 +1,6 @@
 /**
  * MarketActions.ts
- * Contains all the actions that can be performed by the user related to the market
+ * Contains all the actions that can be performed components that use withMarketLoader
  */
 
 import { Dispatch } from 'react';

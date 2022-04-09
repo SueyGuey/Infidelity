@@ -10,7 +10,7 @@ import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMa
 import AddToWatchList from './AddToWatchList';
 
 /**This is the Stock Dashboard's top component. It displays the Stock Graph and
- * holds the search component so the user can resume searching through stocks. 
+ * holds the search component so the user can resume searching through stocks.
  */
 
 function StockDashTop(
@@ -48,7 +48,8 @@ function StockDashTop(
 									onClick={() => setPopUpState(0)}
 									className="addToWatchlistButton">
 									+W
-								</button> {/*clicking the button displays the pop up.*/}
+								</button>{' '}
+								{/*clicking the button displays the pop up.*/}
 								{props.symbol}: <p className="stockValue">${price}</p>
 								{/* Displays stock ticker and current price */}
 							</p>
@@ -58,7 +59,7 @@ function StockDashTop(
 					</div>
 				</div>
 				<div className="searchSide">
-					<Search /> 
+					<Search />
 					{/* Search Component, see SearchColumn.tsx */}
 				</div>
 			</div>

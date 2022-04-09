@@ -95,6 +95,11 @@ public class FinnHub {
         }
     }
 
+    /**
+     * Fetch the most recent price for a given symbol from FinnHub
+     * @param symbol ticker symbol for stocks
+     * @return most recent price for the symbol
+     */
     public FHPriceMessage.PriceMessage fetchPrice(String symbol) {
         if (!subscribedSymbols.contains(symbol)) {
             subscribe(symbol);

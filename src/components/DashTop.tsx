@@ -11,12 +11,12 @@ import AddPortfolioPop from './AddPortfolioPop';
  * This is the Top Portion of the user Dashboard. It contains the portfolio value graph,
  * portfolio value categories, trade sidebar and the active portfolio display drop menu.
  * You can find the add portfolio button next to the active portfolio display drop menu.
-*/
+ */
 function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
 	const [selectedPortfolio, setPortfolio] = React.useState(portfolios[0]);
 	const portfolioValue = 10000;
-	const [popUpState, setPopUpState] = useState(-1);//handles pop up state for add new Porfolio pop up
+	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
 
 	//this function handles the display of the portfolio add pop up if conditions are met.
 	const popUpHandler = function popUpHandler(props: any) {
@@ -36,7 +36,8 @@ function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 
 	return (
 		<div>
-			{popUpHandler(popUpState)} {/*Pop up is in outer div so it is able to display properly in screen*/}
+			{popUpHandler(popUpState)}{' '}
+			{/*Pop up is in outer div so it is able to display properly in screen*/}
 			<div className="DashTopContain">
 				{/* The active portfolio drop down menu, and the add portfolio button */}
 				<div className="ActivePortfolio">

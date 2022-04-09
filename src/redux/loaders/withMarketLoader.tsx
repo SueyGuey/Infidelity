@@ -1,6 +1,8 @@
 /**
  * withMarketLoader.tsx
- * Loads in the market
+ * Higher order component which wraps the component with a loading spinner.
+ * This is used to load the market data from the backend.
+ * The relevant data is passed to the wrapped component as props.
  */
 
 import * as React from 'react';

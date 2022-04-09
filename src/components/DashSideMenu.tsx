@@ -8,8 +8,8 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import AddWatchlistPop from './AddWatchlistPop';
 /**
  * This file contains the dashboard side menu. It is persistant amongst the user's dashboard,
- * as well as individual stock pages. 
-*/
+ * as well as individual stock pages.
+ */
 
 //highlights the current active page on the side-menu.
 function setActive(activeID: string) {
@@ -31,7 +31,6 @@ function setActive(activeID: string) {
 		}
 	}
 }
-
 
 //the side menu component.
 function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): ReactElement {
@@ -79,19 +78,25 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								<li
 									id="dashboard"
 									className="menuItem activePage"
-									onClick={() => navigate(`/dashboard`)}> {/*Navigates back to user dashboard*/}
+									onClick={() => navigate(`/dashboard`)}>
+									{' '}
+									{/*Navigates back to user dashboard*/}
 									<p>Dashboard</p>
 								</li>
 								<li
 									id="tradeHistory"
 									className="menuItem"
-									onClick={() => navigate(`/dashboard/tradeHistory`)}> {/*Navigates to user trade history (not promised)*/}
+									onClick={() => navigate(`/dashboard/tradeHistory`)}>
+									{' '}
+									{/*Navigates to user trade history (not promised)*/}
 									<p>Trade History</p>
 								</li>
 								<li
 									id="summary"
 									className="menuItem"
-									onClick={() => navigate(`/dashboard/summary`)}> {/*Navigates to user summary (not promised)*/}
+									onClick={() => navigate(`/dashboard/summary`)}>
+									{' '}
+									{/*Navigates to user summary (not promised)*/}
 									<p>Summary</p>
 								</li>
 							</ul>
@@ -101,7 +106,9 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								My Watchlists
 								<button
 									className="addWatchlistButton"
-									onClick={() => setWatchPop(0)}> {/*The add watchlist button*/}
+									onClick={() => setWatchPop(0)}>
+									{' '}
+									{/*The add watchlist button*/}
 									<p>+</p>
 								</button>
 							</p>
@@ -110,12 +117,13 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 									<li className="menuItem" key={watchlist.watchlistId}>
 										<p>{watchlist.name}</p>
 									</li>
-								))} {/* Displays available watchlists.*/}
+								))}{' '}
+								{/* Displays available watchlists.*/}
 							</ul>
 						</li>
 						<li
 							className="menuTypeHeader"
-							onClick={() => navigate(`/dashboard/searchLarge`)}> 
+							onClick={() => navigate(`/dashboard/searchLarge`)}>
 							{/*If implemented, navigates to a page specifically for searching. Also highlighted if on a stock page.*/}
 							<p>Search & Purchase</p>
 							<ul>
@@ -127,16 +135,22 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 						<li
 							id="profile"
 							className="bottomItem"
-							onClick={() => navigate(`/dashboard/profile`)}> {/*navigates to user profile when implented*/}
+							onClick={() => navigate(`/dashboard/profile`)}>
+							{' '}
+							{/*navigates to user profile when implented*/}
 							<p>Profile</p>
 						</li>
 						<li
 							id="settings"
 							className="bottomItem"
-							onClick={() => navigate(`/dashboard/settings`)}> {/*navigates to user profile if implented*/}
+							onClick={() => navigate(`/dashboard/settings`)}>
+							{' '}
+							{/*navigates to user profile if implented*/}
 							<p>Settings</p>
 						</li>
-						<li id="logout" className="bottomItem logout" onClick={() => navigate(`/`)}> {/*currently just navigates to front page*/}
+						<li id="logout" className="bottomItem logout" onClick={() => navigate(`/`)}>
+							{' '}
+							{/*currently just navigates to front page*/}
 							<p>Logout</p>
 						</li>{' '}
 						{/*Definitley not normal logout procedure. It 'works' only visually */}

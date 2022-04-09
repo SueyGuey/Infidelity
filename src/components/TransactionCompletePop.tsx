@@ -1,6 +1,6 @@
 /**
  * TransactionComplete.tsx
- * The confirmation pop ip saying that the transaction was complete as well as 
+ * The confirmation pop ip saying that the transaction was complete as well as
  * some info about the transaction which just completed.
  */
 

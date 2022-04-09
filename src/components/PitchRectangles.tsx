@@ -4,7 +4,6 @@ import one from '../images/pitchOne.png';
 import two from '../images/pitchTwo.png';
 import three from '../images/pitchThree.png';
 
-
 /**
  * This is the PitchRectangles component, containing product pitches on the front page.
  * Pitches are structured such that the icon and main pitch sentance is visible at the bottom
