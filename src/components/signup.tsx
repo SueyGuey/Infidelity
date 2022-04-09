@@ -135,7 +135,7 @@ export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps
 			setErrStatus('Please enter a valid Email Address!');
 		} else if (!validatePassword(props.password)) {
 			setErrStatus(
-				'Password must consist of an uppercase and lowercase letter and must be atleast 8 characters long'
+				'Password must be 8 characters long and must consist of at least one uppercase letter, lowercase letter, number, and special character'
 			);
 		} else if (props.password !== conPassword) {
 			setErrStatus('Your password and confirmation password do not match');
