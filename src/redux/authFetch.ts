@@ -1,6 +1,6 @@
 /**
  * authFetch.ts
- * 
+ *
  */
 
 import { CognitoUserSession } from 'amazon-cognito-identity-js';

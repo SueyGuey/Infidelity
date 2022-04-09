@@ -1,6 +1,6 @@
 /**
  * UserProfileReducers
- * 
+ *
  */
 
 import { AnyAction } from 'redux';
