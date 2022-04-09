@@ -1,3 +1,9 @@
+/**
+ * StockDashBottom.tsx
+ * Contains the stock information for a particular tradeable
+ * Includes info such as 52-week high, 52-week low, etc
+ */
+
 import React, { ReactElement } from 'react';
 import '../css/DashBottom.css';
 import '../css/home.css';

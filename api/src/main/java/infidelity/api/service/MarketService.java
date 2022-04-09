@@ -1,6 +1,10 @@
 package infidelity.api.service;
 
-import infidelity.api.data.*;
+import infidelity.api.data.ChangingNumber;
+import infidelity.api.data.Company;
+import infidelity.api.data.Stock;
+import infidelity.api.data.Tradeable;
+import infidelity.api.data.repository.ChangingNumberRepository;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
@@ -8,15 +12,16 @@ import infidelity.api.stockdata.FinnHubMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mapping.TraversalContext;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static infidelity.api.utils.PropertyUtils.updateProperty;
-
+/**
+ * Service for performing functions related to market data. Performs operations on existing data,
+ * populates the database with new data, and retrieves and updates current prices.
+ * Acts as an all-in-one wrapper for stock data APIs.
+ */
 @Service
 @Slf4j
 public class MarketService {
@@ -30,6 +35,12 @@ public class MarketService {
 
     private final static FinnHub fh = new FinnHub();
 
+    /**
+     * Uses FinnHub to retrieve the latest price of any Tradeable item - stocks, ETFs, cryptocurrencies
+     * @param symbol Identifying symbol of the Tradeable item.
+     * @return ChangingNumber representing the timestamp and price of the latest price update.
+     * @see Tradeable#symbol
+     */
     public ChangingNumber getCurrentPrice(String symbol) {
          FinnHubMessage.PriceMessage message = fh.getInfo(symbol);
          long now = DateTime.now().getMillis();
@@ -48,29 +59,39 @@ public class MarketService {
      * populate company information
      */
     public void updateMarket() {
-        listSymbols().forEach(this::updateInfo);
+        fh.listExchange().forEach(this::updateInfo);
     }
 
+    /**
+     * Retrieves a Tradeable object from the database where is it not certain whether the record
+     * exists or not for the specified symbol.
+     * @param symbol Identifying symbol of the Tradeable item.
+     * @return Optional Tradeable object as represented by the database record.
+     * @see Tradeable
+     */
     public Optional<Tradeable> findInfo(String symbol) {
         return stockRepository.findById(symbol);
     }
 
+    /**
+     * TODO: why does this function call updateInfo?
+     * @param symbol Identifying symbol of the Tradeable item.
+     * @return
+     */
     public Tradeable getInfo(String symbol) {
         return updateInfo(symbol);
     }
 
-    public List<Tradeable> searchMarket(String query) {
-        stockRepository.deleteAll();
-        updateMarket();
-        return stockRepository.findAll();
-    }
-
     /**
-     * Fetches a list of all ticker symbols in the stock market
+     * TODO: implement this function and add "popularity" field to Tradeable to help sort results
+     * Provides a list of Tradeable options from a user's search query.
+     * @param query user-specified query, could be anything: company name, ticker symbol, industry,
+     *              even an incomplete or random string.
+     * @return A list of Tradeable objects from the market representing Stocks, Cryptocurrencies, and ETFs
+     * in the order of most-to-least likely to match the query
      */
-    private List<String> listSymbols() {
-        fh.listExchange();
-        return List.of(new String[]{"AAPLL", "FLLLL", "MSFTL", "TSLAL", "GMLLLL"});
+    public List<Tradeable> searchMarket(String query) {
+        return stockRepository.findAll();
     }
 
     /**

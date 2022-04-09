@@ -1,3 +1,8 @@
+/**
+ * index.ts
+ * Contains the reducers
+ */
+
 import { combineReducers } from 'redux';
 import MarketReducer from './MarketReducer';
 import UserProfileReducer from './UserProfileReducer';

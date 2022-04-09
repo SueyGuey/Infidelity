@@ -1,3 +1,8 @@
+/**
+ * BuySell.tsx
+ * Contains the component for buying and selling a tradeable
+ */
+
 import React, { ReactElement, useState } from 'react';
 import Button from '@mui/material/Button';
 import '../css/BuySell.css';
@@ -11,13 +16,16 @@ import { useParams } from 'react-router-dom';
 function BuySell(
 	props: WithUserProfileLoaderProps & WithMarketLoaderProps & { symbol: string }
 ): ReactElement {
+	//information from user
 	const portfolio = Array.from(props.userProfile.portfolios)[0];
 	const asset = Array.from(portfolio.assets).find((asset) => asset.itemSymbol === props.symbol);
 	const quantity = asset ? asset.quantity : 0;
 
+	//Gets the price
 	const tradeable = props.marketData.find((item) => item.symbol === props.symbol);
 	const price = tradeable ? tradeable.currentPrice.value : 0;
 	const { buy } = useParams();
+	//Enables/disables popup
 	const [popUp, setPopUp] = useState(-1);
 
 	const popUpRender = function popUpRender(item: any, popUp: number) {

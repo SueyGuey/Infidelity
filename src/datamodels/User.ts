@@ -1,3 +1,8 @@
+/**
+ * User.ts
+ * Contains the datamodel for the user and the personalized data such as portfolio and watchlist
+ */
+
 import { JSONData } from './misc';
 import Portfolio from './Portfolio';
 import { jsonToPortfolio, portfolioToJson } from './Portfolio';

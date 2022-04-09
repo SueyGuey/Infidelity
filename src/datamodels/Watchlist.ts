@@ -1,3 +1,8 @@
+/**
+ * Watchlist.ts
+ * Contains the data model for Watchlist as well as adding to that watchlist
+ */
+
 import { JSONData } from './misc';
 import { Tradeable } from './Portfolio';
 

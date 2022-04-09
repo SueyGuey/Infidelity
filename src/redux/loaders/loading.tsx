@@ -1,3 +1,8 @@
+/**
+ * loading.tsx
+ * Loading screen
+ */
+
 import React, { ReactElement } from 'react';
 import './loaders.css';
 
