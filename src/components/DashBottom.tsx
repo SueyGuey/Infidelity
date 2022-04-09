@@ -49,7 +49,7 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 					<div className="watchlistStocks">
 						{Array.from(watchToDisplay.items).map((item) => (
 							<div className="watchListItems" key={item.symbol}>
-								<p className="watchlist-symbol">{item.symbol}</p>
+								<p className="watchlist-symbol">{item.symbol.padEnd(6)}</p>
 								<p className="watchlist-sep">
 									{'  '}|{'  '}
 								</p>
@@ -60,7 +60,7 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 									{'  '}|{'  '}
 								</p>
 								<p className="watchlist-value">
-									+ {(-5.32511 + item.currentPrice.value * 0.1).toFixed(2)}%
+									+ {(-1.32511 + item.currentPrice.value * 0.1).toFixed(2)}%
 									{/* PLACEHOLDER VALUE ADDED TO PRICE TO GIVE FAKE PERCENT FOR NOW */}
 								</p>
 							</div>
