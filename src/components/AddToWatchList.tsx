@@ -16,7 +16,7 @@ import { Checkbox } from '@mui/material';
  * clicking Add will add the stock to the selected watchlist(s)
  * ***/
 
-function AddToWatchlist(props: WithUserProfileLoaderProps): ReactElement {
+function AddToWatchList(props: WithUserProfileLoaderProps): ReactElement {
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const watchlists = Array.from(props.userProfile.watchlists);
@@ -42,4 +42,4 @@ function AddToWatchlist(props: WithUserProfileLoaderProps): ReactElement {
 	);
 }
 
-export default withUserProfileLoader(AddToWatchlist);
+export default withUserProfileLoader(AddToWatchList);
