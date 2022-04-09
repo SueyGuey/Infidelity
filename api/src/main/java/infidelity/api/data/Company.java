@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 /**
  * A collection of generally static information about a company. This is used to display information about the company
@@ -24,4 +25,5 @@ public class Company {
     private String description;
     private String weburl;
     private String industry;
+    private String country;
 }

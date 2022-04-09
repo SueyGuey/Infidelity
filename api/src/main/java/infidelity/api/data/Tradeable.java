@@ -35,4 +35,9 @@ public abstract class Tradeable {
     @OneToOne
     @JoinColumn(name = "price_history_id")
     private NumberHistory priceHistory;
+
+    public void updatePrice(double price, long timestamp) {
+        currentPrice.update(price, timestamp);
+        priceHistory.add(price, timestamp);
+    }
 }

@@ -3,6 +3,7 @@ package infidelity.api.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import infidelity.api.data.ChangingNumber;
 import infidelity.api.data.Tradeable;
 import infidelity.api.data.model.HibernateProxyTypeAdapter;
 import infidelity.api.service.MarketService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * REST api controller for stock market data, company information, stock and cryptocurrency
@@ -40,8 +42,18 @@ public class MarketController {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
-        Tradeable item = market.getInfo(symbol);
-        return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+        Optional<Tradeable> item = market.findInfo(symbol);
+        if (item.isPresent()) {
+            return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/price/{symbol}")
+    public ResponseEntity<ChangingNumber> getPrice(@PathVariable String symbol) {
+        log.info("GET /market/price/{}", symbol);
+        return new ResponseEntity<>(market.getCurrentPrice(symbol), HttpStatus.OK);
     }
 
     /**
@@ -67,5 +79,10 @@ public class MarketController {
     @PutMapping("/updateInfo")
     public void updateInfo() {
         market.updateMarket();
+    }
+
+    @PutMapping("/subscribe/{symbol}")
+    public void subscribe(@PathVariable String symbol) {
+        market.subscribe(symbol);
     }
 }
