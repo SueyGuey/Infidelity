@@ -1,3 +1,8 @@
+/**
+ * StockDash.tsx
+ * Dashboard page containing all components related
+ */
+
 import React, { ReactElement } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
@@ -14,6 +19,7 @@ function StockDash(props: WithUserProfileLoaderProps): ReactElement {
 	const { symbol } = useParams();
 	const { active } = useParams();
 
+	//Displays user's portfolio or apple if they are logged in
 	const user = userPool.getCurrentUser();
 	return user ? (
 		<div className="Dashboard">

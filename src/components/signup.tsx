@@ -1,3 +1,8 @@
+/**
+ * signup.tsx
+ * This is the component which the user uses to create an account and get it verified.
+ */
+
 import React, { FormEvent, ReactElement, useContext, useState } from 'react';
 import '../css/login.css';
 import { validateEmail, validatePassword } from '../textUtils';
@@ -12,6 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { createUserBackend } from '../endpoints';
 
+//Data needed to verify a user on AWS Cognito
 type VerificationProps = {
 	cognitoUser?: CognitoUser;
 	userId?: string;
@@ -20,6 +26,7 @@ type VerificationProps = {
 	password: string;
 };
 
+//Verification system once they have entered their information (they recieve an email with a code)
 export function SignupVerification(props: VerificationProps): ReactElement<VerificationProps> {
 	const [verificationErrStatus, setVerificationErrStatus] = useState('');
 	const [code, setCode] = useState('');
@@ -32,6 +39,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 		return code.length > 0;
 	}
 
+	//The user has to enter a verification code which has to match the one emailed to them
 	function validateVerificationCode(event: FormEvent) {
 		event.preventDefault();
 		if (props.cognitoUser) {
@@ -52,6 +60,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 		}
 	}
 
+	//If the user requests another verification code be sent
 	function handleResendCode(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
 		event.preventDefault();
 		if (props.cognitoUser) {
@@ -65,6 +74,7 @@ export function SignupVerification(props: VerificationProps): ReactElement<Verif
 		}
 	}
 
+	//The form with a text field that the user uses to enter a verification code
 	return (
 		<form onSubmit={validateVerificationCode} className="signup-container">
 			<div className="verification-container">
@@ -118,6 +128,7 @@ export type SignupFormProps = {
 	setUserId: React.Dispatch<React.SetStateAction<string>>;
 };
 
+//This is the form of text fields the user must fill out to create an account
 export function SignupForm(props: SignupFormProps): ReactElement<SignupFormProps> {
 	const [errStatus, setErrStatus] = useState('');
 	const [conPassword, setConPassword] = useState('');

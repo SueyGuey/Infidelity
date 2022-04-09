@@ -1,3 +1,8 @@
+/**
+ * userPool.tsx
+ * Contains the data for the user pool
+ */
+
 import { CognitoUserPool, ICognitoUserPoolData } from 'amazon-cognito-identity-js';
 
 const poolData: ICognitoUserPoolData = {
