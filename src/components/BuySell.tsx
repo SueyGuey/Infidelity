@@ -1,6 +1,6 @@
 /**
  * BuySell.tsx
- * 
+ * Contains the component for buying and selling a tradeable
  */
 
 import React, { ReactElement, useState } from 'react';

@@ -1,6 +1,6 @@
 /**
  * UserProfileReducers
- * 
+ * For fetching the state of the user profile
  */
 
 import { AnyAction } from 'redux';
