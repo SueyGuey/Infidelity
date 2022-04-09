@@ -114,14 +114,17 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 					alert('cannot do sale. Insufficient Quantity');
 				}else{
 					//can't sell stock you literally don't own.
-					alert('Sold '+numSold+' at '+parseFloat(price)+'. Total = '+totalPrice)
+					alert('Sold '+numSold+' at '+parseFloat(price)+'. Total = '+totalPrice+
+					'\n$'+(portfolioValue+totalPrice)+ " in account.")
 				}
 
 			} else {
 				alert('did not confirm');
 			}
 		};
-	const portfolioValue = 10000;
+	/*IMPORTANT TO REMOVE AFTER BACKEND COMMUNICATION IS COMPLETE*/
+	const portfolioValue = 10000;//PLACEHOLDER VALUE
+	/************************************************************/
 	const doPurchase = 
 		function doPurchase(confirm: any, price: any, numStocks: number, totalOwned: number) {
 			const totalPrice = parseFloat(price) * numStocks;
@@ -133,7 +136,6 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 				}else{
 					alert("Insuficient Funds.")
 				}
-				alert('purchased stock');
 			} else {
 				alert('did not confirm');
 			}
