@@ -29,6 +29,9 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 	const asset = Array.from(portfolio.assets).find((asset) => asset.itemSymbol === props.symbol);
 	const quantity = asset ? asset.quantity : 0;
 
+	/*IMPORTANT TO REMOVE AFTER BACKEND COMMUNICATION IS COMPLETE*/
+	const portfolioValue = 10000;//PLACEHOLDER VALUE
+	/************************************************************/
 
 	const stock = props.marketData.find((stock) => stock.symbol === props.symbol);
 	//Displays placeholder text if stock is not found
@@ -94,12 +97,6 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 					</button>
 				</div>
 			);
-		} else if (isBuy == 2) {
-			// STATE FOR COMPLETION OF SELLING STOCK
-		} else if (isBuy == 3) {
-			// STATE FOR COMPLETION OF BUYING STOCK
-		} else {
-			//something has gone wrong state?
 		}
 	};
 
@@ -122,9 +119,7 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 				alert('did not confirm');
 			}
 		};
-	/*IMPORTANT TO REMOVE AFTER BACKEND COMMUNICATION IS COMPLETE*/
-	const portfolioValue = 10000;//PLACEHOLDER VALUE
-	/************************************************************/
+
 	const doPurchase = 
 		function doPurchase(confirm: any, price: any, numStocks: number, totalOwned: number) {
 			const totalPrice = parseFloat(price) * numStocks;
