@@ -4,7 +4,7 @@ import TopNavBar from './TopNavBar';
 import '../css/home.css';
 import LoginSignup from './LoginSignup';
 import StockGraph from './StockGraph';
-
+import stockImage2 from '../images/stock-image-2-upgraph.jpg';
 //our landing page
 export default function Home(): ReactElement {
 	useEffect(() => {
@@ -12,6 +12,7 @@ export default function Home(): ReactElement {
 	}, []);
 	return (
 		<div>
+			<img className="backgroundWhole featureImg" src={stockImage2} />
 			{/* Navigation bar for navigation to non-app informational pages */}
 			<TopNavBar />
 			<div className="top">
