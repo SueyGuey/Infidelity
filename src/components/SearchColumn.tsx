@@ -40,6 +40,7 @@ function Search(props: WithMarketLoaderProps): ReactElement {
 						className="searchResult"
 						onClick={() => {
 							navigate(`/stockDash/${item.symbol}`);
+							location.reload();
 							//navigates to the corresponding stock page when the result is clicked
 						}}
 						key={item.symbol}>

@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
 import TopNavBar from './TopNavBar';
@@ -18,7 +18,7 @@ import dashboard from './dashboard';
 function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);
 	const [watchToDisplay, setWatchDisplay] = useState(watchlists[0]);
-
+	const navigate = useNavigate();
 	const handleChangeWL = function handleChangeWL(props: any) {
 		const watchlist = Array.from(watchlists).find((watchlist) => watchlist.name === props);
 		if (watchlist) {
@@ -48,7 +48,14 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 					</div>
 					<div className="watchlistStocks">
 						{Array.from(watchToDisplay.items).map((item) => (
-							<div className="watchListItems" key={item.symbol}>
+							<div
+								className="watchListItems"
+								key={item.symbol}
+								onClick={() => {
+									navigate(`/stockDash/${item.symbol}`);
+									// location.reload();
+									//navigates to the corresponding stock page when the result is clicked
+								}}>
 								<p className="watchlist-symbol">{item.symbol.padEnd(6)}</p>
 								<p className="watchlist-sep">
 									{'  '}|{'  '}
