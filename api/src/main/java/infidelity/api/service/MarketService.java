@@ -92,7 +92,7 @@ public class MarketService {
             return results;
         }
         System.out.println(response);
-        List.of(response.getResults()).forEach(result -> {
+        List.of(response.getResult()).forEach(result -> {
             Optional<Tradeable> tradeable = findInfo(result.getSymbol());
             tradeable.ifPresent(results::add);
         });

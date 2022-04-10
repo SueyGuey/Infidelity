@@ -57,15 +57,9 @@ export async function searchMarketBackend(query: string) {
 }
 
 //For performing trades
-export function makeTradeBackend(trade: TransactionRequest) {
+export async function makeTradeBackend(trade: TransactionRequest) {
 	console.log('MAKE TRADE');
-	fetch(MAKE_TRADE_URL, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(trade),
-	});
+	return await fetch(MAKE_TRADE_URL).then((res) => res.json());
 }
 
 //For creating new portfolios for the user

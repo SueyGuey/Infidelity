@@ -5,8 +5,8 @@
 
 import { Dispatch } from 'react';
 import { FetchError } from '../../datamodels/misc';
-import { Tradeable } from '../../datamodels/Portfolio';
-import { getTradeableBackend, searchMarketBackend, SEARCH_MARKET_URL } from '../../endpoints';
+import { Tradeable, TransactionRequest } from '../../datamodels/Portfolio';
+import { getTradeableBackend, makeTradeBackend, searchMarketBackend } from '../../endpoints';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
 import mock_stock_data from '../../mock_data/stocks.json';
@@ -96,6 +96,33 @@ export const searchMarket = (query: string) => {
 					console.log('SEARCH RESULTS ', data);
 					dispatch({
 						type: Action.SEARCH_MARKET,
+						payload: { status: 'success', data: data },
+					});
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	};
+};
+
+//Buy/sell tradeables
+export const makeTrade = (trade: TransactionRequest) => {
+	return async (dispatch: Dispatch<MarketDataAction>) => {
+		dispatch({ type: Action.MAKE_TRADE, payload: { status: 'loading' } });
+		makeTradeBackend(trade)
+			.then(async (response: Response) => {
+				const data: any = await response.json();
+				// first check if data has returned an error
+				if ('error' in data) {
+					dispatch({
+						type: Action.MAKE_TRADE,
+						payload: { status: 'error', errorMessage: data.error },
+					});
+				} else {
+					console.log('TRADE RESULTS ', data);
+					dispatch({
+						type: Action.MAKE_TRADE,
 						payload: { status: 'success', data: data },
 					});
 				}
