@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
@@ -17,6 +17,9 @@ import DashBottom from './DashBottom';
  */
 
 function Dashboard(props: WithUserProfileLoaderProps & { item: string }): ReactElement {
+	useEffect(() => {
+		document.body.style.overflowY = 'auto';
+	}, []);
 	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const { active } = useParams();

@@ -1,0 +1,64 @@
+.featurePage{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+.featureImage{
+    position: inherit;
+    height: 10vw;
+    margin-right: 3.5vw;
+    margin-left: 1vw;
+    padding-top: 1vw;
+    float: left;
+}
+
+.featureItem{
+    filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.1));
+    position: relative;
+    margin-top: 1vw;
+    height: 12vw;
+    width: 95%;
+    margin-left: 2.5%;
+    background-color: rgb(223, 223, 223);
+    border-radius: .3vw;
+    text-align: left;
+}
+
+.featureItem p, .featureItem h1{
+    position: inherit;
+    font-family: Arsenal-Regular;
+    padding-top: .5vw;
+    margin-left: 20vw;
+    margin-right: 2vw;
+}
+.featureText{
+    font-size: 1vw;
+}
+.featureItem h1{
+    font-family: Arsenal-Bold;
+    font-size: 1.5vw;
+}
+
+.main{
+    font-family: Arsenal-Bold;
+    font-size: 1.2vw;
+}
+
+.one{
+    margin-top: .3vw;
+    font-size: 2vw;
+}
+
+.three{
+    font-size: 1.5vw;
+} 
+
+.main + .main{
+    margin-top: -0.5vw;
+}
+
+.featureImg{
+    position: fixed;
+    top:0;
+    left:0;
+}

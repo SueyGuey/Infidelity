@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import PitchRectangles from './PitchRectangles';
 import TopNavBar from './TopNavBar';
 import '../css/home.css';
@@ -7,6 +7,9 @@ import StockGraph from './StockGraph';
 
 //our landing page
 export default function Home(): ReactElement {
+	useEffect(() => {
+		document.body.style.overflowY = 'auto';
+	}, []);
 	return (
 		<div>
 			{/* Navigation bar for navigation to non-app informational pages */}

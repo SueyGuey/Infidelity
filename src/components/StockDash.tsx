@@ -3,7 +3,7 @@
  * Dashboard page containing all components related
  */
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
 import DashSideMenu from './DashSideMenu';
@@ -26,6 +26,9 @@ import BuySellPopup from './BuySellPopup';
  */
 
 function StockDash(props: WithUserProfileLoaderProps): ReactElement {
+	useEffect(() => {
+		document.body.style.overflowY = 'auto';
+	}, []);
 	const { symbol } = useParams();
 	const { active } = useParams();
 
