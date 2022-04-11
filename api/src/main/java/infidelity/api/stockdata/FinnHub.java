@@ -81,6 +81,18 @@ public class FinnHub {
         }
     }
 
+    /**
+     * Remove a subscription for US stocks, forex, and crypto.
+     * @param symbol ticker symbol for stocks
+     */
+    public void unsubscribe(String symbol) {
+        String subMsg = String.format("{\"type\":\"unsubscribe\",\"symbol\":\"%s\"}", symbol);
+        if (clientEndpoint != null) {
+            clientEndpoint.sendMessage(subMsg);
+            subscribedSymbols.add(symbol);
+        }
+    }
+
     public boolean hasData(String symbol) {
         return info.containsKey(symbol) && info.get(symbol) != null;
     }
