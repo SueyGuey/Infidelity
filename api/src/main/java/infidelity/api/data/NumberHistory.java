@@ -21,8 +21,7 @@ import java.util.UUID;
 public class NumberHistory {
     @Id
     @Column(nullable = false)
-    @Builder.Default
-    private UUID numberHistoryId = UUID.randomUUID();;
+    private String numberHistoryId;;
 
     /**
      * It uses a TreeMap to store each known value of the number in chronological order.
@@ -32,6 +31,11 @@ public class NumberHistory {
     @Builder.Default
     @ElementCollection
     private Map<Long, Double> data = new TreeMap<>();
+
+    public NumberHistory(String id) {
+        this.numberHistoryId = id;
+        this.data = new TreeMap<>();
+    }
 
     /**
      * Search for the closest value to the given timestamp. If the timestamp is before the first

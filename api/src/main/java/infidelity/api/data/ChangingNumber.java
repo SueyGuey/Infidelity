@@ -35,8 +35,7 @@ public class ChangingNumber {
      * @param within The time window in milliseconds.
      */
     public boolean upToDate(long within) {
-        long now = DateTime.now().getMillis();
-        return now - lastUpdated < within;
+        return within == -1 || System.currentTimeMillis() - lastUpdated < within;
     }
 
     /**

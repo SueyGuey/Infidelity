@@ -48,6 +48,9 @@ public abstract class Tradeable {
         } else {
             currentPrice.update(price, timestamp);
         }
+        if (priceHistory == null) {
+            priceHistory = new NumberHistory(symbol + "_price_history");
+        }
         priceHistory.add(price, timestamp);
     }
 }

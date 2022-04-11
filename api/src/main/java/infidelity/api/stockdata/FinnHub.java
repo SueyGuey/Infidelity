@@ -99,26 +99,33 @@ public class FinnHub {
             }
             return cache.get(symbol);
         } else {
-            FHPriceMessage.PriceMessage message = fetchPrice(symbol);
-            cache.put(symbol, message);
-            return message;
+            subscribe(symbol);
+            return null;
         }
     }
 
     /**
-     * Fetch the most recent price for a given symbol from FinnHub
+     * Fetch the most recent price of a given symbol from FinnHub
      * @param symbol ticker symbol for stocks
-     * @return most recent price for the symbol
+     * @return most recent price of the symbol
      */
-    public FHPriceMessage.PriceMessage fetchPrice(String symbol) {
+    public FHPriceMessage.PriceMessage waitForPrice(String symbol, long timeout) throws RuntimeException {
         if (!subscribedSymbols.containsKey(symbol)) {
             subscribe(symbol);
         } else {
             subscribedSymbols.put(symbol, System.currentTimeMillis());
         }
-        if(!hasData(symbol)) {
-            log.warn("No current price info for: " + symbol);
-            return null;
+        long start = System.currentTimeMillis();
+        while (!hasData(symbol)) {
+            if (System.currentTimeMillis() - start > timeout) {
+                log.warn("Timed out waiting for price of {}", symbol);
+                throw new RuntimeException("Timed out waiting for price of " + symbol);
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         return cache.get(symbol);
     }
@@ -158,7 +165,9 @@ public class FinnHub {
             } else {
                 List<FHSymbolResponse> symbols = List.of(symbolDecoder.decode(body));
                 for (FHSymbolResponse entity : symbols) {
-                    results.add(entity.getSymbol());
+                    if (!entity.getSymbol().contains(".")) {
+                        results.add(entity.getSymbol());
+                    }
                 }
             }
         } catch (IOException | InterruptedException e) {
