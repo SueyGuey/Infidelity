@@ -11,4 +11,5 @@ export enum Action {
 	FETCH_TRADEABLE,
 	SEARCH_MARKET,
 	MAKE_TRADE,
+	FETCH_POPULAR,
 }

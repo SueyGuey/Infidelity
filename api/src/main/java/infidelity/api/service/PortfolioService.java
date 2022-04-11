@@ -81,11 +81,15 @@ public class PortfolioService {
 
         //make changes to portfolio
         Optional<Tradeable> tradeable = marketService.findInfo(request.getItemSymbol());
-        if(tradeable.isPresent()){
+        if (tradeable.isPresent()){
             Transaction transaction = new Transaction();
             transaction.setItem(tradeable.get());
             transaction.setTimestamp(request.getTimeStamp());
-            transaction.setPrice(marketService.getCurrentPrice(request.getItemSymbol()).value);
+            Optional<ChangingNumber> price = marketService.getCurrentPrice(request.getItemSymbol(), 10000, 100000);
+            if (price.isEmpty()) {
+                throw new RuntimeException("Could not find price for " + request.getItemSymbol());
+            }
+            transaction.setPrice(price.get().value);
             transaction.setQuantity(request.getQuantity());
 
             //Update portfolio

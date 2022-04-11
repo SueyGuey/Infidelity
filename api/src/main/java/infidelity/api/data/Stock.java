@@ -34,8 +34,9 @@ public class Stock extends Tradeable {
                  Company company,
                  ChangingNumber price,
                  NumberHistory priceHistory,
-                 ChangingNumber volume) {
-        super(symbol, price, priceHistory);
+                 ChangingNumber volume,
+                 double popularity) {
+        super(symbol, price, priceHistory, popularity);
         this.company = company;
         this.volume = volume;
     }

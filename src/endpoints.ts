@@ -3,7 +3,7 @@
  * This is the endpoint which connects the backend to the frontend.
  */
 
-import { PortfolioRequest, TransactionRequest } from './datamodels/Portfolio';
+import { PortfolioRequest, Tradeable, TransactionRequest } from './datamodels/Portfolio';
 import { NewUserInfo } from './datamodels/User';
 
 //For switching between local and production backend
@@ -13,7 +13,7 @@ enum Backend {
 }
 
 //change .Production for production, .Local for local
-const BACKEND_URL = Backend.Production;
+const BACKEND_URL = Backend.Local;
 
 //URLs of certain pages
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
@@ -21,8 +21,8 @@ export const CREATE_USER_URL = `${BACKEND_URL}/user/create`;
 export const EDIT_USER_URL = `${BACKEND_URL}/user/update`;
 export const GET_TRADEABLE_URL = (symbol: string): string => `${BACKEND_URL}/market/info/${symbol}`;
 export const SEARCH_MARKET_URL = (query: string): string => `${BACKEND_URL}/market/search/${query}`;
-
 export const STOCK_PRICE_URL = (symbol: string): string => `${BACKEND_URL}/market/price/${symbol}`;
+export const POPULAR_STOCKS_URL = `${BACKEND_URL}/market/popular`;
 
 export const MAKE_TRADE_URL = `${BACKEND_URL}/user/portfolio/trade`;
 export const NEW_PORTFOLIO_URL = `${BACKEND_URL}/user/portfolio/create`;
@@ -45,13 +45,13 @@ export function createUserBackend(user: NewUserInfo) {
 }
 
 //Fetching a tradeable
-export async function getTradeableBackend(symbol: string) {
+export async function getTradeableBackend(symbol: string): Promise<Tradeable> {
 	console.log('GET TRADEABLE');
 	return await fetch(GET_TRADEABLE_URL(symbol)).then((res) => res.json());
 }
 
 //The search functionality
-export async function searchMarketBackend(query: string) {
+export async function searchMarketBackend(query: string): Promise<Tradeable[]> {
 	console.log('SEARCH MARKET');
 	return await fetch(SEARCH_MARKET_URL(query)).then((res) => res.json());
 }
