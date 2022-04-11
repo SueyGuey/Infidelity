@@ -1,6 +1,5 @@
 package infidelity.api.stockdata;
 
-import infidelity.api.data.Company;
 import infidelity.api.stockdata.decode.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,14 +26,14 @@ public class FinnHub {
     private final FHCompanyDecoder companyDecoder = new FHCompanyDecoder();
     private final FHSearchDecoder searchDecoder = new FHSearchDecoder();
 
-    private Set<String> subscribedSymbols = new HashSet<>();
+    private Map<String, Long> subscribedSymbols = new HashMap<>();
 
-    private WebsocketStompClient stompClient;
+    private PriceMessageHandler priceMessageHandler;
 
     /**
      * Map of all most recently updated prices
      */
-    private Map<String, FHPriceMessage.PriceMessage> info = new HashMap<>();
+    private Map<String, FHPriceMessage.PriceMessage> cache = new HashMap<>();
 
     public FinnHub() {
         log.info("Initializing FinnHub");
@@ -61,12 +60,20 @@ public class FinnHub {
     private void handleMessage(String messageStr) {
         if (!decoder.willDecode(messageStr)) return;
         FHPriceMessage message = decoder.decode(messageStr);
-        System.out.println(message);
         List<FHPriceMessage.PriceMessage> data = message.getData();
         if (data.isEmpty()) return;
         // only use the most recent update, which is the last element in the list
         FHPriceMessage.PriceMessage mostRecent = data.get(data.size() - 1);
-        info.put(mostRecent.getSymbol(), mostRecent);
+        String symbol = mostRecent.getSymbol();
+        cache.put(symbol, mostRecent);
+        if (subscribedSymbols.containsKey(symbol)
+                && System.currentTimeMillis() - subscribedSymbols.get(symbol) > 100000) {
+            log.info("Received unneeded price update for {}, unsubscribing", symbol);
+            unsubscribe(symbol);
+        }
+        if (priceMessageHandler != null) {
+            priceMessageHandler.handlePriceMessage(mostRecent);
+        }
     }
 
     /**
@@ -77,20 +84,23 @@ public class FinnHub {
         String subMsg = String.format("{\"type\":\"subscribe\",\"symbol\":\"%s\"}", symbol);
         if (clientEndpoint != null) {
             clientEndpoint.sendMessage(subMsg);
-            subscribedSymbols.add(symbol);
+            subscribedSymbols.put(symbol, System.currentTimeMillis());
         }
     }
 
     public boolean hasData(String symbol) {
-        return info.containsKey(symbol) && info.get(symbol) != null;
+        return cache.containsKey(symbol) && cache.get(symbol) != null;
     }
 
     public FHPriceMessage.PriceMessage getPrice(String symbol) {
-        if (info.containsKey(symbol)) {
-            return info.get(symbol);
+        if (cache.containsKey(symbol)) {
+            if (subscribedSymbols.containsKey(symbol)) {
+                subscribedSymbols.put(symbol, System.currentTimeMillis());
+            }
+            return cache.get(symbol);
         } else {
             FHPriceMessage.PriceMessage message = fetchPrice(symbol);
-            info.put(symbol, message);
+            cache.put(symbol, message);
             return message;
         }
     }
@@ -101,17 +111,28 @@ public class FinnHub {
      * @return most recent price for the symbol
      */
     public FHPriceMessage.PriceMessage fetchPrice(String symbol) {
-        if (!subscribedSymbols.contains(symbol)) {
+        if (!subscribedSymbols.containsKey(symbol)) {
             subscribe(symbol);
+        } else {
+            subscribedSymbols.put(symbol, System.currentTimeMillis());
         }
-        while(!hasData(symbol)) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if(!hasData(symbol)) {
+            log.warn("No current price info for: " + symbol);
+            return null;
         }
-        return info.get(symbol);
+        return cache.get(symbol);
+    }
+
+    /**
+     * Unsubscribe from a given symbol
+     * @param symbol ticker symbol for stocks
+     */
+    private void unsubscribe(String symbol) {
+        String subMsg = String.format("{\"type\":\"unsubscribe\",\"symbol\":\"%s\"}", symbol);
+        if (clientEndpoint != null) {
+            clientEndpoint.sendMessage(subMsg);
+            subscribedSymbols.remove(symbol);
+        }
     }
 
     /**
@@ -191,7 +212,7 @@ public class FinnHub {
             String body = response.body();
 
             if (!companyDecoder.willDecode(body)) {
-                log.error("Error parsing response {}", body);
+                log.error("Error parsing symbol {} /profile2 response {}", symbol, body);
             } else {
                 return companyDecoder.decode(body);
             }
@@ -199,5 +220,16 @@ public class FinnHub {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addMessageHandler(PriceMessageHandler msgHandler) {
+        this.priceMessageHandler = msgHandler;
+    }
+
+    /**
+     * Message handler.
+     */
+    public static interface PriceMessageHandler {
+        public void handlePriceMessage(FHPriceMessage.PriceMessage message);
     }
 }

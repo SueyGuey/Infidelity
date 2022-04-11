@@ -67,7 +67,7 @@ public class WebsocketClientEndpoint {
      */
     @OnMessage
     public void onMessage(String message) {
-        log.info("Received message (session id {}): {}", this.session.getId(), message);
+//        log.info("Received message (session id {}): {}", this.session.getId(), message);
         if (this.messageHandler != null) {
             this.messageHandler.handleMessage(message);
         }

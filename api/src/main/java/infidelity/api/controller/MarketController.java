@@ -44,7 +44,8 @@ public class MarketController {
                 .create();
         Optional<Tradeable> item = market.findInfo(symbol);
         if (item.isPresent()) {
-            return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+            market.addPopularity(symbol);
+            return new ResponseEntity<>(gson.toJson(item.get()), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -68,6 +69,9 @@ public class MarketController {
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
         List<Tradeable> results = market.searchMarket(query);
+        if (results.size() > 0) {
+            market.addPopularity(results.get(0).getSymbol());
+        }
         return new ResponseEntity<>(gson.toJson(results), HttpStatus.OK);
     }
 
@@ -84,5 +88,10 @@ public class MarketController {
     @PutMapping("/subscribe/{symbol}")
     public void subscribe(@PathVariable String symbol) {
         market.subscribe(symbol);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<Tradeable>> getPopular() {
+        return ResponseEntity.ok(market.getPopular());
     }
 }

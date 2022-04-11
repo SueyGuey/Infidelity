@@ -36,8 +36,18 @@ public abstract class Tradeable {
     @JoinColumn(name = "price_history_id")
     private NumberHistory priceHistory;
 
+    private double popularity = 0;
+
     public void updatePrice(double price, long timestamp) {
-        currentPrice.update(price, timestamp);
+        if (currentPrice == null) {
+            currentPrice = ChangingNumber.builder()
+                    .numberId(String.format("%s_price", symbol))
+                    .value(price)
+                    .lastUpdated(timestamp)
+                    .build();
+        } else {
+            currentPrice.update(price, timestamp);
+        }
         priceHistory.add(price, timestamp);
     }
 }

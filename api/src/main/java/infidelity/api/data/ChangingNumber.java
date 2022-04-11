@@ -25,8 +25,7 @@ import java.util.UUID;
 public class ChangingNumber {
     @Id
     @Column
-    @Builder.Default
-    private UUID numberId = UUID.randomUUID();
+    private String numberId;
 
     public double value;
     public long lastUpdated;
