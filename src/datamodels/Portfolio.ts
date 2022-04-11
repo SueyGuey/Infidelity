@@ -35,16 +35,16 @@ export type Asset = {
 	quantity: number;
 };
 
-export type Tradeable = {
+export interface Tradeable {
 	symbol: string;
-	currentPrice: ChangingNumber;
+	currentPrice?: ChangingNumber;
 	// priceHistory: ChangingNumber[];
-};
+}
 
-export type Stock = Tradeable & {
+export interface Stock extends Tradeable {
 	company: Company;
 	volume: ChangingNumber;
-};
+}
 
 export type Company = {
 	name: string;
@@ -74,3 +74,7 @@ export type Transaction = {
 	price: number;
 	quantity: number;
 };
+
+export function isStock(item: Tradeable): item is Stock {
+	return 'company' in item;
+}

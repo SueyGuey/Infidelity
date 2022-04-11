@@ -1,9 +1,12 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import '../css/Search.css';
-import { Stock } from '../datamodels/Portfolio';
+import { isStock, Stock } from '../datamodels/Portfolio';
 import searchIcon from '../images/searchIcon.png';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import { useNavigate } from 'react-router-dom';
+import { searchMarketBackend } from '../endpoints';
+import { is } from 'immer/dist/internal';
+import SearchResults from './SearchResults';
 
 /**
  * This is the Search component. It is contained within the outer div given by the parent page.
@@ -11,17 +14,13 @@ import { useNavigate } from 'react-router-dom';
  * relevant results, ommitting non-matches. Users can select the result to go to the corresponding
  * stock page
  * */
-function Search(props: WithMarketLoaderProps): ReactElement {
-	const data = props.marketData as Stock[];
-	const [query, setQuery] = React.useState(''); //handles user query input for live search updating.
-	const results = data.filter((item) => {
-		return item.symbol.toLowerCase().includes(query.toLowerCase());
-	}); //handles the filtering of results from the user query.
-
+function Search(): ReactElement {
+	const [query, setQuery] = useState(''); //handles user query input for live search updating.
+	// const [searched, setSearched] = useState(props.searchQuery); //handles state of search
 	const navigate = useNavigate();
+	console.log(query);
 	return (
 		<div className="searchContainer">
-			{' '}
 			{/* the main search container */}
 			<div className="searchBar">
 				<input
@@ -34,24 +33,9 @@ function Search(props: WithMarketLoaderProps): ReactElement {
 			</div>
 			{/* The top search bar, contains the inputfield */}
 			{/* The search results, contains the formatted search reuslts for the user to see */}
-			<div className="searchResults">
-				{results.map((item) => (
-					<div
-						className="searchResult"
-						onClick={() => {
-							navigate(`/stockDash/${item.symbol}`);
-							//navigates to the corresponding stock page when the result is clicked
-						}}
-						key={item.symbol}>
-						{/* The stock symbol, company name and current price for search display*/}
-						<p className="searchResultSymbol">{item.symbol}</p>
-						<p className="searchResultName">{item.company.name}</p>
-						<p className="searchResultPrice">{item.currentPrice.value.toFixed(4)}</p>
-					</div>
-				))}
-			</div>
+			<SearchResults query={query}></SearchResults>
 		</div>
 	);
 }
 
-export default withMarketLoader(Search);
+export default Search;

@@ -23,7 +23,7 @@ function BuySell(
 
 	//Gets the price
 	const tradeable = props.marketData.find((item) => item.symbol === props.symbol);
-	const price = tradeable ? tradeable.currentPrice.value : 0;
+	const price = tradeable && tradeable.currentPrice ? tradeable.currentPrice.value : 0;
 	const { buy } = useParams();
 	//Enables/disables popup
 	const [popUp, setPopUp] = useState(-1);

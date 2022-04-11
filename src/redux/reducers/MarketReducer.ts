@@ -10,10 +10,14 @@ import Loadable from '../redux-config/loadable';
 
 export interface MarketState {
 	marketData: Loadable<Tradeable[]>;
+	searchResults: Loadable<Tradeable[]>;
+	searchQuery: string;
 }
 
 const DEFAULT_STATE: MarketState = {
 	marketData: { status: 'loading' },
+	searchResults: { status: 'success', data: [] },
+	searchQuery: '',
 };
 
 export default (
@@ -26,7 +30,11 @@ export default (
 		case Action.FETCH_MARKET_DATA:
 			return { ...state, marketData: action.payload };
 		case Action.SEARCH_MARKET:
-			return { ...state, marketData: action.payload };
+			return {
+				...state,
+				searchResults: action.payload.results,
+				searchQuery: action.payload.query,
+			};
 		default:
 			return state;
 	}

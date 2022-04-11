@@ -6,7 +6,14 @@
 import { Dispatch } from 'react';
 import { FetchError } from '../../datamodels/misc';
 import { Tradeable, TransactionRequest } from '../../datamodels/Portfolio';
-import { getTradeableBackend, makeTradeBackend, searchMarketBackend } from '../../endpoints';
+import {
+	getTradeableBackend,
+	GET_TRADEABLE_URL,
+	makeTradeBackend,
+	POPULAR_STOCKS_URL,
+	searchMarketBackend,
+	SEARCH_MARKET_URL,
+} from '../../endpoints';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
 import mock_stock_data from '../../mock_data/stocks.json';
@@ -20,30 +27,30 @@ type MarketDataAction = {
 export const fetchMarketData = () => {
 	return async (dispatch: Dispatch<MarketDataAction>) => {
 		dispatch({ type: Action.FETCH_MARKET_DATA, payload: { status: 'loading' } });
-		// fetch(SEARCH_MARKET_URL('AAPL'))
-		// 	.then(async (response: Response) => {
-		// 		const data: Tradeable[] | FetchError = await response.json();
-		// 		if ('error' in data) {
-		// 			dispatch({
-		// 				type: Action.FETCH_MARKET_DATA,
-		// 				payload: { status: 'error', errorMessage: data.error },
-		// 			});
-		// 		} else {
-		// 			console.log(data);
-		// 			dispatch({
-		// 				type: Action.FETCH_MARKET_DATA,
-		// 				payload: { status: 'success', data: data },
-		// 			});
-		// 		}
-		// 	})
-		// 	.catch((error) => {
-		// 		console.error(error);
-		// 	});
-		const data: Tradeable[] = mock_stock_data;
-		dispatch({
-			type: Action.FETCH_MARKET_DATA,
-			payload: { status: 'success', data: data },
-		});
+		fetch(POPULAR_STOCKS_URL)
+			.then(async (response: Response) => {
+				const data: Tradeable[] | FetchError = await response.json();
+				if ('error' in data) {
+					dispatch({
+						type: Action.FETCH_MARKET_DATA,
+						payload: { status: 'error', errorMessage: data.error },
+					});
+				} else {
+					console.log(data);
+					dispatch({
+						type: Action.FETCH_MARKET_DATA,
+						payload: { status: 'success', data: data },
+					});
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+		// const data: Tradeable[] = mock_stock_data;
+		// dispatch({
+		// 	type: Action.FETCH_MARKET_DATA,
+		// 	payload: { status: 'success', data: data },
+		// });
 	};
 };
 
@@ -56,7 +63,7 @@ export const fetchTradeable = (symbol: string) => {
 		}>
 	) => {
 		dispatch({ type: Action.FETCH_TRADEABLE, payload: { status: 'loading' } });
-		getTradeableBackend(symbol)
+		fetch(GET_TRADEABLE_URL(symbol))
 			.then(async (response: Response) => {
 				const data: Tradeable | FetchError = await response.json();
 				// first check if data has returned an error
@@ -79,24 +86,39 @@ export const fetchTradeable = (symbol: string) => {
 	};
 };
 
+type SearchMarketAction = {
+	type: Action;
+	payload: {
+		results: Loadable<Tradeable[]>;
+		query: string;
+	};
+};
+
 //Searches the market based on input string query
 export const searchMarket = (query: string) => {
-	return async (dispatch: Dispatch<MarketDataAction>) => {
-		dispatch({ type: Action.SEARCH_MARKET, payload: { status: 'loading' } });
-		searchMarketBackend(query)
+	return async (dispatch: Dispatch<SearchMarketAction>) => {
+		dispatch({
+			type: Action.SEARCH_MARKET,
+			payload: { results: { status: 'loading' }, query: query },
+		});
+		fetch(SEARCH_MARKET_URL(query))
 			.then(async (response: Response) => {
-				const data: any = await response.json();
+				console.log(response);
+				const data: Tradeable[] | FetchError = await response.json();
 				// first check if data has returned an error
 				if ('error' in data) {
 					dispatch({
 						type: Action.SEARCH_MARKET,
-						payload: { status: 'error', errorMessage: data.error },
+						payload: {
+							results: { status: 'error', errorMessage: data.error },
+							query: query,
+						},
 					});
 				} else {
 					console.log('SEARCH RESULTS ', data);
 					dispatch({
 						type: Action.SEARCH_MARKET,
-						payload: { status: 'success', data: data },
+						payload: { results: { status: 'success', data: data }, query: query },
 					});
 				}
 			})
