@@ -4,6 +4,12 @@ import one from '../images/pitchOne.png';
 import two from '../images/pitchTwo.png';
 import three from '../images/pitchThree.png';
 
+/**
+ * This is the PitchRectangles component, containing product pitches on the front page.
+ * Pitches are structured such that the icon and main pitch sentance is visible at the bottom
+ * of any standard window size of a standard screen. Ideally the first one - two lines are visible,
+ * but the main pitches matter most to draw user eyes.
+ */
 export default function PitchRectangles(): ReactElement {
 	return (
 		/**MAIN DIV-- CONTAINS ALL RECTANGLE SPANS*/

@@ -1,3 +1,8 @@
+/**
+ * accounts.tsx
+ * For account management, creation and login/logout
+ */
+
 import React, { ReactElement, createContext } from 'react';
 import { CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 import Pool from './userPool';
@@ -8,6 +13,7 @@ export type AccountContextType = {
 	logout: () => void;
 };
 
+//Using AWS Cognito to authenticate users
 const authenticate = async (email: string, password: string) => {
 	await new Promise((resolve, reject) => {
 		const user = new CognitoUser({ Username: email, Pool });

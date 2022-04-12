@@ -3,6 +3,11 @@ import Login from './login';
 import Signup from './signup';
 import '../css/home.css';
 
+/**
+ * This is the Login/Signup Component. Our login/signup is contained in "one" visual object on
+ * the home page. This handles the toggling between Login and Signup within that component the
+ * users can see, it saves space in our home page and makes user experience intuitive.
+ */
 export default function LoginSignup(): ReactElement {
 	//hook to set hook state
 	const [tabNumber, setTabNumber] = useState(1);
