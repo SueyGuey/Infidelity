@@ -20,6 +20,9 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 	const portfolio = getActivePortfolio(props.userProfile);
 
 	const positions = Array.from(portfolio.assets);
+	const trades = portfolio.transactions.sort((a, b) => {
+		return a.timestamp - b.timestamp;
+	});
 
 	return (
 		<div className="dashBottomContain">
@@ -48,6 +51,18 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 					</div>
 					<div className="positionsItems">
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
+						{positions.map((position) => {
+							const price = position.item.currentPrice
+								? position.item.currentPrice.value
+								: 0;
+							return (
+								<div className="positionItem" key={position.item.symbol}>
+									<p>{position.item.symbol}</p>
+									<p>{position.quantity}</p>
+									<p>{price * position.quantity}</p>
+								</div>
+							);
+						})}
 					</div>
 				</span>
 				<span className="bottomSpan recentTrade">

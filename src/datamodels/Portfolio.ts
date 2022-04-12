@@ -11,14 +11,13 @@ export default interface Portfolio {
 	name: string;
 	balance: number;
 	assets: Set<Asset>;
-	transactions: Set<Transaction>;
+	transactions: Transaction[];
 }
 
 export function portfolioToJson(portfolio: Portfolio): JSONData<Portfolio> {
 	return {
 		...portfolio,
 		assets: Array.from(portfolio.assets),
-		transactions: Array.from(portfolio.transactions),
 	};
 }
 
@@ -26,7 +25,6 @@ export function jsonToPortfolio(portfolio: JSONData<Portfolio>): Portfolio {
 	return {
 		...portfolio,
 		assets: new Set(portfolio.assets),
-		transactions: new Set(portfolio.transactions),
 	};
 }
 
