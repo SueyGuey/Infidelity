@@ -18,7 +18,7 @@ function StockDashTop(
 ): ReactElement {
 	const stock = props.marketData.find((stock) => stock.symbol === props.symbol);
 	//Displays placeholder text if stock is not found
-	const price = stock ? stock.currentPrice.value.toFixed(2) : '###.##';
+	const price = stock && stock.currentPrice ? stock.currentPrice.value.toFixed(2) : '###.##';
 	const [popUpState, setPopUpState] = useState(-1); //handles state of pop up
 
 	//this function displays (or not) pop up. Specifically the 'add stock to watchlist' pop up

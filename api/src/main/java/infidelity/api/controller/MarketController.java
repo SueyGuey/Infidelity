@@ -44,16 +44,26 @@ public class MarketController {
                 .create();
         Optional<Tradeable> item = market.findInfo(symbol);
         if (item.isPresent()) {
-            return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+            market.addPopularity(symbol);
+            return new ResponseEntity<>(gson.toJson(item.get()), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/price/{symbol}")
-    public ResponseEntity<ChangingNumber> getPrice(@PathVariable String symbol) {
+    public ResponseEntity<ChangingNumber> getPrice(@PathVariable String symbol,
+                                                   @RequestParam(required = false) Integer timeout,
+                                                   @RequestParam(required = false) Integer window) {
         log.info("GET /market/price/{}", symbol);
-        return new ResponseEntity<>(market.getCurrentPrice(symbol), HttpStatus.OK);
+        if (timeout == null) {
+            timeout = 0;
+        }
+        if (window == null) {
+            window = -1;
+        }
+        Optional<ChangingNumber> price = market.getCurrentPrice(symbol, window, timeout);
+        return price.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     /**
@@ -62,13 +72,16 @@ public class MarketController {
      * @return JSON string of the list of tradeable entities in the format of Tradeable
      */
     @GetMapping("/search/{query}")
-    public ResponseEntity<String> search(@PathVariable String query) {
+    public ResponseEntity<List<Tradeable>> search(@PathVariable String query) {
         log.info("GET /market/search/{}", query);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
         List<Tradeable> results = market.searchMarket(query);
-        return new ResponseEntity<>(gson.toJson(results), HttpStatus.OK);
+        if (results.size() > 0) {
+            market.addPopularity(results.get(0).getSymbol());
+        }
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     /**
@@ -84,5 +97,10 @@ public class MarketController {
     @PutMapping("/subscribe/{symbol}")
     public void subscribe(@PathVariable String symbol) {
         market.subscribe(symbol);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<Tradeable>> getPopular() {
+        return ResponseEntity.ok(market.getPopular());
     }
 }

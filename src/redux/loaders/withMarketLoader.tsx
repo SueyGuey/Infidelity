@@ -20,6 +20,8 @@ import { useEffect } from 'react';
 //Loads the tradeable
 export interface WithMarketLoaderProps {
 	marketData: Tradeable[];
+	searchResults: Tradeable[];
+	searchQuery: string;
 	getTradeable: (symbol: string) => any;
 	searchMarket: (query: string) => any;
 }
@@ -30,9 +32,10 @@ export default function withMarketLoader<PropType>(
 	return function ComponentWithMarket(props: PropType): JSX.Element {
 		const dispatch = useAppDispatch();
 
-		const marketData: Loadable<Tradeable[]> = useAppSelector<MarketState>(
-			(state: any) => state.marketData
-		).marketData;
+		const state = useAppSelector((state: any) => state.marketData);
+
+		const marketData: Loadable<Tradeable[]> = state.marketData;
+		const searchResults: Loadable<Tradeable[]> = state.searchResults;
 
 		useEffect(() => {
 			if (!marketData.data) {
@@ -41,7 +44,15 @@ export default function withMarketLoader<PropType>(
 		}, [dispatch]);
 
 		//handle cases of whether we can find query or not
-		switch (marketData.status) {
+
+		let status = 'loading';
+		if (marketData.status == 'error' || searchResults.status == 'error') {
+			status = 'error';
+		} else if (marketData.status == 'success' && searchResults.status == 'success') {
+			status = 'success';
+		}
+
+		switch (status) {
 			case 'loading':
 				return <LoadingAnimation />;
 			case 'error':
@@ -50,6 +61,8 @@ export default function withMarketLoader<PropType>(
 				return (
 					<ReactComponent
 						marketData={marketData.data as Tradeable[]}
+						searchResults={searchResults.data as Tradeable[]}
+						searchQuery={state.searchQuery}
 						searchMarket={(query: string) => dispatch(searchMarket(query))}
 						getTradeable={(symbol: string) => dispatch(fetchTradeable(symbol))}
 						{...props}
