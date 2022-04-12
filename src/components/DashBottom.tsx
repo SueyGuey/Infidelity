@@ -8,6 +8,7 @@ import '../css/home.css';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
+import { getActivePortfolio } from '../datamodels/User';
 
 /*
  * This is the bottom half of the user dashboard. It contains the watchlist container,
@@ -16,6 +17,10 @@ import withUserProfileLoader, {
 
 function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);
+	const portfolio = getActivePortfolio(props.userProfile);
+
+	const positions = Array.from(portfolio.assets);
+
 	return (
 		<div className="dashBottomContain">
 			<div className="dashBottom">

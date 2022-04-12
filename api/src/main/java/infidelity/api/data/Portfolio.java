@@ -24,7 +24,7 @@ public class Portfolio {
     @Id
     @Column
     @Builder.Default
-    private UUID portfolioId = UUID.randomUUID();
+    private String portfolioId = UUID.randomUUID().toString();
 
     /**
      * The name of the Portfolio as given by the user when creating the Portfolio.

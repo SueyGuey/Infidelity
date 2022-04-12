@@ -1,7 +1,6 @@
 package infidelity.api.data;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,15 +13,22 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Asset {
     @Id
     @Column(nullable = false)
-    private UUID assetId;
+    private String assetId;
 
     @OneToOne
     @JoinColumn(name = "asset_item_symbol")
     private Tradeable item;
-    private double quantity;
+    private double quantity = 0;
+
+    public Asset(Tradeable item, double quantity) {
+        this.assetId = UUID.randomUUID().toString();
+        this.item = item;
+        this.quantity = quantity;
+    }
 
     public void add(double amount) {
         quantity += amount;

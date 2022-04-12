@@ -19,7 +19,7 @@ public class Transaction {
     @Id
     @Column(nullable = false)
     @Builder.Default
-    private UUID transactionId = UUID.randomUUID();;
+    private String transactionId = UUID.randomUUID().toString();
 
     private long timestamp;
     @ManyToOne

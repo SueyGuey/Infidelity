@@ -12,6 +12,7 @@ import withUserProfileLoader, {
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import BuySellPopup from './BuySellPopup';
 import { Tradeable } from '../datamodels/Portfolio';
+import { getActivePortfolio } from '../datamodels/User';
 
 type BuySellProps = {
 	item: Tradeable;
@@ -21,10 +22,11 @@ type BuySellProps = {
 function BuySell(props: BuySellProps): ReactElement<BuySellProps> {
 	//information from user
 	// TODO: change this [0] to the user's active portfolio
-	const portfolio = Array.from(props.userProfile.portfolios)[0];
+	const portfolio = getActivePortfolio(props.userProfile);
 	const asset = Array.from(portfolio.assets).find(
-		(asset) => asset.itemSymbol === props.item.symbol
+		(asset) => asset.item.symbol === props.item.symbol
 	);
+	console.log('asset: ', asset);
 	const sharesOwned = asset ? asset.quantity : 0;
 
 	//Gets the price

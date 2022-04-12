@@ -15,5 +15,5 @@ public class TransactionRequest {
     private String itemSymbol;
     private String portfolioName;
     private double quantity;
-    private long timeStamp;
+    private long timestamp;
 }

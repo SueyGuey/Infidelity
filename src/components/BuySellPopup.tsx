@@ -41,7 +41,7 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 			itemSymbol: props.item.symbol,
 			portfolioName: portfolio.name,
 			quantity: props.type === 'buy' ? quantity : -quantity,
-			timestamp: new Date().getMilliseconds(),
+			timestamp: Date.now(),
 		}).then((res) => {
 			console.log('trade result: ', res);
 			setCompleted(true);

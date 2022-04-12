@@ -32,7 +32,7 @@ export function jsonToPortfolio(portfolio: JSONData<Portfolio>): Portfolio {
 
 export type Asset = {
 	assetId: string;
-	itemSymbol: string;
+	item: Tradeable;
 	quantity: number;
 };
 

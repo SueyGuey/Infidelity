@@ -58,6 +58,14 @@ public class UserService {
      * @return The User as it is represented in the database.
      */
     public User saveUser(User user) {
+        if (user.getPortfolios().isEmpty()) {
+            Portfolio firstPortfolio = Portfolio.builder()
+                    .name("My Portfolio")
+                    .balance(100000)
+                    .build();
+            firstPortfolio = portfolioRepository.save(firstPortfolio);
+            user.getPortfolios().add(firstPortfolio);
+        }
         if (user.getActivePortfolio() == null) {
             if (user.getPortfolios().size() > 0) {
                 user.setActivePortfolio(user.getPortfolios().stream().iterator().next().getName());
