@@ -5,6 +5,7 @@ import infidelity.api.data.PortfolioRequest;
 import infidelity.api.data.Transaction;
 import infidelity.api.data.TransactionRequest;
 import infidelity.api.service.PortfolioService;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,13 @@ public class PortfolioController {
         log.info("POST /user/portfolio/trade");
         Transaction transaction = portfolioService.makeTransaction(request);
         return new ResponseEntity<>(transaction, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Portfolio> getPortfolio(@RequestParam String username, @RequestParam String portfolioName){
+        log.info("GET /user/portfolio");
+        Portfolio portfolio = portfolioService.getPortfolio(username, portfolioName);
+        return new ResponseEntity<>(portfolio, HttpStatus.OK);
     }
 
     //TODO: implement function

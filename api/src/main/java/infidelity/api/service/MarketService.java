@@ -47,6 +47,7 @@ public class MarketService {
      * @see Tradeable#symbol
      */
     public Optional<ChangingNumber> getCurrentPrice(String symbol, int window, int timeout) {
+        subscribe(symbol);
         Optional<ChangingNumber> dbPrice = changingNumberRepository.findById(symbol + "_price");
         if (dbPrice.isPresent() && dbPrice.get().upToDate(window)) {
             return dbPrice;

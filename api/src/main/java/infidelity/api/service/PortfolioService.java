@@ -2,6 +2,7 @@ package infidelity.api.service;
 
 import infidelity.api.data.*;
 import infidelity.api.data.repository.AssetRepository;
+import infidelity.api.data.repository.ChangingNumberRepository;
 import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,17 @@ import java.util.Set;
 public class PortfolioService {
     @Autowired
     private UserService userService;
-
     @Autowired
     private MarketService marketService;
+
     @Autowired
     private TransactionRepository transactionRepository;
     @Autowired
     private PortfolioRepository portfolioRepository;
     @Autowired
     private AssetRepository assetRepository;
+    @Autowired
+    private ChangingNumberRepository changingNumberRepository;
 
     public void setActivePortfolio(String username, String portfolioName){
         User user = userService.getUserById(username);
@@ -62,10 +65,11 @@ public class PortfolioService {
     public Portfolio getPortfolio(String username, String portfolioName){
         User user = userService.getUserById(username);
         Optional<Portfolio> portfolio = user.getPortfolios().stream().filter(p -> p.getName().equals(portfolioName)).findFirst();
-        if(portfolio.isPresent()){
-            return portfolio.get();
+        if (portfolio.isPresent()){
+            return updatePortfolioValue(portfolio.get());
         } else {
-            throw new IllegalArgumentException("Portfolio does not exist");
+            throw new IllegalArgumentException(
+                    String.format("Portfolio %s does not exist for user %s", portfolioName, username));
         }
     };
 
@@ -123,6 +127,7 @@ public class PortfolioService {
                 assetRepository.save(asset);
             } else {
                 asset = new Asset(tradeable.get(), request.getQuantity());
+                changingNumberRepository.save(asset.getValue());
                 userPortfolio.getAssets().add(asset);
                 assetRepository.save(asset);
                 portfolioRepository.save(userPortfolio);
@@ -130,8 +135,47 @@ public class PortfolioService {
             return transaction;
         }
         return null;
-
     };
+
+    public Portfolio updatePortfolioValue(Portfolio portfolio){
+        // update values of all assets
+        portfolio.getAssets().forEach(asset -> {
+            Optional<ChangingNumber> price = marketService.getCurrentPrice(asset.getItem().getSymbol(),
+                    1000 * 60 * 120, 60000); // TODO: change window size
+            if (price.isPresent()) {
+                double newValue = price.get().value * asset.getQuantity();
+                long lastUpdated = price.get().lastUpdated;
+                if (asset.getValue() == null) {
+                    asset.setValue(ChangingNumber.builder()
+                            .numberId(asset.getAssetId() + "_asset_value")
+                            .value(newValue)
+                            .lastUpdated(lastUpdated)
+                            .build());
+                } else {
+                    asset.getValue().update(newValue, lastUpdated);
+                }
+                assetRepository.save(asset);
+            }
+        });
+        // calculate the sum of all asset values in the portfolio
+        double sum = portfolio.getAssets().stream()
+                .mapToDouble(asset -> asset.getValue().getValue())
+                .sum() + portfolio.getBalance();
+        long lastUpdated = portfolio.getAssets().stream()
+                .mapToLong(asset -> asset.getValue().getLastUpdated())
+                .min()
+                .getAsLong();
+        if (portfolio.getTotalValue() == null) {
+            portfolio.setTotalValue(ChangingNumber.builder()
+                    .numberId(portfolio.getPortfolioId() + "_asset_value")
+                    .value(sum)
+                    .lastUpdated(lastUpdated)
+                    .build());
+        } else {
+            portfolio.getTotalValue().update(sum, lastUpdated);
+        }
+        return portfolioRepository.save(portfolio);
+    }
 
     /**
      * TODO: implement function

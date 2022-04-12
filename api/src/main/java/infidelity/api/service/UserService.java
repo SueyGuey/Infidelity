@@ -1,8 +1,6 @@
 package infidelity.api.service;
 
-import infidelity.api.data.Portfolio;
-import infidelity.api.data.User;
-import infidelity.api.data.Watchlist;
+import infidelity.api.data.*;
 import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
 import infidelity.api.data.repository.WatchlistRepository;
@@ -67,9 +65,7 @@ public class UserService {
             user.getPortfolios().add(firstPortfolio);
         }
         if (user.getActivePortfolio() == null) {
-            if (user.getPortfolios().size() > 0) {
-                user.setActivePortfolio(user.getPortfolios().stream().iterator().next().getName());
-            }
+            user.setActivePortfolio(user.getPortfolios().stream().iterator().next().getName());
         }
         return userRepository.save(user);
     }

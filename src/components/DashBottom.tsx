@@ -9,18 +9,21 @@ import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import { getActivePortfolio } from '../datamodels/User';
+import Portfolio from '../datamodels/Portfolio';
 
-/*
+type DashBottomProps = {
+	portfolio: Portfolio;
+} & WithUserProfileLoaderProps;
+
+/**
  * This is the bottom half of the user dashboard. It contains the watchlist container,
  * the positions container, and the recent trades container.
  */
-
-function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
+function DashBottom(props: DashBottomProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);
-	const portfolio = getActivePortfolio(props.userProfile);
 
-	const positions = Array.from(portfolio.assets);
-	const trades = portfolio.transactions.sort((a, b) => {
+	const positions = Array.from(props.portfolio.assets);
+	const trades = props.portfolio.transactions.sort((a, b) => {
 		return a.timestamp - b.timestamp;
 	});
 
@@ -52,14 +55,11 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 					<div className="positionsItems">
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
 						{positions.map((position) => {
-							const price = position.item.currentPrice
-								? position.item.currentPrice.value
-								: 0;
 							return (
 								<div className="positionItem" key={position.item.symbol}>
 									<p>{position.item.symbol}</p>
 									<p>{position.quantity}</p>
-									<p>{price * position.quantity}</p>
+									<p>{position.value.value.toFixed(2)}</p>
 								</div>
 							);
 						})}
@@ -71,6 +71,14 @@ function DashBottom(props: WithUserProfileLoaderProps): ReactElement {
 					</div>
 					<div className="recentTradeItems">
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
+						{trades.map((trade) => (
+							<div className="recentTradeItem" key={trade.transactionId}>
+								<p>
+									Bought {trade.quantity} shares of {trade.item.symbol} at $
+									{trade.price}
+								</p>
+							</div>
+						))}
 					</div>
 				</span>
 			</div>

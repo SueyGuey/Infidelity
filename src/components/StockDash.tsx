@@ -12,8 +12,9 @@ import StockDashBottom from './StockDashBottom';
 import StockDashTop from './StockDashTop';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import { DEFAULT_PRICE_TIMEOUT, priceBackend } from '../endpoints';
+import { isRecent, SECOND } from '../utils/timeUtils';
 
-const PRICE_UPDATE_WINDOW = 1000 * 10; // 10 seconds
+const PRICE_UPDATE_WINDOW = 10 * SECOND;
 
 /**
  * This is the StockDash component. It is visually similar to the style of the user dashboard.
@@ -24,7 +25,6 @@ const PRICE_UPDATE_WINDOW = 1000 * 10; // 10 seconds
  * Contains the graphical information of stock price, stock information and the buy and sell
  * section. (See BuySell.tsx, BuySellPopup.tsx)
  */
-
 function StockDash(props: WithMarketLoaderProps): ReactElement {
 	const { symbol } = useParams();
 	const itemSymbol = symbol || 'MSFT';
@@ -51,8 +51,7 @@ function StockDash(props: WithMarketLoaderProps): ReactElement {
 	const updatedStock = { ...stock, currentPrice: price };
 
 	function updatePrice() {
-		const nowMillis = new Date().getTime();
-		if (!price || nowMillis - price.lastUpdated > PRICE_UPDATE_WINDOW) {
+		if (!price || !isRecent(price.lastUpdated, PRICE_UPDATE_WINDOW)) {
 			priceBackend(itemSymbol, PRICE_UPDATE_WINDOW, DEFAULT_PRICE_TIMEOUT).then(
 				(newPrice) => {
 					setPrice(newPrice);
@@ -63,6 +62,7 @@ function StockDash(props: WithMarketLoaderProps): ReactElement {
 
 	// update price every 10 seconds
 	useEffect(() => {
+		updatePrice();
 		const interval = setInterval(updatePrice, PRICE_UPDATE_WINDOW);
 		return () => clearInterval(interval);
 	}, []);

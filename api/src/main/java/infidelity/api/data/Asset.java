@@ -1,5 +1,6 @@
 package infidelity.api.data;
 
+import infidelity.api.data.repository.ChangingNumberRepository;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,11 +24,18 @@ public class Asset {
     @JoinColumn(name = "asset_item_symbol")
     private Tradeable item;
     private double quantity = 0;
+    @OneToOne(cascade = CascadeType.ALL)
+    private ChangingNumber value;
 
     public Asset(Tradeable item, double quantity) {
         this.assetId = UUID.randomUUID().toString();
         this.item = item;
         this.quantity = quantity;
+        this.value = ChangingNumber.builder()
+                .numberId(this.assetId + "_asset_value")
+                .value(item.getCurrentPrice().getValue() * quantity)
+                .lastUpdated(item.getCurrentPrice().getLastUpdated())
+                .build();
     }
 
     public void add(double amount) {

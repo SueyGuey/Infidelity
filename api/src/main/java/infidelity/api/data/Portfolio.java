@@ -2,10 +2,7 @@ package infidelity.api.data;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -37,6 +34,9 @@ public class Portfolio {
      */
     @Builder.Default
     private double balance = 100000;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ChangingNumber totalValue;
 
     /**
      * The history of transactions that have occurred on this Portfolio.

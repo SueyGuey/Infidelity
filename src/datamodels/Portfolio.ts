@@ -10,6 +10,7 @@ export default interface Portfolio {
 	portfolioId: string;
 	name: string;
 	balance: number;
+	totalValue: ChangingNumber;
 	assets: Set<Asset>;
 	transactions: Transaction[];
 }
@@ -32,6 +33,7 @@ export type Asset = {
 	assetId: string;
 	item: Tradeable;
 	quantity: number;
+	value: ChangingNumber;
 };
 
 export interface Tradeable {
@@ -69,7 +71,7 @@ export type TransactionRequest = {
 export type Transaction = {
 	transactionId: string;
 	timestamp: number;
-	itemSymbol: string;
+	item: Tradeable;
 	price: number;
 	quantity: number;
 };

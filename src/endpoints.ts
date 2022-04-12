@@ -4,7 +4,7 @@
  */
 
 import { ChangingNumber } from './datamodels/misc';
-import {
+import Portfolio, {
 	PortfolioRequest,
 	Tradeable,
 	Transaction,
@@ -103,4 +103,11 @@ export function setActivePortfolioBackend(username: string, porfolioName: string
 			method: 'PUT',
 		}
 	);
+}
+
+export function loadPortfolioBackend(username: string, portfolioName: string): Promise<Portfolio> {
+	console.log('GET PORTFOLIO');
+	return fetch(
+		`${BACKEND_URL}/user/portfolio?username=${username}&portfolioName=${portfolioName}`
+	).then((res) => res.json());
 }
