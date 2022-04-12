@@ -9,6 +9,7 @@ import { ChangingNumber, JSONData } from './misc';
 export default interface Portfolio {
 	portfolioId: string;
 	name: string;
+	balance: number;
 	assets: Set<Asset>;
 	transactions: Set<Transaction>;
 }

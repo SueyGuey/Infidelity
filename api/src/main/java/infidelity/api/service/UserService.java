@@ -58,6 +58,11 @@ public class UserService {
      * @return The User as it is represented in the database.
      */
     public User saveUser(User user) {
+        if (user.getActivePortfolio() == null) {
+            if (user.getPortfolios().size() > 0) {
+                user.setActivePortfolio(user.getPortfolios().stream().iterator().next().getName());
+            }
+        }
         return userRepository.save(user);
     }
 
@@ -74,6 +79,7 @@ public class UserService {
                     .build();
             firstPortfolio = portfolioRepository.save(firstPortfolio);
             newUser.getPortfolios().add(firstPortfolio);
+            newUser.setActivePortfolio(firstPortfolio.getName());
 
             Watchlist firstWatchlist = Watchlist.builder()
                     .name("My Watchlist")

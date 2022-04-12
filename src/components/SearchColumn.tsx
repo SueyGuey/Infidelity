@@ -1,11 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import '../css/Search.css';
-import { isStock, Stock } from '../datamodels/Portfolio';
 import searchIcon from '../images/searchIcon.png';
-import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
-import { useNavigate } from 'react-router-dom';
-import { searchMarketBackend } from '../endpoints';
-import { is } from 'immer/dist/internal';
 import SearchResults from './SearchResults';
 
 /**

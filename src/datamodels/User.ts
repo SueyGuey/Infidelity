@@ -11,6 +11,7 @@ import Watchlist, { jsonToWatchlist, watchlistToJson } from './Watchlist';
 export default interface User {
 	username: string;
 	email: string;
+	activePortfolio: string;
 	portfolios: Set<Portfolio>;
 	watchlists: Set<Watchlist>;
 }
@@ -35,3 +36,9 @@ export type NewUserInfo = {
 	username: string;
 	email: string;
 };
+
+export function getActivePortfolio(user: User): Portfolio {
+	return Array.from(user.portfolios).filter(
+		(portfolio) => portfolio.name === user.activePortfolio
+	)[0];
+}

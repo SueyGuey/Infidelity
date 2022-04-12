@@ -4,7 +4,12 @@
  */
 
 import { ChangingNumber } from './datamodels/misc';
-import { PortfolioRequest, Tradeable, TransactionRequest } from './datamodels/Portfolio';
+import {
+	PortfolioRequest,
+	Tradeable,
+	Transaction,
+	TransactionRequest,
+} from './datamodels/Portfolio';
 import { NewUserInfo } from './datamodels/User';
 
 //For switching between local and production backend
@@ -67,9 +72,15 @@ export async function searchMarketBackend(query: string): Promise<Tradeable[]> {
 }
 
 //For performing trades
-export async function makeTradeBackend(trade: TransactionRequest) {
+export async function makeTradeBackend(trade: TransactionRequest): Promise<Transaction> {
 	console.log('MAKE TRADE');
-	return await fetch(MAKE_TRADE_URL).then((res) => res.json());
+	return await fetch(MAKE_TRADE_URL, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(trade),
+	}).then((res) => res.json());
 }
 
 //For creating new portfolios for the user
@@ -82,4 +93,14 @@ export function newPortfolioBackend(portfolio: PortfolioRequest) {
 		},
 		body: JSON.stringify(portfolio),
 	});
+}
+
+export function setActivePortfolioBackend(username: string, porfolioName: string) {
+	console.log('SET ACTIVE PORTFOLIO');
+	fetch(
+		`${BACKEND_URL}/user/portfolio/set-active?username=${username}?portfolioName=${porfolioName}`,
+		{
+			method: 'PUT',
+		}
+	);
 }

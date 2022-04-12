@@ -4,6 +4,7 @@
  */
 
 import { AnyAction } from 'redux';
+import Portfolio from '../../datamodels/Portfolio';
 import User from '../../datamodels/User';
 import { Action } from '../actions/types';
 import Loadable from '../redux-config/loadable';
@@ -26,6 +27,8 @@ export default (
 			return { ...state, userProfile: action.payload };
 		case Action.UPDATE_USER_PROFILE:
 			return { ...state, userProfile: action.payload };
+		case Action.MAKE_TRADE:
+			return state;
 		default:
 			return state;
 	}

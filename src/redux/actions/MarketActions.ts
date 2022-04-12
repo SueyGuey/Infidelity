@@ -5,7 +5,7 @@
 
 import { Dispatch } from 'react';
 import { FetchError } from '../../datamodels/misc';
-import { Tradeable, TransactionRequest } from '../../datamodels/Portfolio';
+import { Tradeable, Transaction, TransactionRequest } from '../../datamodels/Portfolio';
 import {
 	getTradeableBackend,
 	GET_TRADEABLE_URL,
@@ -114,33 +114,6 @@ export const searchMarket = (query: string) => {
 					dispatch({
 						type: Action.SEARCH_MARKET,
 						payload: { results: { status: 'success', data: data }, query: query },
-					});
-				}
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	};
-};
-
-//Buy/sell tradeables
-export const makeTrade = (trade: TransactionRequest) => {
-	return async (dispatch: Dispatch<MarketDataAction>) => {
-		dispatch({ type: Action.MAKE_TRADE, payload: { status: 'loading' } });
-		makeTradeBackend(trade)
-			.then(async (response: Response) => {
-				const data: any = await response.json();
-				// first check if data has returned an error
-				if ('error' in data) {
-					dispatch({
-						type: Action.MAKE_TRADE,
-						payload: { status: 'error', errorMessage: data.error },
-					});
-				} else {
-					console.log('TRADE RESULTS ', data);
-					dispatch({
-						type: Action.MAKE_TRADE,
-						payload: { status: 'success', data: data },
 					});
 				}
 			})

@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import '../css/DashTop.css';
 import '../css/home.css';
 import StockGraph from './StockGraph';
@@ -8,13 +8,12 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import AddToWatchList from './AddToWatchList';
-import { DEFAULT_PRICE_TIMEOUT, priceBackend } from '../endpoints';
+import { Tradeable } from '../datamodels/Portfolio';
 import { ChangingNumber } from '../datamodels/misc';
 
-const PRICE_UPDATE_WINDOW = 1000 * 10; // 10 seconds
-
 type StockDashTopProps = {
-	symbol: string;
+	item: Tradeable;
+	price?: ChangingNumber;
 } & WithUserProfileLoaderProps &
 	WithMarketLoaderProps;
 
@@ -23,42 +22,12 @@ type StockDashTopProps = {
  * holds the search component so the user can resume searching through stocks.
  */
 function StockDashTop(props: StockDashTopProps): ReactElement {
-	const [stock, setStock] = useState(
-		props.marketData.find((stock) => stock.symbol === props.symbol)
-	);
-	useEffect(() => {
-		if (!stock) {
-			const find = props.marketData.find((stock) => stock.symbol === props.symbol);
-			if (!find) {
-				props.searchMarket(props.symbol);
-			}
-		}
-	}, [props.symbol, stock, props.marketData.length]);
-	if (!stock) {
-		return <div>Loading...</div>;
-	}
-	// Displays placeholder text if stock is not found
-	const [price, setPrice] = useState(stock.currentPrice);
-	const displayPrice = price ? price.value.toFixed(2) : '##.##';
+	const displayPrice = props.item.currentPrice
+		? props.item.currentPrice.value.toFixed(2)
+		: '##.##';
+
 	// handles state of pop up for adding stock to watchlist
 	const [showAddToWatchlist, setShowAddToWatchlist] = useState(false);
-
-	function updatePrice() {
-		const nowMillis = new Date().getTime();
-		if (!price || nowMillis - price.lastUpdated > PRICE_UPDATE_WINDOW) {
-			priceBackend(props.symbol, PRICE_UPDATE_WINDOW, DEFAULT_PRICE_TIMEOUT).then(
-				(newPrice) => {
-					setPrice(newPrice);
-				}
-			);
-		}
-	}
-
-	// update price every 10 seconds
-	useEffect(() => {
-		const interval = setInterval(updatePrice, PRICE_UPDATE_WINDOW);
-		return () => clearInterval(interval);
-	}, []);
 
 	return (
 		<div>
@@ -82,9 +51,9 @@ function StockDashTop(props: StockDashTopProps): ReactElement {
 									+W
 								</button>{' '}
 								{/* Displays stock ticker and current price */}
-								{props.symbol}: <p className="stockValue">${displayPrice}</p>
+								{props.item.symbol}: <p className="stockValue">${displayPrice}</p>
 							</p>
-							<StockGraph symbol={props.symbol} />
+							<StockGraph symbol={props.item.symbol} />
 							{/* Displays graph of stock. */}
 						</div>
 					</div>

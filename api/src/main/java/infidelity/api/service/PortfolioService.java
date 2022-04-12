@@ -20,6 +20,15 @@ public class PortfolioService {
     @Autowired
     private MarketService marketService;
 
+    public void setActivePortfolio(String username, String portfolioName){
+        User user = userService.getUserById(username);
+        Optional<Portfolio> portfolio = user.getPortfolios().stream().filter(p -> p.getName().equals(portfolioName)).findFirst();
+        if(portfolio.isPresent()){
+            user.setActivePortfolio(portfolio.get().getName());
+            userService.saveUser(user);
+        }
+    }
+
     /**
      * TODO: implement this function
      * Creates a new portfolio and adds it to the specified user's set of portfolios.

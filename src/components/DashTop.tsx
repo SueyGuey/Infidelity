@@ -7,6 +7,7 @@ import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import AddPortfolioPop from './AddPortfolioPop';
+import { getActivePortfolio } from '../datamodels/User';
 /**
  * This is the Top Portion of the user Dashboard. It contains the portfolio value graph,
  * portfolio value categories, trade sidebar and the active portfolio display drop menu.
@@ -14,8 +15,11 @@ import AddPortfolioPop from './AddPortfolioPop';
  */
 function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
-	const [selectedPortfolio, setPortfolio] = React.useState(portfolios[0]);
-	const portfolioValue = 10000;
+	const [activePortfolio, setActivePortfolio] = React.useState(
+		getActivePortfolio(props.userProfile)
+	);
+	const portfolioValue = activePortfolio.balance.toFixed(2);
+
 	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
 
 	//this function handles the display of the portfolio add pop up if conditions are met.
