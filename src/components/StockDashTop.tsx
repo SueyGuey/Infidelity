@@ -1,4 +1,4 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import '../css/DashTop.css';
 import '../css/home.css';
 import StockGraph from './StockGraph';
@@ -8,50 +8,81 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import AddToWatchList from './AddToWatchList';
+import { DEFAULT_PRICE_TIMEOUT, priceBackend } from '../endpoints';
+import { ChangingNumber } from '../datamodels/misc';
 
-/**This is the Stock Dashboard's top component. It displays the Stock Graph and
+const PRICE_UPDATE_WINDOW = 1000 * 10; // 10 seconds
+
+type StockDashTopProps = {
+	symbol: string;
+} & WithUserProfileLoaderProps &
+	WithMarketLoaderProps;
+
+/**
+ * This is the Stock Dashboard's top component. It displays the Stock Graph and
  * holds the search component so the user can resume searching through stocks.
  */
+function StockDashTop(props: StockDashTopProps): ReactElement {
+	const [stock, setStock] = useState(
+		props.marketData.find((stock) => stock.symbol === props.symbol)
+	);
+	useEffect(() => {
+		if (!stock) {
+			const find = props.marketData.find((stock) => stock.symbol === props.symbol);
+			if (!find) {
+				props.searchMarket(props.symbol);
+			}
+		}
+	}, [props.symbol, stock, props.marketData.length]);
+	if (!stock) {
+		return <div>Loading...</div>;
+	}
+	// Displays placeholder text if stock is not found
+	const [price, setPrice] = useState(stock.currentPrice);
+	const displayPrice = price ? price.value.toFixed(2) : '##.##';
+	// handles state of pop up for adding stock to watchlist
+	const [showAddToWatchlist, setShowAddToWatchlist] = useState(false);
 
-function StockDashTop(
-	props: WithUserProfileLoaderProps & WithMarketLoaderProps & { symbol: string }
-): ReactElement {
-	const stock = props.marketData.find((stock) => stock.symbol === props.symbol);
-	//Displays placeholder text if stock is not found
-	const price = stock && stock.currentPrice ? stock.currentPrice.value.toFixed(2) : '###.##';
-	const [popUpState, setPopUpState] = useState(-1); //handles state of pop up
+	function updatePrice() {
+		const nowMillis = new Date().getTime();
+		if (!price || nowMillis - price.lastUpdated > PRICE_UPDATE_WINDOW) {
+			priceBackend(props.symbol, PRICE_UPDATE_WINDOW, DEFAULT_PRICE_TIMEOUT).then(
+				(newPrice) => {
+					setPrice(newPrice);
+				}
+			);
+		}
+	}
 
-	//this function displays (or not) pop up. Specifically the 'add stock to watchlist' pop up
-	const popUpHandler = function popUpHandler(props: any) {
-		if (props === -1) {
-			return <div></div>;
-		} else {
-			return (
+	// update price every 10 seconds
+	useEffect(() => {
+		const interval = setInterval(updatePrice, PRICE_UPDATE_WINDOW);
+		return () => clearInterval(interval);
+	}, []);
+
+	return (
+		<div>
+			{showAddToWatchlist && (
 				<div className="popUpContainer">
-					<button className="x-button" onClick={() => setPopUpState(-1)}>
+					<button className="x-button" onClick={() => setShowAddToWatchlist(false)}>
 						X
 					</button>
 					<AddToWatchList />
 				</div>
-			);
-		}
-	};
-	return (
-		<div>
-			{popUpHandler(popUpState)} {/* The pop up */}
+			)}
 			<div className="DashTopContain">
 				<div className="stockValueContainer">
 					<div className="stockGraph">
 						<div className="graph" id="graph-container">
 							<p className="portfolioName">
+								{/*clicking the button displays the pop up.*/}
 								<button
-									onClick={() => setPopUpState(0)}
+									onClick={() => setShowAddToWatchlist(true)}
 									className="addToWatchlistButton">
 									+W
 								</button>{' '}
-								{/*clicking the button displays the pop up.*/}
-								{props.symbol}: <p className="stockValue">${price}</p>
 								{/* Displays stock ticker and current price */}
+								{props.symbol}: <p className="stockValue">${displayPrice}</p>
 							</p>
 							<StockGraph symbol={props.symbol} />
 							{/* Displays graph of stock. */}

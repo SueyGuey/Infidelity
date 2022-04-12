@@ -34,8 +34,10 @@ function SearchResults(props: SearchResultsProps): ReactElement {
 				<div
 					className="searchResult"
 					onClick={() => {
+						// navigates to the corresponding stock page when the result is clicked
 						navigate(`/stockDash/${item.symbol}`);
-						//navigates to the corresponding stock page when the result is clicked
+						// refresh the page to update the stock data
+						window.location.reload();
 					}}
 					key={item.symbol}>
 					{/* The stock symbol, company name and current price for search display*/}

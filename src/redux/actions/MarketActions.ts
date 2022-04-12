@@ -46,15 +46,10 @@ export const fetchMarketData = () => {
 			.catch((error) => {
 				console.error(error);
 			});
-		// const data: Tradeable[] = mock_stock_data;
-		// dispatch({
-		// 	type: Action.FETCH_MARKET_DATA,
-		// 	payload: { status: 'success', data: data },
-		// });
 	};
 };
 
-//Getting a particular tradeable item from the market
+// Getting a particular tradeable item from the market that the user is viewing
 export const fetchTradeable = (symbol: string) => {
 	return async (
 		dispatch: Dispatch<{

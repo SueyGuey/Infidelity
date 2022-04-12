@@ -16,9 +16,6 @@ import SearchResults from './SearchResults';
  * */
 function Search(): ReactElement {
 	const [query, setQuery] = useState(''); //handles user query input for live search updating.
-	// const [searched, setSearched] = useState(props.searchQuery); //handles state of search
-	const navigate = useNavigate();
-	console.log(query);
 	return (
 		<div className="searchContainer">
 			{/* the main search container */}
