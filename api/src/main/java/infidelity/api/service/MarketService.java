@@ -53,11 +53,19 @@ public class MarketService {
         } else {
             try {
                 FHPriceMessage.PriceMessage message = fh.waitForPrice(symbol, timeout);
-                return Optional.of(ChangingNumber.builder()
+                ChangingNumber price = ChangingNumber.builder()
                         .value(message.getPrice())
                         .lastUpdated(message.getTimestamp())
                         .numberId(String.format("%s_price", symbol))
-                        .build());
+                        .build();
+                changingNumberRepository.save(price);
+                Optional<Tradeable> tradeable = stockRepository.findById(symbol);
+                if (tradeable.isPresent()) {
+                    Tradeable t = tradeable.get();
+                    t.setCurrentPrice(price);
+                    stockRepository.save(t);
+                }
+                return Optional.of(price);
             } catch (RuntimeException e) {
                 log.warn("Failed to retrieve price for {}", symbol);
             }
@@ -185,8 +193,8 @@ public class MarketService {
         fh.subscribe(symbol);
     }
 
-    public List<Tradeable> getPopular() {
-        return stockRepository.findTopByPopularity(10);
+    public List<Tradeable> getPopular(int limit) {
+        return stockRepository.findTopByPopularity(limit);
     }
 
     public void addPopularity(String symbol) {
