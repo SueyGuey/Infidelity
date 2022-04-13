@@ -36,7 +36,7 @@ function getData(symbol: string) {
 		fn !== 'AMZN' &&
 		fn !== 'AAPL' &&
 		fn !== 'GM' &&
-		fn !== 'FORD' &&
+		fn !== 'F' &&
 		fn !== 'NVDA' &&
 		fn !== 'AMD'
 	) {
