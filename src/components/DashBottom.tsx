@@ -1,14 +1,9 @@
 import React, { ReactElement } from 'react';
-import { Navigate } from 'react-router-dom';
-import userPool from '../authentication/userPool';
-import DashSideMenu from './DashSideMenu';
-import TopNavBar from './TopNavBar';
 import '../css/DashBottom.css';
 import '../css/home.css';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
-import { getActivePortfolio } from '../datamodels/User';
 import Portfolio from '../datamodels/Portfolio';
 
 type DashBottomProps = {

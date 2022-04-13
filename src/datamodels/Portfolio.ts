@@ -79,3 +79,13 @@ export type Transaction = {
 export function isStock(item: Tradeable): item is Stock {
 	return 'company' in item;
 }
+
+export function getTotalStockValue(portfolio: Portfolio) {
+	let total = 0;
+	for (const asset of Array.from(portfolio.assets)) {
+		if (isStock(asset.item)) {
+			total += asset.value.value;
+		}
+	}
+	return total;
+}

@@ -8,7 +8,7 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import AddPortfolioPop from './AddPortfolioPop';
 import { getActivePortfolio } from '../datamodels/User';
-import Portfolio from '../datamodels/Portfolio';
+import Portfolio, { getTotalStockValue } from '../datamodels/Portfolio';
 
 type DashTopProps = WithUserProfileLoaderProps & { portfolio: Portfolio };
 
@@ -20,6 +20,9 @@ type DashTopProps = WithUserProfileLoaderProps & { portfolio: Portfolio };
 function DashTop(props: DashTopProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
 	const portfolioValue = props.portfolio.totalValue.value;
+	const stockValue = getTotalStockValue(props.portfolio);
+	const optionsValue = 0;
+	const cryptoValue = 0;
 
 	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
 
@@ -64,13 +67,13 @@ function DashTop(props: DashTopProps): ReactElement {
 						Total Value<p className="worthValue">${portfolioValue}</p>
 					</span>
 					<span className="tradeValues">
-						Stock Value<p className="worthValue">$###.##</p>
+						Stock Value<p className="worthValue">${stockValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Options Value<p className="worthValue">$###.##</p>
+						Options Value<p className="worthValue">${optionsValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Crpyto Value<p className="worthValue">$###.##</p>
+						Crpyto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
 					</span>
 
 					{/* The porfolio value graph */}
