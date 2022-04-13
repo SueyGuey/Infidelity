@@ -81,12 +81,15 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 							className="toSellInput"
 							type="number"
 							placeholder="0"
-							min="0"
-							onChange={(e) => setNumStocks(parseInt(e.target.value))}></input>
+							min="0.01"
+							step="0.01"
+							onChange={(e) => setNumStocks(parseFloat(e.target.value))}></input>
 					</p>
 					<p className="totalEst">
 						Estimated Total:
-						<p className="estValue">${parseFloat(price) * numStocks}</p>
+						<p className="estValue">
+							${parseFloat(price) * parseFloat(numStocks.toFixed(2))}
+						</p>
 					</p>
 					<div className="confirmContain">
 						<Checkbox
@@ -110,12 +113,16 @@ function BuySellPopup(props: BuySellProps): ReactElement {
 							className="toSellInput"
 							type="number"
 							placeholder="0"
-							min="0"
+							min="0.01"
+							step="0.01"
 							onChange={(e) => setNumStocks(parseInt(e.target.value))}></input>
 					</p>
 					<p className="totalEst">
 						Estimated Total:{' '}
-						<p className="estValue">${parseFloat(price) * numStocks}</p>
+						<p className="estValue">
+							${parseFloat(price) * parseFloat(numStocks.toFixed(2))}{' '}
+							{/* Fractional stock doesn't work for Buy for some reason, works for sell */}
+						</p>
 					</p>
 					<div className="confirmContain">
 						<Checkbox
