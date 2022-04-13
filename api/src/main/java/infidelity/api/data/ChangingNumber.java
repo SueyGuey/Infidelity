@@ -52,7 +52,7 @@ public class ChangingNumber {
      * @return Whether the update was successful.
      */
     public boolean update(double newValue, long timestamp) {
-        if (timestamp <= lastUpdated) {
+        if (timestamp < lastUpdated) {
             return false;
         }
         value = newValue;

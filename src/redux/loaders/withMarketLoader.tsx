@@ -22,6 +22,7 @@ export interface WithMarketLoaderProps {
 	marketData: Tradeable[];
 	searchResults: Tradeable[];
 	searchQuery: string;
+	// viewing: Tradeable;
 	getTradeable: (symbol: string) => any;
 	searchMarket: (query: string) => any;
 }
@@ -36,6 +37,7 @@ export default function withMarketLoader<PropType>(
 
 		const marketData: Loadable<Tradeable[]> = state.marketData;
 		const searchResults: Loadable<Tradeable[]> = state.searchResults;
+		// const viewing: Loadable<Tradeable> = state.viewing;
 
 		useEffect(() => {
 			if (!marketData.data) {
@@ -65,6 +67,7 @@ export default function withMarketLoader<PropType>(
 						searchQuery={state.searchQuery}
 						searchMarket={(query: string) => dispatch(searchMarket(query))}
 						getTradeable={(symbol: string) => dispatch(fetchTradeable(symbol))}
+						// viewing={viewing.data as Tradeable}
 						{...props}
 					/>
 				);

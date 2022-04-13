@@ -7,18 +7,23 @@
 import React, { ReactElement } from 'react';
 import '../css/DashBottom.css';
 import '../css/home.css';
+import { Tradeable } from '../datamodels/Portfolio';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import BuySell from './BuySell';
+
+type StockDashBottomProps = {
+	item: Tradeable;
+} & WithUserProfileLoaderProps;
+
 /**
  * This is the Stock Dashboard's bottom component, containing the Stock Information area giving a quick
  * overview of some basic stock information the user may want to know and also includes
  * Buy/Sell information area (panel: see BuySell.tsx , and BuySellPopup.tsx). Where a user should
  * be able to purchase and sell stocks on completion of feature.
  */
-
-function StockDashBottom(props: WithUserProfileLoaderProps & { symbol: string }): ReactElement {
+function StockDashBottom(props: StockDashBottomProps): ReactElement {
 	return (
 		<div className="dashBottomContain">
 			<div className="dashBottom">
@@ -57,7 +62,7 @@ function StockDashBottom(props: WithUserProfileLoaderProps & { symbol: string })
 						</span>
 					</div>
 				</span>
-				<BuySell symbol={props.symbol} />
+				<BuySell item={props.item} />
 			</div>
 		</div>
 	);

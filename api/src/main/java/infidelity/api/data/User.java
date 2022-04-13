@@ -29,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private String username;
     private String email;
+    private String activePortfolio;
 
     @Builder.Default
     @OneToMany

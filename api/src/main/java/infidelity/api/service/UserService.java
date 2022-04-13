@@ -1,8 +1,6 @@
 package infidelity.api.service;
 
-import infidelity.api.data.Portfolio;
-import infidelity.api.data.User;
-import infidelity.api.data.Watchlist;
+import infidelity.api.data.*;
 import infidelity.api.data.repository.PortfolioRepository;
 import infidelity.api.data.repository.UserRepository;
 import infidelity.api.data.repository.WatchlistRepository;
@@ -58,6 +56,17 @@ public class UserService {
      * @return The User as it is represented in the database.
      */
     public User saveUser(User user) {
+        if (user.getPortfolios().isEmpty()) {
+            Portfolio firstPortfolio = Portfolio.builder()
+                    .name("My Portfolio")
+                    .balance(100000)
+                    .build();
+            firstPortfolio = portfolioRepository.save(firstPortfolio);
+            user.getPortfolios().add(firstPortfolio);
+        }
+        if (user.getActivePortfolio() == null) {
+            user.setActivePortfolio(user.getPortfolios().stream().iterator().next().getName());
+        }
         return userRepository.save(user);
     }
 
@@ -74,6 +83,7 @@ public class UserService {
                     .build();
             firstPortfolio = portfolioRepository.save(firstPortfolio);
             newUser.getPortfolios().add(firstPortfolio);
+            newUser.setActivePortfolio(firstPortfolio.getName());
 
             Watchlist firstWatchlist = Watchlist.builder()
                     .name("My Watchlist")

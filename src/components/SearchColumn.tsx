@@ -1,11 +1,6 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import '../css/Search.css';
-import { isStock, Stock } from '../datamodels/Portfolio';
 import searchIcon from '../images/searchIcon.png';
-import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
-import { useNavigate } from 'react-router-dom';
-import { searchMarketBackend } from '../endpoints';
-import { is } from 'immer/dist/internal';
 import SearchResults from './SearchResults';
 
 /**
@@ -16,9 +11,6 @@ import SearchResults from './SearchResults';
  * */
 function Search(): ReactElement {
 	const [query, setQuery] = useState(''); //handles user query input for live search updating.
-	// const [searched, setSearched] = useState(props.searchQuery); //handles state of search
-	const navigate = useNavigate();
-	console.log(query);
 	return (
 		<div className="searchContainer">
 			{/* the main search container */}

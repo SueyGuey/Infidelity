@@ -6,11 +6,12 @@
 import { Dispatch } from 'react';
 import { FetchError, JSONData } from '../../datamodels/misc';
 import User, { jsonToUser, userToJson } from '../../datamodels/User';
-import { EDIT_USER_URL, GET_USER_URL } from '../../endpoints';
+import { EDIT_USER_URL, GET_USER_URL, makeTradeBackend } from '../../endpoints';
 import authFetchWrapper from '../authFetch';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
 import mock_user from '../../mock_data/user.json';
+import Portfolio, { Transaction, TransactionRequest } from '../../datamodels/Portfolio';
 
 type UserProfileAction = {
 	type: Action;

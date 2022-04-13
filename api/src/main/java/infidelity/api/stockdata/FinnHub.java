@@ -129,7 +129,7 @@ public class FinnHub {
         }
         long start = System.currentTimeMillis();
         while (!hasData(symbol)) {
-            if (System.currentTimeMillis() - start > timeout) {
+            if (System.currentTimeMillis() - start >= timeout) {
                 log.warn("Timed out waiting for price of {}", symbol);
                 throw new RuntimeException("Timed out waiting for price of " + symbol);
             }

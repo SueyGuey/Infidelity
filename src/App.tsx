@@ -16,18 +16,12 @@ import Dashboard from './components/dashboard';
 import Home from './components/home';
 import './App.css';
 import StockDash from './components/StockDash';
-import TransactionCompletePop from './components/TransactionCompletePop';
-import AddWatchlistPop from './components/AddWatchlistPop';
-import AddPortfolioPop from './components/AddPortfolioPop';
-import BuySellPopup from './components/BuySellPopup';
-import AddToWatchList from './components/AddToWatchList';
 
 function App() {
 	//We have to logged in
 	const loggedIn = userPool.getCurrentUser() !== null;
 	const store = createStore(reducers, {}, applyMiddleware(ReduxThunkMiddleWare));
 	const { item } = useParams();
-	const { buy } = useParams();
 
 	// App contains routes to display all appropriate pages. Restricting content in App.tsx
 	// reduces clutter.

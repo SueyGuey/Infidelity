@@ -36,7 +36,7 @@ public class UserController {
         log.info("GET /user/{}", id);
         Optional<User> optUser = userService.findUserById(id);
         if (optUser.isPresent()) {
-            return new ResponseEntity<>(optUser.get(), HttpStatus.OK);
+            return ResponseEntity.ok(userService.saveUser(optUser.get()));
         } else {
             log.warn("User {} not found", id);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

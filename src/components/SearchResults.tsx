@@ -1,11 +1,8 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import '../css/Search.css';
-import { isStock, Stock } from '../datamodels/Portfolio';
-import searchIcon from '../images/searchIcon.png';
+import { isStock } from '../datamodels/Portfolio';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import { useNavigate } from 'react-router-dom';
-import { searchMarketBackend } from '../endpoints';
-import { is } from 'immer/dist/internal';
 
 type SearchResultsProps = {
 	query: string;
@@ -34,8 +31,10 @@ function SearchResults(props: SearchResultsProps): ReactElement {
 				<div
 					className="searchResult"
 					onClick={() => {
+						// navigates to the corresponding stock page when the result is clicked
 						navigate(`/stockDash/${item.symbol}`);
-						//navigates to the corresponding stock page when the result is clicked
+						// refresh the page to update the stock data
+						window.location.reload();
 					}}
 					key={item.symbol}>
 					{/* The stock symbol, company name and current price for search display*/}

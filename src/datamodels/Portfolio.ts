@@ -9,15 +9,16 @@ import { ChangingNumber, JSONData } from './misc';
 export default interface Portfolio {
 	portfolioId: string;
 	name: string;
+	balance: number;
+	totalValue: ChangingNumber;
 	assets: Set<Asset>;
-	transactions: Set<Transaction>;
+	transactions: Transaction[];
 }
 
 export function portfolioToJson(portfolio: Portfolio): JSONData<Portfolio> {
 	return {
 		...portfolio,
 		assets: Array.from(portfolio.assets),
-		transactions: Array.from(portfolio.transactions),
 	};
 }
 
@@ -25,14 +26,14 @@ export function jsonToPortfolio(portfolio: JSONData<Portfolio>): Portfolio {
 	return {
 		...portfolio,
 		assets: new Set(portfolio.assets),
-		transactions: new Set(portfolio.transactions),
 	};
 }
 
 export type Asset = {
 	assetId: string;
-	itemSymbol: string;
+	item: Tradeable;
 	quantity: number;
+	value: ChangingNumber;
 };
 
 export interface Tradeable {
@@ -70,11 +71,21 @@ export type TransactionRequest = {
 export type Transaction = {
 	transactionId: string;
 	timestamp: number;
-	itemSymbol: string;
+	item: Tradeable;
 	price: number;
 	quantity: number;
 };
 
 export function isStock(item: Tradeable): item is Stock {
 	return 'company' in item;
+}
+
+export function getTotalStockValue(portfolio: Portfolio) {
+	let total = 0;
+	for (const asset of Array.from(portfolio.assets)) {
+		if (isStock(asset.item)) {
+			total += asset.value.value;
+		}
+	}
+	return total;
 }

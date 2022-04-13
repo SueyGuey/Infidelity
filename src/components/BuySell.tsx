@@ -11,61 +11,59 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import BuySellPopup from './BuySellPopup';
-import { useParams } from 'react-router-dom';
+import { Tradeable } from '../datamodels/Portfolio';
+import { getActivePortfolio } from '../datamodels/User';
 
-function BuySell(
-	props: WithUserProfileLoaderProps & WithMarketLoaderProps & { symbol: string }
-): ReactElement {
+type BuySellProps = {
+	item: Tradeable;
+} & WithUserProfileLoaderProps &
+	WithMarketLoaderProps;
+
+function BuySell(props: BuySellProps): ReactElement<BuySellProps> {
 	//information from user
-	const portfolio = Array.from(props.userProfile.portfolios)[0];
-	const asset = Array.from(portfolio.assets).find((asset) => asset.itemSymbol === props.symbol);
-	const quantity = asset ? asset.quantity : 0;
+	// TODO: change this [0] to the user's active portfolio
+	const portfolio = getActivePortfolio(props.userProfile);
+	const asset = Array.from(portfolio.assets).find(
+		(asset) => asset.item.symbol === props.item.symbol
+	);
+	console.log('asset: ', asset);
+	const sharesOwned = asset ? asset.quantity : 0;
 
 	//Gets the price
-	const tradeable = props.marketData.find((item) => item.symbol === props.symbol);
-	const price = tradeable && tradeable.currentPrice ? tradeable.currentPrice.value : 0;
-	const { buy } = useParams();
-	//Enables/disables popup
-	const [popUp, setPopUp] = useState(-1);
+	const price = props.item.currentPrice ? props.item.currentPrice.value : 0;
 
-	//the function that determines to or not to display a pop up
-	const popUpRender = function popUpRender(item: any, popUp: number) {
-		if (popUp === -1) {
-			return <div></div>;
-		} else {
-			return (
-				<div className="popUpContainer">
-					<button className="x-button" onClick={() => setPopUp(-1)}>
-						X
-					</button>
-					<BuySellPopup buy={item || popUp} />
-				</div>
-			);
-		}
-	};
+	// Enables/disables popup and specifies the type of popup
+	const [menuType, setMenuType] = useState<'' | 'buy' | 'sell'>('');
 
 	return (
 		<div id="whole">
-			{popUpRender(buy, popUp)}
+			{menuType !== '' && (
+				<div className="popUpContainer">
+					<button className="x-button" onClick={() => setMenuType('')}>
+						X
+					</button>
+					<BuySellPopup type={menuType} item={props.item} />
+				</div>
+			)}
 			<span className="bottomSpan buySell">
 				<div className="spanCap">
 					<p>Buy/Sell</p>
 				</div>
 				<div className="buySellContainer">
 					<p className="labelSB">
-						Shares Owned: <p className="stockValue">{quantity}</p>
+						Shares Owned: <p className="stockValue">{sharesOwned}</p>
 					</p>
 					<p className="labelSB">
-						Valued At: <p className="stockValue">${(quantity * price).toFixed(5)}</p>
+						Valued At: <p className="stockValue">${(sharesOwned * price).toFixed(2)}</p>
 					</p>
 					<div>
-						<button className="buyButton" onClick={() => setPopUp(1)}>
+						<button className="buyButton" onClick={() => setMenuType('buy')}>
 							{/*Displays BUY version of pop up*/}
 							Buy
 						</button>
 					</div>
 					<div>
-						<button className="sellButton" onClick={() => setPopUp(0)}>
+						<button className="sellButton" onClick={() => setMenuType('sell')}>
 							{/*Displays SELL version of pop up*/}
 							Sell
 						</button>
