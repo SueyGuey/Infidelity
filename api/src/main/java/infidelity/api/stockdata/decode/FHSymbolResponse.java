@@ -1,4 +1,4 @@
-package infidelity.api.stockdata;
+package infidelity.api.stockdata.decode;
 
 import lombok.Getter;
 

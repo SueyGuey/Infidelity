@@ -7,15 +7,25 @@ import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import AddPortfolioPop from './AddPortfolioPop';
+import { getActivePortfolio } from '../datamodels/User';
+import Portfolio, { getTotalStockValue } from '../datamodels/Portfolio';
+
+type DashTopProps = WithUserProfileLoaderProps & { portfolio: Portfolio };
+
 /**
  * This is the Top Portion of the user Dashboard. It contains the portfolio value graph,
  * portfolio value categories, trade sidebar and the active portfolio display drop menu.
  * You can find the add portfolio button next to the active portfolio display drop menu.
  */
-function DashTop(props: WithUserProfileLoaderProps): ReactElement {
+function DashTop(props: DashTopProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
-	const [selectedPortfolio, setPortfolio] = React.useState(portfolios[0]);
-	const portfolioValue = 10000;
+	const portfolioValue = props.portfolio.totalValue
+		? props.portfolio.totalValue.value
+		: props.portfolio.balance + 1.93;
+	const stockValue = getTotalStockValue(props.portfolio);
+	const optionsValue = 0;
+	const cryptoValue = 0;
+
 	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
 
 	//this function handles the display of the portfolio add pop up if conditions are met.
@@ -59,13 +69,13 @@ function DashTop(props: WithUserProfileLoaderProps): ReactElement {
 						Total Value<p className="worthValue">${portfolioValue}</p>
 					</span>
 					<span className="tradeValues">
-						Stock Value<p className="worthValue">$###.##</p>
+						Stock Value<p className="worthValue">${stockValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Options Value<p className="worthValue">$###.##</p>
+						Options Value<p className="worthValue">${optionsValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Crpyto Value<p className="worthValue">$###.##</p>
+						Crpyto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
 					</span>
 
 					{/* The porfolio value graph */}

@@ -1,6 +1,6 @@
 /**
  * loadable.ts
- * It contains the status of loading
+ * It contains the status of loading items fetched from the server.
  */
 
 export default interface Loadable<T> {

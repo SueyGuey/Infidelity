@@ -87,14 +87,12 @@ class AreaChart extends React.Component<any, any> {
 				width={width}
 				height={thisHeight}
 				margin={{ left: 50, right: 30, top: 10, bottom: 30 }}
-				seriesName="MSFT"
 				data={data}
 				type={type}
 				xAccessor={(d: any) => d.date}
 				xScale={scaleTime()}
 				panEvent={false}
-				zoomEvent={false}
-				xExtents={[new Date(2015, 0, 1), new Date(2016, 0, 2)]}>
+				zoomEvent={false}>
 				<Chart id={0} yExtents={(d: any) => d.close}>
 					{/* This sets the gradient for the area under the line */}
 					<defs>
