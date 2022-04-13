@@ -16,9 +16,9 @@ export default function Home(): ReactElement {
 				{/* The login and sign up container, togglable between login and sign up */}
 				<span className="top-2">
 					<div className="graph" id="graph-container">
-						<p className="stockName"> MSFT</p>
+						<p className="stockName"> S&P 500</p>
 						{/* the 'example' graph shown on the front page */}
-						<StockGraph symbol="AAPL" />
+						<StockGraph symbol="SPY" />
 					</div>
 				</span>
 			</div>
