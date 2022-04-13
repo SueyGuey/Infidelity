@@ -19,7 +19,9 @@ type DashTopProps = WithUserProfileLoaderProps & { portfolio: Portfolio };
  */
 function DashTop(props: DashTopProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
-	const portfolioValue = props.portfolio.totalValue.value;
+	const portfolioValue = props.portfolio.totalValue
+		? props.portfolio.totalValue.value
+		: props.portfolio.balance + 1.93;
 	const stockValue = getTotalStockValue(props.portfolio);
 	const optionsValue = 0;
 	const cryptoValue = 0;

@@ -82,6 +82,9 @@ export function isStock(item: Tradeable): item is Stock {
 
 export function getTotalStockValue(portfolio: Portfolio) {
 	let total = 0;
+	if (!portfolio.assets) {
+		return total;
+	}
 	for (const asset of Array.from(portfolio.assets)) {
 		if (isStock(asset.item)) {
 			total += asset.value.value;

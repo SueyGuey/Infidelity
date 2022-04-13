@@ -17,12 +17,42 @@ type DashBottomProps = {
  */
 function DashBottom(props: DashBottomProps): ReactElement {
 	const watchlists = Array.from(props.userProfile.watchlists);
-
+	console.log(props.portfolio);
 	const positions = Array.from(props.portfolio.assets);
 	const trades = props.portfolio.transactions.sort((a, b) => {
 		return a.timestamp - b.timestamp;
 	});
-	const [watchToDisplay, setWatchDisplay] = useState(watchlists[0]);
+	const [watchToDisplay, setWatchDisplay] = useState(
+		watchlists[0] || {
+			name: 'RPI CS Watchlist',
+			items: [
+				{
+					symbol: 'MLFD',
+					currentPrice: {
+						value: 45.63,
+					},
+				},
+				{
+					symbol: 'SDD',
+					currentPrice: {
+						value: 94.55,
+					},
+				},
+				{
+					symbol: 'ALGO',
+					currentPrice: {
+						value: 601.23,
+					},
+				},
+				{
+					symbol: 'DS',
+					currentPrice: {
+						value: 1.98,
+					},
+				},
+			],
+		}
+	);
 	const navigate = useNavigate();
 	const handleChangeWL = function handleChangeWL(props: any) {
 		const watchlist = Array.from(watchlists).find((watchlist) => watchlist.name === props);
