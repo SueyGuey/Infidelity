@@ -26,9 +26,23 @@ const parseDate = timeParse('%m/%d/%Y');
 
 //reads in static data from a csv
 function getData(symbol: string) {
-	const filename =
-		symbol === 'GE' ? 'GE_full.tsv' : symbol === 'AAPL' ? 'AAPL_full.tsv' : 'MSFT.tsv';
-	const url = `https://raw.githubusercontent.com/SueyGuey/stockdata/main/SPY.csv`;
+	let fn = symbol;
+	if (
+		fn !== 'SPY' &&
+		fn !== 'TSLA' &&
+		fn !== 'MSFT' &&
+		fn !== 'GME' &&
+		fn !== 'GOOG' &&
+		fn !== 'AMZN' &&
+		fn !== 'AAPL' &&
+		fn !== 'GM' &&
+		fn !== 'FORD' &&
+		fn !== 'NVDA' &&
+		fn !== 'AMD'
+	) {
+		fn = 'SPY';
+	}
+	const url = `https://raw.githubusercontent.com/SueyGuey/stockdata/main/${fn}.csv`;
 	const promise = fetch(url)
 		.then((response) => response.text())
 		.then((data) => csvParse(data, parseData(parseDate)));
@@ -46,7 +60,7 @@ class StockGraph extends React.Component<{ symbol: string }, any> {
 		if (this.state == null) {
 			return <div>Loading...</div>;
 		}
-		console.log(this.state.data);
+
 		//graph of svg type and passing in data
 		return <Chart type={'svg'} data={this.state.data} />;
 	}
