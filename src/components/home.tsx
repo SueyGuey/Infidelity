@@ -1,14 +1,20 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import PitchRectangles from './PitchRectangles';
 import TopNavBar from './TopNavBar';
 import '../css/home.css';
 import LoginSignup from './LoginSignup';
 import StockGraph from './StockGraph';
+import stockImage2 from '../images/stock-image-2-upgraph.jpg';
+import '../css/InfoPages-css/aboutPage.css';
 
 //our landing page
 export default function Home(): ReactElement {
+	useEffect(() => {
+		document.body.style.overflowY = 'auto';
+	}, []);
 	return (
 		<div>
+			<img className="backgroundWhole featureImg" src={stockImage2} />
 			{/* Navigation bar for navigation to non-app informational pages */}
 			<TopNavBar />
 			<div className="top">

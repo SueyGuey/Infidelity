@@ -132,14 +132,13 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								</li>
 							</ul>
 						</li>
-						<li
+						{/* <li
 							id="profile"
 							className="bottomItem"
 							onClick={() => navigate(`/dashboard/profile`)}>
 							{' '}
-							{/*navigates to user profile when implented*/}
 							<p>Profile</p>
-						</li>
+						</li>*/}
 						<li
 							id="settings"
 							className="bottomItem"
@@ -152,7 +151,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 							{' '}
 							{/*currently just navigates to front page*/}
 							<p>Logout</p>
-						</li>{' '}
+						</li>
 						{/*Definitley not normal logout procedure. It 'works' only visually */}
 					</ul>
 				</div>

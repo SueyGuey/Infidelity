@@ -1,14 +1,14 @@
+import React, { ReactElement } from 'react';
+import logo from '../images/logo.png';
+import '../css/TopNavBar.css';
+import { useNavigate } from 'react-router-dom';
 /**
  * TopNavBar.tsx
  * This is the component for the navbar at the top of the screen for the landing page
  */
-
-import React, { ReactElement } from 'react';
-import logo from '../images/logo.png';
-import '../css/TopNavBar.css';
-
 //A basic navbar with some links to other pages which we will implement eventually
 export default function TopNavBar(): ReactElement {
+	const navigate = useNavigate();
 	return (
 		<div className="header">
 			<div className="insideHeader">
@@ -17,11 +17,9 @@ export default function TopNavBar(): ReactElement {
 					<p>Infidelity</p>
 				</div>
 				<ul className="nav">
-					<li>About</li>
-					<li>Product</li>
-					<li>Features</li>
-					<li>Nav4</li>
-					<li>Nav5</li>
+					<li onClick={() => navigate('/')}>Product</li>
+					<li onClick={() => navigate('/About')}>About</li>
+					<li onClick={() => navigate('/Features')}>Features</li>
 				</ul>
 			</div>
 		</div>

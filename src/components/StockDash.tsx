@@ -26,6 +26,9 @@ const PRICE_UPDATE_WINDOW = 10 * SECOND;
  * section. (See BuySell.tsx, BuySellPopup.tsx)
  */
 function StockDash(props: WithMarketLoaderProps): ReactElement {
+	useEffect(() => {
+		document.body.style.overflowY = 'auto';
+	}, []);
 	const { symbol } = useParams();
 	const itemSymbol = symbol || 'MSFT';
 

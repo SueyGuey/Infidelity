@@ -16,7 +16,8 @@ import Dashboard from './components/dashboard';
 import Home from './components/home';
 import './App.css';
 import StockDash from './components/StockDash';
-
+import AboutPage from './components/InfoPages/AboutPage';
+import FeaturePage from './components/InfoPages/FeaturesPage';
 function App() {
 	//We have to logged in
 	const loggedIn = userPool.getCurrentUser() !== null;
@@ -32,26 +33,17 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						{/* FOR TESTING */}
-						{/* <Route path="/popUp/0" element={<BuySellPopup buy={item || 0} />} />
-						<Route path="/popUp/1" element={<BuySellPopup buy={item || 1} />} />
-						<Route
-							path="/popUp/2"
-							element={<TransactionCompletePop buy={item || 0} />}
-						/>
-						<Route
-							path="/popUp/3"
-							element={<TransactionCompletePop buy={item || 1} />}
-						/>
-						<Route path="/popUp/4" element={<AddPortfolioPop />} />
-						<Route path="/popUp/5" element={<AddWatchlistPop />} />
-						<Route path="/popUp/6" element={<AddToWatchList />} /> */}
+						{/* <Route path="/popUp/4" element={<AddPortfolioPop />} /> */}
+						{/* <Route path="/popUp/5" element={<AddWatchlistPop />} /> */}
+						{/* <Route path="/popUp/6" element={<AddToWatchList />} /> */}
 						{/* for testing end. */}
+						<Route path="/About" element={<AboutPage />} />
+						<Route path="/Features" element={<FeaturePage />} />
 						<Route
 							path="/dashboard"
 							element={<Dashboard item={item || 'dashboard'} />}
 						/>
 						<Route path="/stockDash/:symbol" element={<StockDash />} />
-
 						<Route
 							path="/dashboard/tradeHistory"
 							element={<Dashboard item={item || 'tradeHistory'} />}

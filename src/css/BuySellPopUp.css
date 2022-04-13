@@ -87,7 +87,11 @@
     margin-left: .5vw;
     margin-top: .1vw;
     height: 1.5vw;
+    font-family: Arsenal-Regular;   
+    font-size: 1.3vw;
+    padding-left: .3vw;
 }
+
 
 .sellContainer{
     margin-left: 3.5vw;
@@ -183,4 +187,8 @@
     font-size: .6vw;
     margin-top: -1vw;
     margin-left: -1vw;
+}
+
+.watchSelect{
+    overflow-y: auto;
 }

@@ -1,10 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import '../css/DashBottom.css';
 import '../css/home.css';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
 import Portfolio from '../datamodels/Portfolio';
+import { useNavigate } from 'react-router-dom';
 
 type DashBottomProps = {
 	portfolio: Portfolio;
@@ -21,6 +22,14 @@ function DashBottom(props: DashBottomProps): ReactElement {
 	const trades = props.portfolio.transactions.sort((a, b) => {
 		return a.timestamp - b.timestamp;
 	});
+	const [watchToDisplay, setWatchDisplay] = useState(watchlists[0]);
+	const navigate = useNavigate();
+	const handleChangeWL = function handleChangeWL(props: any) {
+		const watchlist = Array.from(watchlists).find((watchlist) => watchlist.name === props);
+		if (watchlist) {
+			setWatchDisplay(watchlist);
+		}
+	};
 
 	return (
 		<div className="dashBottomContain">
@@ -29,7 +38,10 @@ function DashBottom(props: DashBottomProps): ReactElement {
 					<div className="spanCap">
 						<p>
 							Watchlists
-							<select className="watchSelect">
+							<select
+								className="watchSelect"
+								id="dashboardWatchlistSelect"
+								onChange={(event) => handleChangeWL(event.target.value)}>
 								{/* can select to view a watchlist's stocks from the user's watchlists */}
 								{watchlists.map((watchlist) => (
 									<option value={watchlist.name} key={watchlist.watchlistId}>
@@ -40,6 +52,38 @@ function DashBottom(props: DashBottomProps): ReactElement {
 						</p>
 					</div>
 					<div className="watchlistStocks">
+						{Array.from(watchToDisplay.items).map((item) => (
+							<div
+								className="watchListItems"
+								key={item.symbol}
+								onClick={() => {
+									navigate(`/stockDash/${item.symbol}`);
+									// location.reload();
+									//navigates to the corresponding stock page when the result is clicked
+								}}>
+								<p className="watchlist-symbol">{item.symbol.padEnd(6)}</p>
+								<p className="watchlist-sep">
+									{'  '}|{'  '}
+								</p>
+								<p className="watchlist-value">
+									{item.currentPrice
+										? item.currentPrice.value.toFixed(2)
+										: '##.##'}
+								</p>
+								<p className="watchlist-sep">
+									{'  '}|{'  '}
+								</p>
+								<p className="watchlist-value">
+									+{' '}
+									{(
+										-1.32511 +
+										(item.currentPrice ? item.currentPrice.value : 0) * 0.1
+									).toFixed(2)}
+									%
+									{/* PLACEHOLDER VALUE ADDED TO PRICE TO GIVE FAKE PERCENT FOR NOW */}
+								</p>
+							</div>
+						))}
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
 					</div>
 				</span>

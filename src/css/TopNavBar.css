@@ -23,6 +23,7 @@
   background-color: #63d2f3;
   filter: drop-shadow(0px 1vw 1vw rgba(99, 210, 243, 0.40));
   margin-bottom: 1.5px;
+  text-align: left;
 }
 
 .insideHeader {
