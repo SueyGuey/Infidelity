@@ -8,16 +8,13 @@ import infidelity.api.data.repository.ChangingNumberRepository;
 import infidelity.api.data.repository.CompanyRepository;
 import infidelity.api.data.repository.StockRepository;
 import infidelity.api.stockdata.FinnHub;
-import infidelity.api.stockdata.WebsocketClientEndpoint;
 import infidelity.api.stockdata.decode.FHCompanyResponse;
 import infidelity.api.stockdata.decode.FHPriceMessage;
 import infidelity.api.stockdata.decode.FHSearchResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,19 +51,12 @@ public class MarketService {
         } else {
             try {
                 FHPriceMessage.PriceMessage message = fh.waitForPrice(symbol, timeout);
-                ChangingNumber price = ChangingNumber.builder()
-                        .value(message.getPrice())
-                        .lastUpdated(message.getTimestamp())
-                        .numberId(String.format("%s_price", symbol))
-                        .build();
-                changingNumberRepository.save(price);
                 Optional<Tradeable> tradeable = stockRepository.findById(symbol);
-                if (tradeable.isPresent()) {
-                    Tradeable t = tradeable.get();
-                    t.setCurrentPrice(price);
-                    stockRepository.save(t);
-                }
-                return Optional.of(price);
+                return tradeable.map(value -> {
+                    ChangingNumber price = value.updatePrice(message.getPrice(), message.getTimestamp());
+                    stockRepository.save(value);
+                    return price;
+                });
             } catch (RuntimeException e) {
                 log.warn("Failed to retrieve price for {}", symbol);
             }
@@ -84,13 +74,7 @@ public class MarketService {
         fh.addMessageHandler(this::handlePriceMessage);
         List<String> symbols = fh.listExchange();
         for (String symbol : symbols) {
-            // for now we can trust listExchange to return common stocks only
-            updateInfo(symbol, "Common Stock");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            updateOrCreateDBInfo(symbol);
         }
     }
 
@@ -125,7 +109,7 @@ public class MarketService {
                 subscribe(symbol);
                 Optional<Tradeable> tradeable = findInfo(symbol);
                 if (tradeable.isEmpty()) {
-                    Tradeable newItem = updateInfo(symbol, result.getType());
+                    Tradeable newItem = updateOrCreateDBInfo(symbol);
                     if (newItem != null) {
                         results.add(newItem);
                     }
@@ -137,41 +121,42 @@ public class MarketService {
         return results;
     }
 
+    public Tradeable updateDBInfo(Tradeable tradeable) {
+        if (tradeable instanceof Stock) {
+            Stock stock = (Stock) tradeable;
+            stock.updateQuote(fh.getQuote(tradeable.getSymbol()));
+            return stockRepository.save(stock);
+        }
+        return stockRepository.save(tradeable);
+    }
+
+    private Tradeable createDBInfo(String symbol) {
+        // Create new Tradeable object and populate with information from FinnHub
+        // TODO: determine type of Tradeable object to create
+        if (!symbol.contains(".")) {
+            Company company = fetchCompanyProfile(symbol);
+            Stock.StockBuilder builder = Stock.builder()
+                    .symbol(symbol)
+                    .company(company);
+            return stockRepository.save(builder.build());
+        } else {
+            // TODO: handle crypto use case
+            return null;
+        }
+    }
+
     /**
      * TODO: handle crypto use case
      * Updates the database with the latest information for a Tradeable item.
      * @param symbol ticker symbol for stock or id of cryptocurrency
      * @return Updated Tradeable object
      */
-    private Tradeable updateInfo(String symbol, String type) {
+    public Tradeable updateOrCreateDBInfo(String symbol) {
         Optional<Tradeable> existing = findInfo(symbol);
         if (existing.isPresent()) {
-            Tradeable tradeable = existing.get();
-            // update price information
-            fh.subscribe(symbol);
-            if (tradeable instanceof Stock) {
-                // update company information
-                Stock stock = (Stock) tradeable;
-                Company company = fetchCompanyProfile(symbol);
-                companyRepository.save(company);
-                stock.setCompany(company);
-                return stockRepository.save(stock);
-            }
-            return stockRepository.save(tradeable);
+            return updateDBInfo(existing.get());
         } else {
-            // Create new Tradeable object and populate with information from FinnHub
-            if (type.equals("Common Stock")) {
-                fh.subscribe(symbol);
-                Company company = fetchCompanyProfile(symbol);
-                Stock.StockBuilder builder = Stock.builder()
-                        .symbol(symbol)
-                        .company(company);
-                return stockRepository.save(builder.build());
-            } else if (type.equals("Crypto")) {
-                // TODO: handle crypto use case
-                return null;
-            }
-            return null;
+            return createDBInfo(symbol);
         }
     }
 
@@ -209,22 +194,11 @@ public class MarketService {
     }
 
     public void handlePriceMessage(FHPriceMessage.PriceMessage message) {
-        Optional<ChangingNumber> dbPrice = changingNumberRepository.findById(message.getSymbol() + "_price");
-        ChangingNumber price;
-        if (dbPrice.isPresent()) {
-            price = dbPrice.get();
-            price.update(message.getPrice(), message.getTimestamp());
-        } else {
-            price = new ChangingNumber(message.getSymbol() + "_price", message.getPrice(), message.getTimestamp());
-        }
-        changingNumberRepository.save(price);
-
-        Optional<Tradeable> tradeable = findInfo(message.getSymbol());
-        if (tradeable.isPresent()) {
-            Tradeable t = tradeable.get();
-            t.setCurrentPrice(price);
-            stockRepository.save(t);
-        }
+        Optional<Tradeable> tradeable = stockRepository.findById(message.getSymbol());
+        tradeable.ifPresent(value -> {
+            value.updatePrice(message.getPrice(), message.getTimestamp());
+            stockRepository.save(tradeable.get());
+        });
     }
 
     public void cleanUp() {
@@ -233,5 +207,10 @@ public class MarketService {
                 stockRepository.delete(stock);
             }
         });
+    }
+
+    public Stock getQuote(Stock stock) {
+        stock.updateQuote(fh.getQuote(stock.getSymbol()));
+        return stockRepository.save(stock);
     }
 }

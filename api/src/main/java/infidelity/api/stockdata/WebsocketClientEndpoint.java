@@ -3,6 +3,7 @@ package infidelity.api.stockdata;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.websocket.*;
+import java.io.IOException;
 import java.net.URI;
 
 /**
@@ -18,14 +19,11 @@ public class WebsocketClientEndpoint {
     Session session = null;
     private MessageHandler messageHandler;
     private OpenHandler openHandler;
+    private CloseHandler closeHandler;
 
-    public WebsocketClientEndpoint(URI endpointURI) {
-        try {
-            WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            container.connectToServer(this, endpointURI);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public WebsocketClientEndpoint(URI endpointURI) throws DeploymentException, IOException {
+        WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+        container.connectToServer(this, endpointURI);
     }
 
     /**
@@ -53,6 +51,9 @@ public class WebsocketClientEndpoint {
         log.info("Session " + userSession.getId() + " closed because of " + reason.getReasonPhrase());
         if (userSession.getId().equals(this.session.getId())) {
             this.session = null;
+        }
+        if (this.closeHandler != null) {
+            this.closeHandler.handleClose();
         }
     }
 
@@ -82,6 +83,10 @@ public class WebsocketClientEndpoint {
         this.messageHandler = msgHandler;
     }
 
+    public void addCloseHandler(CloseHandler closeHandler) {
+        this.closeHandler = closeHandler;
+    }
+
     /**
      * Send a message.
      */
@@ -97,10 +102,11 @@ public class WebsocketClientEndpoint {
         public void handleMessage(String message);
     }
 
-    /**
-     * Open handler
-     */
     public static interface OpenHandler {
         public void handleOpen();
+    }
+
+    public static interface CloseHandler {
+        public void handleClose();
     }
 }
