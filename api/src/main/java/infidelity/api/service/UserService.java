@@ -129,4 +129,16 @@ public class UserService {
                         .username(username)
                         .build());
     }
+
+    /**
+     * Adds a new watchlist for a user
+     * @param watchlistName The name for the new watchlist
+     * @param username The username of the user
+     */
+    public void addWatchlist(String watchlistName, String username){
+        Watchlist newWatchlist = Watchlist.builder().name(watchlistName).build();
+        newWatchlist = watchlistRepository.save(newWatchlist);
+        User user = getUserById(username);
+        user.getWatchlists().add(newWatchlist);
+    }
 }

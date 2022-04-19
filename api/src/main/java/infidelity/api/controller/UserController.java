@@ -63,4 +63,10 @@ public class UserController {
         userService.deleteUser(username);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(path = "/addWL")
+    public ResponseEntity<Void> addWatchlist(@RequestBody String watchlistName, String username){
+        addWatchlist(watchlistName, username);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
