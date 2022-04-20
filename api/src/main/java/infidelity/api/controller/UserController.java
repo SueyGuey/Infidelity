@@ -1,7 +1,6 @@
 package infidelity.api.controller;
 
 import infidelity.api.data.User;
-import infidelity.api.data.Watchlist;
 import infidelity.api.data.WatchlistRequest;
 import infidelity.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +67,7 @@ public class UserController {
 
     @PostMapping(path = "/addWL")
     public ResponseEntity<Void> addWatchlist(@RequestBody WatchlistRequest request){
-        addWatchlist(request);
+        userService.addWatchlist(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
