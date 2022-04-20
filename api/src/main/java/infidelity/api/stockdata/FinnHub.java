@@ -17,8 +17,6 @@ import java.util.*;
 @Slf4j
 public class FinnHub {
     private final String[] FINNHUB_KEYS = {"c8kmugaad3ibbdm3vo8g", "c8oia22ad3iatn99l4u0"};
-    private final String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=";
-    private final String FINNHUB_ENDPOINT = "https://finnhub.io/api/v1/webhook/add?token=";
 
     private WebsocketClientEndpoint clientEndpoint;
     private final FHPriceDecoder decoder = new FHPriceDecoder();
@@ -34,7 +32,7 @@ public class FinnHub {
     /**
      * Map of all most recently updated prices
      */
-    private Map<String, FHPriceMessage.PriceMessage> cache = new HashMap<>();
+    private final Map<String, FHPriceMessage.PriceMessage> cache = new HashMap<>();
 
     public FinnHub() {
         log.info("Initializing FinnHub");
@@ -42,6 +40,7 @@ public class FinnHub {
     }
 
     private void initWebsocket(String key) throws URISyntaxException, DeploymentException, IOException {
+        String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=";
         clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + key));
         clientEndpoint.addMessageHandler(this::handleMessage);
         clientEndpoint.addCloseHandler(this::handleClose);

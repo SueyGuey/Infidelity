@@ -45,6 +45,12 @@ export interface Tradeable {
 export interface Stock extends Tradeable {
 	company: Company;
 	volume: ChangingNumber;
+	dayChange: number;
+	dayChangePercent: number;
+	dayHigh: number;
+	dayLow: number;
+	open: number;
+	previousClose: number;
 }
 
 export type Company = {
