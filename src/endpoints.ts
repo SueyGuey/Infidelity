@@ -20,7 +20,7 @@ enum Backend {
 }
 
 //change .Production for production, .Local for local
-const BACKEND_URL = Backend.Local;
+const BACKEND_URL = Backend.Production;
 
 //URLs of certain pages
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
