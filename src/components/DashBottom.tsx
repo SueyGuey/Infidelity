@@ -20,7 +20,7 @@ function DashBottom(props: DashBottomProps): ReactElement {
 	console.log(props.portfolio);
 	const positions = Array.from(props.portfolio.assets);
 	const trades = props.portfolio.transactions.sort((a, b) => {
-		return a.timestamp - b.timestamp;
+		return b.timestamp - a.timestamp;
 	});
 	const [watchToDisplay, setWatchDisplay] = useState(
 		watchlists[0] || {
@@ -149,7 +149,9 @@ function DashBottom(props: DashBottomProps): ReactElement {
 									{trade.quantity >= 0 ? 'Bought' : 'Sold'}{' '}
 									<p
 										className="recentTradeQuant"
-										style={{ color: trade.quantity >= 0 ? 'green' : 'red' }}>
+										style={{
+											color: trade.quantity >= 0 ? 'green' : 'darkblue',
+										}}>
 										{Math.abs(trade.quantity)}
 									</p>{' '}
 									shares of{' '}

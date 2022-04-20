@@ -37,7 +37,7 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 		}
 	}
 	const trades = portfolio.transactions.sort((a, b) => {
-		return a.timestamp - b.timestamp;
+		return b.timestamp - a.timestamp;
 	});
 	// update portfolio every minute and at the start of the app
 	useEffect(() => {
@@ -80,6 +80,7 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 							<p className="five-vw t">Quantity</p>
 							<p className="five-vw t">Stock Symbol</p>
 							<p className="five-vw t">Value per share</p>
+							<p className="five-vw t">Total</p>
 						</p>
 					</div>
 					{trades.map((trade) => (
@@ -95,6 +96,12 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 								<p className="five-vw h">{Math.abs(trade.quantity).toString()}</p>
 								<p className="five-vw h">{trade.item.symbol.padEnd(6, ' ')}</p>
 								<p className="five-vw h">${trade.price.toString()}</p>
+								<p className="five-vw b">
+									{trade.price * -1 * trade.quantity < 0 ? '-' : '+'}$
+									{Math.abs(trade.price * trade.quantity)
+										.toFixed(15)
+										.toString()}
+								</p>
 							</p>
 						</div>
 					))}
