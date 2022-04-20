@@ -51,7 +51,15 @@ public class PortfolioService {
      * @see PortfolioRequest
      */
     public Portfolio createPortfolio(PortfolioRequest newPortfolio){
-        return null;
+        Portfolio portfolio = Portfolio.builder()
+                .name(newPortfolio.getPortfolioName())
+                .balance(newPortfolio.getAccountBalance())
+                .build();
+        portfolio = portfolioRepository.save(portfolio);
+        User user = userService.getUserById(newPortfolio.getUsername());
+        user.getPortfolios().add(portfolio);
+        userService.saveUser(user);
+        return portfolio;
     };
 
     /**

@@ -56,7 +56,7 @@ export type Company = {
 
 export type PortfolioRequest = {
 	username: string;
-	name: string;
+	portfolioName: string;
 	accountBalance: number;
 };
 
