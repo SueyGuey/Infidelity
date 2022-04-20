@@ -9,6 +9,7 @@ import Portfolio, {
 	Tradeable,
 	Transaction,
 	TransactionRequest,
+	WatchlistRequest,
 } from './datamodels/Portfolio';
 import { NewUserInfo } from './datamodels/User';
 
@@ -19,7 +20,7 @@ enum Backend {
 }
 
 //change .Production for production, .Local for local
-const BACKEND_URL = Backend.Production;
+const BACKEND_URL = Backend.Local;
 
 //URLs of certain pages
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
@@ -33,6 +34,8 @@ export const POPULAR_STOCKS_URL = `${BACKEND_URL}/market/popular`;
 
 export const MAKE_TRADE_URL = `${BACKEND_URL}/user/portfolio/trade`;
 export const NEW_PORTFOLIO_URL = `${BACKEND_URL}/user/portfolio/create`;
+
+export const NEW_WATCHLIST_URL = `${BACKEND_URL}/user/addWL`;
 
 export const DEFUALT_PRICE_WINDOW = 1000 * 60 * 60 * 1; // 1 hour
 export const DEFAULT_PRICE_TIMEOUT = 1000 * 60 * 1; // 1 minute
@@ -92,6 +95,18 @@ export function newPortfolioBackend(portfolio: PortfolioRequest) {
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(portfolio),
+	});
+}
+
+//For adding new watchlist
+export function newWatchlist(watchlist: WatchlistRequest) {
+	console.log('NEW WATCHLIST');
+	fetch(NEW_WATCHLIST_URL, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(watchlist),
 	});
 }
 

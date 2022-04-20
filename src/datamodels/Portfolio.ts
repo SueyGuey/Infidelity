@@ -92,3 +92,8 @@ export function getTotalStockValue(portfolio: Portfolio) {
 	}
 	return total;
 }
+
+export type WatchlistRequest = {
+	username: string;
+	watchlistName: string;
+};
