@@ -9,6 +9,7 @@ import Portfolio, {
 	Tradeable,
 	Transaction,
 	TransactionRequest,
+	WatchlistRequest,
 } from './datamodels/Portfolio';
 import { NewUserInfo } from './datamodels/User';
 
@@ -19,7 +20,7 @@ enum Backend {
 }
 
 //change .Production for production, .Local for local
-const BACKEND_URL = Backend.Production;
+const BACKEND_URL = Backend.Local;
 
 //URLs of certain pages
 export const GET_USER_URL = (userId: string): string => `${BACKEND_URL}/user/${userId}`;
@@ -97,14 +98,15 @@ export function newPortfolioBackend(portfolio: PortfolioRequest) {
 	});
 }
 
-export function newWatchlist(watchlistName: string, username: string) {
+//For adding new watchlist
+export function newWatchlist(watchlist: WatchlistRequest) {
 	console.log('NEW WATCHLIST');
 	fetch(NEW_WATCHLIST_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(watchlistName),
+		body: JSON.stringify(watchlist),
 	});
 }
 
