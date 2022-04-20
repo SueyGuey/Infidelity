@@ -140,5 +140,6 @@ public class UserService {
         newWatchlist = watchlistRepository.save(newWatchlist);
         User user = getUserById(request.getUsername());
         user.getWatchlists().add(newWatchlist);
+        saveUser(user);
     }
 }
