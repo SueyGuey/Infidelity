@@ -36,16 +36,40 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 			});
 		}
 	}
-	const trades = portfolio.transactions.sort((a, b) => {
+	let trades = portfolio.transactions.sort((a, b) => {
 		return b.timestamp - a.timestamp;
 	});
+	const [chronoSort, setChronoSort] = useState(1);
 	// update portfolio every minute and at the start of the app
 	useEffect(() => {
 		updatePorfolio();
 		const interval = setInterval(updatePorfolio, MINUTE);
 		return () => clearInterval(interval);
 	}, []);
-
+	function reMap() {
+		trades = portfolio.transactions.sort((a, b) => {
+			return (b.timestamp - a.timestamp) * chronoSort;
+		});
+		return trades.map((trade) => (
+			<div className="recentTradeItem" key={trade.transactionId}>
+				{toDateTrade(trade.timestamp)}
+				<p className="textT">
+					<p className={'five-vw h ' + (trade.quantity >= 0 ? 'Bought' : 'Sold')}>
+						{trade.quantity >= 0 ? 'Bought' : 'Sold'}
+					</p>
+					<p className="five-vw h">{Math.abs(trade.quantity).toString()}</p>
+					<p className="five-vw h">{trade.item.symbol.padEnd(6, ' ')}</p>
+					<p className="five-vw h">${trade.price.toString()}</p>
+					<p className="five-vw b">
+						{trade.price * -1 * trade.quantity < 0 ? '-' : '+'}$
+						{Math.abs(trade.price * trade.quantity)
+							.toFixed(15)
+							.toString()}
+					</p>
+				</p>
+			</div>
+		));
+	}
 	function toDateTrade(props: number) {
 		const date = new Date(props);
 		return (
@@ -75,7 +99,11 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 					<p className="historyLabel">Trade history for {portfolio.name}</p>
 					<div className="recentTradeItem">
 						<p className="recentTradeText">
-							<p className="five-vw date t">Date</p>
+							<p
+								className="five-vw date t"
+								onClick={() => setChronoSort(chronoSort * -1)}>
+								Date ⇅
+							</p>
 							<p className="five-vw t">Bought/Sold</p>
 							<p className="five-vw t">Quantity</p>
 							<p className="five-vw t">Stock Symbol</p>
@@ -83,28 +111,7 @@ function TradeHistory(props: WithUserProfileLoaderProps & { item: string }): Rea
 							<p className="five-vw t">Total</p>
 						</p>
 					</div>
-					{trades.map((trade) => (
-						<div className="recentTradeItem" key={trade.transactionId}>
-							{toDateTrade(trade.timestamp)}
-							<p className="textT">
-								<p
-									className={
-										'five-vw h ' + (trade.quantity >= 0 ? 'Bought' : 'Sold')
-									}>
-									{trade.quantity >= 0 ? 'Bought' : 'Sold'}
-								</p>
-								<p className="five-vw h">{Math.abs(trade.quantity).toString()}</p>
-								<p className="five-vw h">{trade.item.symbol.padEnd(6, ' ')}</p>
-								<p className="five-vw h">${trade.price.toString()}</p>
-								<p className="five-vw b">
-									{trade.price * -1 * trade.quantity < 0 ? '-' : '+'}$
-									{Math.abs(trade.price * trade.quantity)
-										.toFixed(15)
-										.toString()}
-								</p>
-							</p>
-						</div>
-					))}
+					{reMap()}
 				</div>
 			</div>
 		</div>
