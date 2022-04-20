@@ -60,7 +60,6 @@ function DashBottom(props: DashBottomProps): ReactElement {
 			setWatchDisplay(watchlist);
 		}
 	};
-
 	return (
 		<div className="dashBottomContain">
 			<div className="dashBottom">
@@ -124,13 +123,17 @@ function DashBottom(props: DashBottomProps): ReactElement {
 					<div className="positionsItems">
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
 						{positions.map((position) => {
-							return (
-								<div className="positionItem" key={position.item.symbol}>
-									<p>{position.item.symbol}</p>
-									<p>{position.quantity}</p>
-									<p>{position.value.value.toFixed(2)}</p>
-								</div>
-							);
+							if (position.quantity !== 0) {
+								return (
+									<div className="positionItem" key={position.item.symbol}>
+										<p className="position-symbol">{position.item.symbol}</p>
+										<p className="position-quantity">{position.quantity}</p>
+										<p className="position-value">
+											{position.value.value.toFixed(2)}
+										</p>
+									</div>
+								);
+							}
 						})}
 					</div>
 				</span>
@@ -140,11 +143,18 @@ function DashBottom(props: DashBottomProps): ReactElement {
 					</div>
 					<div className="recentTradeItems">
 						{/* HERE GOES THE STOCKS WITHIN THE SELECTED WATCHLIST */}
-						{trades.map((trade) => (
+						{trades.slice(0, 10).map((trade) => (
 							<div className="recentTradeItem" key={trade.transactionId}>
-								<p>
-									Bought {trade.quantity} shares of {trade.item.symbol} at $
-									{trade.price}
+								<p className="recentTradeText">
+									{trade.quantity >= 0 ? 'Bought' : 'Sold'}{' '}
+									<p
+										className="recentTradeQuant"
+										style={{ color: trade.quantity >= 0 ? 'green' : 'red' }}>
+										{Math.abs(trade.quantity)}
+									</p>{' '}
+									shares of{' '}
+									<p className="recentTradeSymbol">{trade.item.symbol}</p> at{' '}
+									<p className="recentTradeValue">${trade.price}</p>
 								</p>
 							</div>
 						))}

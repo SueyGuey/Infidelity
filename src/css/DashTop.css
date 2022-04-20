@@ -63,7 +63,7 @@
     top: 0;
     left: 0;
     height: 10vw;
-    width: 12vw;
+    width: 9.85vw;
     height: 5vw;
     border: none;
     background-color: #e0e0e0;
@@ -85,7 +85,7 @@
 }
 
 .tradeValues + .tradeValues{
-    margin-left: 1.5vw;
+    margin-left: 1vw;
 }
 
 .portfolioGraph{
