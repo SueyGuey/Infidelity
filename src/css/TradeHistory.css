@@ -4,9 +4,9 @@
     display: flex;
     border: none;
     height: 65%;
-    width: 82%;
+    width: 90%;
     top: 0;
-    right: 0;
+    right: -5%;
     height: 70%;
     /* backgroun*/
 }
@@ -21,6 +21,7 @@
 }
 
 .historyLabel{
+    position:sticky;
     width: 40%;
     height: 10%;
     justify-content: center;
