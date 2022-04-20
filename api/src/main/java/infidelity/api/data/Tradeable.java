@@ -32,7 +32,26 @@ public abstract class Tradeable {
     @JoinColumn(name = "current_price_id")
     private ChangingNumber currentPrice;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "price_history_id")
     private NumberHistory priceHistory;
+
+    private double popularity = 0;
+
+    public ChangingNumber updatePrice(double price, long timestamp) {
+        if (currentPrice == null) {
+            currentPrice = ChangingNumber.builder()
+                    .numberId(String.format("%s_price", symbol))
+                    .value(price)
+                    .lastUpdated(timestamp)
+                    .build();
+        } else {
+            currentPrice.update(price, timestamp);
+        }
+        if (priceHistory == null) {
+            priceHistory = new NumberHistory(symbol + "_price_history");
+        }
+        priceHistory.add(price, timestamp);
+        return currentPrice;
+    }
 }

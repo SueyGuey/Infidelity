@@ -24,7 +24,7 @@ public class Watchlist {
     @Id
     @Column(nullable = false)
     @Builder.Default
-    private UUID watchlistId = UUID.randomUUID();;
+    private String watchlistId = UUID.randomUUID().toString();;
 
     private String name;
 

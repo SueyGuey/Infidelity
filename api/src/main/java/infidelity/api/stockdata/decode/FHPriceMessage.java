@@ -1,4 +1,4 @@
-package infidelity.api.stockdata;
+package infidelity.api.stockdata.decode;
 
 import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @ToString
-public class FinnHubMessage {
+public class FHPriceMessage {
     private List<PriceMessage> data;
     private String type;
 

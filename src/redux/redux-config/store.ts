@@ -1,6 +1,6 @@
 /**
  * store.ts
- * Configures store
+ * Configures store and reducers.
  */
 
 import { configureStore } from '@reduxjs/toolkit';

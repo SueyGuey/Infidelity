@@ -2,10 +2,7 @@ package infidelity.api.data;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -24,7 +21,7 @@ public class Portfolio {
     @Id
     @Column
     @Builder.Default
-    private UUID portfolioId = UUID.randomUUID();
+    private String portfolioId = UUID.randomUUID().toString();
 
     /**
      * The name of the Portfolio as given by the user when creating the Portfolio.
@@ -37,6 +34,9 @@ public class Portfolio {
      */
     @Builder.Default
     private double balance = 100000;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private ChangingNumber totalValue;
 
     /**
      * The history of transactions that have occurred on this Portfolio.

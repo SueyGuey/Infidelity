@@ -9,15 +9,16 @@ import { ChangingNumber, JSONData } from './misc';
 export default interface Portfolio {
 	portfolioId: string;
 	name: string;
+	balance: number;
+	totalValue: ChangingNumber;
 	assets: Set<Asset>;
-	transactions: Set<Transaction>;
+	transactions: Transaction[];
 }
 
 export function portfolioToJson(portfolio: Portfolio): JSONData<Portfolio> {
 	return {
 		...portfolio,
 		assets: Array.from(portfolio.assets),
-		transactions: Array.from(portfolio.transactions),
 	};
 }
 
@@ -25,26 +26,26 @@ export function jsonToPortfolio(portfolio: JSONData<Portfolio>): Portfolio {
 	return {
 		...portfolio,
 		assets: new Set(portfolio.assets),
-		transactions: new Set(portfolio.transactions),
 	};
 }
 
 export type Asset = {
 	assetId: string;
-	itemSymbol: string;
+	item: Tradeable;
 	quantity: number;
+	value: ChangingNumber;
 };
 
-export type Tradeable = {
+export interface Tradeable {
 	symbol: string;
-	currentPrice: ChangingNumber;
+	currentPrice?: ChangingNumber;
 	// priceHistory: ChangingNumber[];
-};
+}
 
-export type Stock = Tradeable & {
+export interface Stock extends Tradeable {
 	company: Company;
 	volume: ChangingNumber;
-};
+}
 
 export type Company = {
 	name: string;
@@ -70,7 +71,24 @@ export type TransactionRequest = {
 export type Transaction = {
 	transactionId: string;
 	timestamp: number;
-	itemSymbol: string;
+	item: Tradeable;
 	price: number;
 	quantity: number;
 };
+
+export function isStock(item: Tradeable): item is Stock {
+	return 'company' in item;
+}
+
+export function getTotalStockValue(portfolio: Portfolio) {
+	let total = 0;
+	if (!portfolio.assets) {
+		return total;
+	}
+	for (const asset of Array.from(portfolio.assets)) {
+		if (isStock(asset.item)) {
+			total += asset.value.value;
+		}
+	}
+	return total;
+}

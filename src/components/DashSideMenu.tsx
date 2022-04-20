@@ -79,6 +79,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 									id="dashboard"
 									className="menuItem activePage"
 									onClick={() => navigate(`/dashboard`)}>
+									{' '}
 									{/*Navigates back to user dashboard*/}
 									<p>Dashboard</p>
 								</li>
@@ -86,6 +87,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 									id="tradeHistory"
 									className="menuItem"
 									onClick={() => navigate(`/dashboard/tradeHistory`)}>
+									{' '}
 									{/*Navigates to user trade history (not promised)*/}
 									<p>Trade History</p>
 								</li>
@@ -93,6 +95,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 									id="summary"
 									className="menuItem"
 									onClick={() => navigate(`/dashboard/summary`)}>
+									{' '}
 									{/*Navigates to user summary (not promised)*/}
 									<p>Summary</p>
 								</li>
@@ -104,6 +107,7 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								<button
 									className="addWatchlistButton"
 									onClick={() => setWatchPop(0)}>
+									{' '}
 									{/*The add watchlist button*/}
 									<p>+</p>
 								</button>
@@ -113,13 +117,14 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 									<li className="menuItem" key={watchlist.watchlistId}>
 										<p>{watchlist.name}</p>
 									</li>
-								))}
+								))}{' '}
 								{/* Displays available watchlists.*/}
 							</ul>
 						</li>
 						<li
 							className="menuTypeHeader"
 							onClick={() => navigate(`/dashboard/searchLarge`)}>
+							{/*If implemented, navigates to a page specifically for searching. Also highlighted if on a stock page.*/}
 							<p>Search & Purchase</p>
 							<ul>
 								<li id="searchLarge" className="menuItem">
@@ -136,11 +141,14 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 						</li>*/}
 						<li
 							id="settings"
-							className="bottomItem logout"
+							className="bottomItem"
 							onClick={() => navigate(`/dashboard/settings`)}>
+							{' '}
+							{/*navigates to user profile if implented*/}
 							<p>Settings</p>
 						</li>
 						<li id="logout" className="bottomItem logout" onClick={() => navigate(`/`)}>
+							{' '}
 							{/*currently just navigates to front page*/}
 							<p>Logout</p>
 						</li>

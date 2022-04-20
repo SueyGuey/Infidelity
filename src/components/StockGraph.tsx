@@ -12,27 +12,41 @@ import { type } from 'os';
 function parseData(parse: any) {
 	return function (d: any) {
 		d.date = parse(d.date);
+		d.close = +d.close;
+		d.volume = +d.volume;
 		d.open = +d.open;
 		d.high = +d.high;
 		d.low = +d.low;
-		d.close = +d.close;
-		d.volume = +d.volume;
 
 		return d;
 	};
 }
 
-const parseDate = timeParse('%Y-%m-%d');
+const parseDate = timeParse('%m/%d/%Y');
 
 //reads in static data from a csv
 function getData(symbol: string) {
-	const filename =
-		symbol === 'GE' ? 'GE_full.tsv' : symbol === 'AAPL' ? 'AAPL_full.tsv' : 'MSFT.tsv';
-	const url = `https://cdn.rawgit.com/rrag/react-stockcharts/master/docs/data/${filename}`;
-	const promiseMSFT = fetch(url)
+	let fn = symbol;
+	if (
+		fn !== 'SPY' &&
+		fn !== 'TSLA' &&
+		fn !== 'MSFT' &&
+		fn !== 'GME' &&
+		fn !== 'GOOG' &&
+		fn !== 'AMZN' &&
+		fn !== 'AAPL' &&
+		fn !== 'GM' &&
+		fn !== 'F' &&
+		fn !== 'NVDA' &&
+		fn !== 'AMD'
+	) {
+		fn = 'SPY';
+	}
+	const url = `https://raw.githubusercontent.com/SueyGuey/stockdata/main/${fn}.csv`;
+	const promise = fetch(url)
 		.then((response) => response.text())
-		.then((data) => tsvParse(data, parseData(parseDate)));
-	return promiseMSFT;
+		.then((data) => csvParse(data, parseData(parseDate)));
+	return promise;
 }
 
 class StockGraph extends React.Component<{ symbol: string }, any> {

@@ -1,6 +1,6 @@
 /**
  * index.ts
- * Contains the reducers
+ * Contains the reducers and combines them into a single reducer.
  */
 
 import { combineReducers } from 'redux';

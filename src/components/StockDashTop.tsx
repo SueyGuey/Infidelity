@@ -8,52 +8,52 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import AddToWatchList from './AddToWatchList';
+import { Tradeable } from '../datamodels/Portfolio';
+import { ChangingNumber } from '../datamodels/misc';
 
-/**This is the Stock Dashboard's top component. It displays the Stock Graph and
+type StockDashTopProps = {
+	item: Tradeable;
+	price?: ChangingNumber;
+} & WithUserProfileLoaderProps &
+	WithMarketLoaderProps;
+
+/**
+ * This is the Stock Dashboard's top component. It displays the Stock Graph and
  * holds the search component so the user can resume searching through stocks.
  */
+function StockDashTop(props: StockDashTopProps): ReactElement {
+	const displayPrice = props.item.currentPrice
+		? props.item.currentPrice.value.toFixed(2)
+		: '##.##';
 
-function StockDashTop(
-	props: WithUserProfileLoaderProps & WithMarketLoaderProps & { symbol: string }
-): ReactElement {
-	const stock = props.marketData.find((stock) => stock.symbol === props.symbol);
-	//Displays placeholder text if stock is not found
-	const price = stock ? stock.currentPrice.value.toFixed(2) : '###.##';
-	const [popUpState, setPopUpState] = useState(-1); //handles state of pop up
+	// handles state of pop up for adding stock to watchlist
+	const [showAddToWatchlist, setShowAddToWatchlist] = useState(false);
 
-	//this function displays (or not) pop up. Specifically the 'add stock to watchlist' pop up
-	const popUpHandler = function popUpHandler(props: any) {
-		if (props === -1) {
-			return <div></div>;
-		} else {
-			return (
+	return (
+		<div>
+			{showAddToWatchlist && (
 				<div className="popUpContainer">
-					<button className="x-button" onClick={() => setPopUpState(-1)}>
+					<button className="x-button" onClick={() => setShowAddToWatchlist(false)}>
 						X
 					</button>
 					<AddToWatchList />
 				</div>
-			);
-		}
-	};
-	return (
-		<div>
-			{popUpHandler(popUpState)} {/* The pop up */}
+			)}
 			<div className="DashTopContain">
 				<div className="stockValueContainer">
 					<div className="stockGraph">
 						<div className="graph" id="graph-container">
 							<p className="portfolioName">
+								{/*clicking the button displays the pop up.*/}
 								<button
-									onClick={() => setPopUpState(0)}
+									onClick={() => setShowAddToWatchlist(true)}
 									className="addToWatchlistButton">
 									+W
 								</button>{' '}
-								{/*clicking the button displays the pop up.*/}
-								{props.symbol}: <p className="stockValue">${price}</p>
 								{/* Displays stock ticker and current price */}
+								{props.item.symbol}: <p className="stockValue">${displayPrice}</p>
 							</p>
-							<StockGraph symbol={props.symbol} />
+							<StockGraph symbol={props.item.symbol} />
 							{/* Displays graph of stock. */}
 						</div>
 					</div>

@@ -3,6 +3,7 @@ package infidelity.api.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import infidelity.api.data.ChangingNumber;
 import infidelity.api.data.Tradeable;
 import infidelity.api.data.model.HibernateProxyTypeAdapter;
 import infidelity.api.service.MarketService;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * REST api controller for stock market data, company information, stock and cryptocurrency
@@ -35,13 +37,34 @@ public class MarketController {
      * @see Tradeable#symbol
      */
     @GetMapping("/info/{symbol}")
-    public ResponseEntity<String> getInfo(@PathVariable String symbol) {
+    public ResponseEntity<Tradeable> getInfo(@PathVariable String symbol) {
         log.info("GET /market/info/{}", symbol);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
-        Tradeable item = market.getInfo(symbol);
-        return new ResponseEntity<>(gson.toJson(item), HttpStatus.OK);
+        Optional<Tradeable> optItem = market.findInfo(symbol);
+        if (optItem.isPresent()) {
+            Tradeable item = market.updateOrCreateDBInfo(optItem.get().getSymbol());
+            market.addPopularity(symbol);
+            return new ResponseEntity<>(item, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/price/{symbol}")
+    public ResponseEntity<ChangingNumber> getPrice(@PathVariable String symbol,
+                                                   @RequestParam(required = false) Integer timeout,
+                                                   @RequestParam(required = false) Integer window) {
+        log.info("GET /market/price/{}", symbol);
+        if (timeout == null) {
+            timeout = 0;
+        }
+        if (window == null) {
+            window = -1;
+        }
+        Optional<ChangingNumber> price = market.getCurrentPrice(symbol, window, timeout);
+        return price.map(ResponseEntity::ok).orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     /**
@@ -50,13 +73,16 @@ public class MarketController {
      * @return JSON string of the list of tradeable entities in the format of Tradeable
      */
     @GetMapping("/search/{query}")
-    public ResponseEntity<String> search(@PathVariable String query) {
+    public ResponseEntity<List<Tradeable>> search(@PathVariable String query) {
         log.info("GET /market/search/{}", query);
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
         List<Tradeable> results = market.searchMarket(query);
-        return new ResponseEntity<>(gson.toJson(results), HttpStatus.OK);
+        if (results.size() > 0) {
+            market.addPopularity(results.get(0).getSymbol());
+        }
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     /**
@@ -67,5 +93,19 @@ public class MarketController {
     @PutMapping("/updateInfo")
     public void updateInfo() {
         market.updateMarket();
+    }
+
+    @PutMapping("/subscribe/{symbol}")
+    public void subscribe(@PathVariable String symbol) {
+        market.subscribe(symbol);
+    }
+
+    @GetMapping("/popular")
+    public ResponseEntity<List<Tradeable>> getPopular(@RequestParam(required = false) Integer limit) {
+        log.info("GET /market/popular");
+        if (limit == null) {
+            limit = 100;
+        }
+        return ResponseEntity.ok(market.getPopular(limit));
     }
 }

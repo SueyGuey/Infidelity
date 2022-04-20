@@ -1,10 +1,15 @@
 package infidelity.api.service;
 
 import infidelity.api.data.*;
+import infidelity.api.data.repository.AssetRepository;
+import infidelity.api.data.repository.ChangingNumberRepository;
+import infidelity.api.data.repository.PortfolioRepository;
+import infidelity.api.data.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.OptionalLong;
 import java.util.Set;
 
 /**
@@ -16,9 +21,26 @@ import java.util.Set;
 public class PortfolioService {
     @Autowired
     private UserService userService;
-
     @Autowired
     private MarketService marketService;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
+    @Autowired
+    private PortfolioRepository portfolioRepository;
+    @Autowired
+    private AssetRepository assetRepository;
+    @Autowired
+    private ChangingNumberRepository changingNumberRepository;
+
+    public void setActivePortfolio(String username, String portfolioName){
+        User user = userService.getUserById(username);
+        Optional<Portfolio> portfolio = user.getPortfolios().stream().filter(p -> p.getName().equals(portfolioName)).findFirst();
+        if(portfolio.isPresent()){
+            user.setActivePortfolio(portfolio.get().getName());
+            userService.saveUser(user);
+        }
+    }
 
     /**
      * TODO: implement this function
@@ -42,7 +64,14 @@ public class PortfolioService {
      * @see Portfolio
      */
     public Portfolio getPortfolio(String username, String portfolioName){
-        return null;
+        User user = userService.getUserById(username);
+        Optional<Portfolio> portfolio = user.getPortfolios().stream().filter(p -> p.getName().equals(portfolioName)).findFirst();
+        if (portfolio.isPresent()){
+            return updatePortfolioValue(portfolio.get());
+        } else {
+            throw new IllegalArgumentException(
+                    String.format("Portfolio %s does not exist for user %s", portfolioName, username));
+        }
     };
 
     /**
@@ -65,58 +94,89 @@ public class PortfolioService {
      * @return A Transaction object representing the purchase details
      */
     public Transaction makeTransaction(TransactionRequest request){
-        //get user from userService
-        User user = userService.getUserById(request.getUsername());
-
-        //get portfolio
-        Set<Portfolio> userPortfolios = user.getPortfolios();
-        Portfolio userPortfolio = null;
-
-        for(Portfolio P: userPortfolios){
-            if(P.getName().equals(request.getPortfolioName())){
-                userPortfolio = P;
-                break;
-            }
-        }
-
-        //make changes to portfolio
+        Portfolio userPortfolio = getPortfolio(request.getUsername(), request.getPortfolioName());
+        // make changes to portfolio
         Optional<Tradeable> tradeable = marketService.findInfo(request.getItemSymbol());
-        if(tradeable.isPresent()){
-            Transaction transaction = new Transaction();
-            transaction.setItem(tradeable.get());
-            transaction.setTimestamp(request.getTimeStamp());
-            transaction.setPrice(marketService.getCurrentPrice(request.getItemSymbol()).value);
-            transaction.setQuantity(request.getQuantity());
+        if (tradeable.isPresent()){
+            Optional<ChangingNumber> price = marketService.getCurrentPrice(request.getItemSymbol(), 1000000, 60000);
+            if (price.isEmpty()) {
+                throw new RuntimeException("Could not find price for " + request.getItemSymbol());
+            }
 
-            //Update portfolio
+            Transaction transaction = Transaction.builder()
+                    .item(tradeable.get())
+                    .price(price.get().value)
+                    .quantity(request.getQuantity())
+                    .timestamp(request.getTimestamp())
+                    .build();
+            transaction = transactionRepository.save(transaction);
+
+            // Update portfolio
             userPortfolio.setBalance(userPortfolio.getBalance()
                      - transaction.getQuantity() * transaction.getPrice());
-            userPortfolio.getTransactions().add(transaction);
+            userPortfolio.getTransactions().add(transaction);;
 
             Set<Asset> assets = userPortfolio.getAssets();
-            //checks if the tradeable is already owned in the portfolio
-            boolean alreadyOwn = false;
-            for(Asset asset: assets){
-                if(asset.getItem().equals(tradeable.get())){
-                    asset.add(request.getQuantity());
-                    alreadyOwn = true;
-                    break;
-                }
+            // checks if the tradeable is already owned in the portfolio
+            Asset asset = null;
+            Optional<Asset> optAsset = assets.stream().filter(a ->
+                    a.getItem().getSymbol().equals(tradeable.get().getSymbol())
+            ).findFirst();
+            if (optAsset.isPresent()) {
+                asset = optAsset.get();
+                asset.add(request.getQuantity());
+                assetRepository.save(asset);
+            } else {
+                asset = new Asset(tradeable.get(), request.getQuantity());
+                changingNumberRepository.save(asset.getValue());
+                userPortfolio.getAssets().add(asset);
+                assetRepository.save(asset);
+                portfolioRepository.save(userPortfolio);
             }
-
-            //adds the new asset
-            if(!alreadyOwn){
-                Asset newAsset = new Asset();
-                newAsset.setItem(tradeable.get());
-                newAsset.setQuantity(request.getQuantity());
-                assets.add(newAsset);
-            }
-
             return transaction;
         }
         return null;
-
     };
+
+    public Portfolio updatePortfolioValue(Portfolio portfolio){
+        // update values of all assets
+        portfolio.getAssets().forEach(asset -> {
+            Optional<ChangingNumber> price = marketService.getCurrentPrice(asset.getItem().getSymbol(),
+                    1000 * 60 * 120, 60000); // TODO: change window size
+            if (price.isPresent()) {
+                double newValue = price.get().value * asset.getQuantity();
+                long lastUpdated = price.get().lastUpdated;
+                if (asset.getValue() == null) {
+                    asset.setValue(ChangingNumber.builder()
+                            .numberId(asset.getAssetId() + "_asset_value")
+                            .value(newValue)
+                            .lastUpdated(lastUpdated)
+                            .build());
+                } else {
+                    asset.getValue().update(newValue, lastUpdated);
+                }
+                assetRepository.save(asset);
+            }
+        });
+        // calculate the sum of all asset values in the portfolio
+        double sum = portfolio.getAssets().stream()
+                .mapToDouble(asset -> asset.getValue().getValue())
+                .sum() + portfolio.getBalance();
+        OptionalLong optLastUpdated = portfolio.getAssets().stream()
+                .mapToLong(asset -> asset.getValue().getLastUpdated())
+                .min();
+        long lastUpdated = optLastUpdated.orElseGet(System::currentTimeMillis);
+        if (portfolio.getTotalValue() == null) {
+            portfolio.setTotalValue(ChangingNumber.builder()
+                    .numberId(portfolio.getPortfolioId() + "_asset_value")
+                    .value(sum)
+                    .lastUpdated(lastUpdated)
+                    .build());
+        } else {
+            portfolio.getTotalValue().update(sum, lastUpdated);
+        }
+        return portfolioRepository.save(portfolio);
+    }
 
     /**
      * TODO: implement function

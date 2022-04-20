@@ -6,11 +6,12 @@
 import { Dispatch } from 'react';
 import { FetchError, JSONData } from '../../datamodels/misc';
 import User, { jsonToUser, userToJson } from '../../datamodels/User';
-import { EDIT_USER_URL, GET_USER_URL } from '../../endpoints';
+import { EDIT_USER_URL, GET_USER_URL, makeTradeBackend } from '../../endpoints';
 import authFetchWrapper from '../authFetch';
 import Loadable from '../redux-config/loadable';
 import { Action } from './types';
 import mock_user from '../../mock_data/user.json';
+import Portfolio, { Transaction, TransactionRequest } from '../../datamodels/Portfolio';
 
 type UserProfileAction = {
 	type: Action;
@@ -37,14 +38,14 @@ export const fetchUserProfile = (username: string) => {
 					},
 				})
 					.then(async (response: Response) => {
-						// const data: JSONData<User> | FetchError = await response.json();
-						const data: JSONData<User> | FetchError = mock_user;
+						const data: JSONData<User> | FetchError = await response.json();
+						// const data: JSONData<User> | FetchError = mock_user;
 						// first check if data has returned an error
 						if ('error' in data) {
-							// dispatch({
-							// 	type: Action.FETCH_USER_PROFILE,
-							// 	payload: { status: 'error', errorMessage: data.error },
-							// });
+							dispatch({
+								type: Action.FETCH_USER_PROFILE,
+								payload: { status: 'error', errorMessage: data.error },
+							});
 						} else {
 							const user = jsonToUser(data as JSONData<User>);
 							dispatch({
