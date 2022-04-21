@@ -110,6 +110,17 @@ export function newWatchlist(watchlist: WatchlistRequest) {
 	});
 }
 
+export function addToWatchlist(watchlist: WatchlistRequest) {
+	console.log('NEW WATCHLIST');
+	fetch(NEW_WATCHLIST_URL, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(watchlist),
+	});
+}
+
 export function setActivePortfolioBackend(username: string, porfolioName: string) {
 	console.log('SET ACTIVE PORTFOLIO');
 	fetch(
