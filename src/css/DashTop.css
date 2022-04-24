@@ -142,9 +142,9 @@
 .stockGraph{
     position: inherit;
     top: 6vw;
-    left: 2.1vw;
+    left: .1vw;
     height: calc(100% - 6vw);
-    width: calc(100% - 4vw);
+    width: calc(100% - 2vw);
 }
 
 .newPortfolioButton{
@@ -175,4 +175,25 @@
     border-radius: 1vw;
     aspect-ratio: 1/1;
 
+}
+
+.industry{
+    position: absolute;
+    display: inline;
+    right:1vw;
+    align-content: right;
+    font-family: Arsenal-Regular;
+    font-weight: 500;
+    font-size: 1.2vw;
+    top: .5vw;
+}
+
+.industry-type{
+    display: inline;
+    color:rgb(43, 172, 43);
+    text-decoration: underline;
+}
+
+.StockTicker{
+    display: inline;
 }

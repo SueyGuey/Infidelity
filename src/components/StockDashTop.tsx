@@ -8,7 +8,7 @@ import withUserProfileLoader, {
 } from '../redux/loaders/withUserProfileLoader';
 import withMarketLoader, { WithMarketLoaderProps } from '../redux/loaders/withMarketLoader';
 import AddToWatchList from './AddToWatchList';
-import { Tradeable } from '../datamodels/Portfolio';
+import { isStock, Tradeable } from '../datamodels/Portfolio';
 import { ChangingNumber } from '../datamodels/misc';
 
 type StockDashTopProps = {
@@ -28,7 +28,7 @@ function StockDashTop(props: StockDashTopProps): ReactElement {
 
 	// handles state of pop up for adding stock to watchlist
 	const [showAddToWatchlist, setShowAddToWatchlist] = useState(false);
-
+	const companyInfo = isStock(props.item) ? props.item.company : null;
 	return (
 		<div>
 			{showAddToWatchlist && (
@@ -51,7 +51,15 @@ function StockDashTop(props: StockDashTopProps): ReactElement {
 									+W
 								</button>{' '}
 								{/* Displays stock ticker and current price */}
-								{props.item.symbol}: <p className="stockValue">${displayPrice}</p>
+								<p className="StockTicker">
+									<a href={companyInfo?.weburl} target="_blank" rel="noreferrer">
+										{props.item.symbol}
+									</a>
+								</p>
+								: <p className="stockValue">${displayPrice}</p>
+							</p>
+							<p className="industry">
+								Industry: <p className="industry-type">{companyInfo?.industry}</p>
 							</p>
 							<StockGraph symbol={props.item.symbol} />
 							{/* Displays graph of stock. */}

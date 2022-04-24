@@ -64,7 +64,54 @@
 }
 
 .stockInformation{
-    width: 50vw;
+    margin-left: -2vw;
+    width: 34vw;
+    margin-right: -1vw;
+}
+.companyInformation{
+    width: 20vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.companyInfo-span{
+    position: inherit;
+    display: inline-block;
+    height: fit-content;
+    width: 99%;
+    background-color: #E9E9E9;
+    margin-right: -1.5vw;
+    border-radius: .3vw;
+}
+
+.companyInfo-span .companyInfo{
+    border-bottom: solid;
+    padding-bottom: .4vw;
+    margin-top: .4vw;
+    border-bottom-color: rgba(0, 0, 0, 0.20);  
+}
+
+.companyInfo{
+    padding-left: 1vw;
+    font-family: Arsenal-Bold;
+    font-size: 1.2vw;
+    border-bottom-color: rgba(0, 0, 0, 0.20);
+}
+
+.infobit{
+    display: inline;
+    font-family: Arsenal-Regular;
+    font-size: 1.2vw;
+    padding-bottom: .2vw;
+    border-radius: 1vw;
+}
+
+.site{
+    color:rgb(51, 101, 201);
+    display: inline;
+    margin-left: .4vw;
+    font-size: 1.2vw;
+    text-decoration:underline;
 }
 
 .spanCap{
@@ -168,17 +215,17 @@
     display: inline-block;
     height: 100%;
     width: 49%;
-    background-color: #E9E9E9;
     margin-right: -1.5vw;
 }
 
 .stockInfo-span p{
     font-family: Arsenal-Regular;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     padding-bottom: .5vw;
     padding-top: .5vw;
     padding-left: 1vw;
     border-bottom: solid;
+    background-color: #E9E9E9;
     border-bottom-color: rgba(0, 0, 0, 0.20);
     border-radius: .2vw;
 }
