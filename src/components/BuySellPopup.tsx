@@ -67,7 +67,7 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 			totalOwned = 0;
 		}
 		//if you have the stock you're trying to sell, you can sell.
-		if (numSold > totalOwned) {
+		if (numSold > totalOwned && numSold > 0) {
 			alert('cannot do sale. Insufficient Quantity');
 			return false;
 		} else if (numSold <= 0) {
@@ -80,7 +80,7 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 
 	function doPurchase(price: any, numStocks: number) {
 		const totalPrice = parseFloat(price) * numStocks;
-		if (portfolio.balance >= totalPrice) {
+		if (portfolio.balance >= totalPrice && numStocks > 0) {
 			return true;
 		} else if (numStocks <= 0) {
 			alert('cannot buy non-positive stocks!');
@@ -100,6 +100,7 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 						<input
 							type="number"
 							className="toSellInput"
+							min="0"
 							value={quantity}
 							onChange={(e) => setQuantity(+e.target.value)}></input>
 					</p>
