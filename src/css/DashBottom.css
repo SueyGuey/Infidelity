@@ -182,6 +182,7 @@
     padding-left: 5%;
     height: 1.3vw;
     font-size: 1vw;
+    overflow-x: auto;
 }
 .recentTradeText{
     display: inline;
