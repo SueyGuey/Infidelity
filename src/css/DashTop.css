@@ -190,10 +190,15 @@
 
 .industry-type{
     display: inline;
-    color:rgb(43, 172, 43);
-    text-decoration: underline;
+    color:rgb(131, 43, 172);
+    text-decoration: none;
 }
 
 .StockTicker{
     display: inline;
+}
+
+a,a:visited{
+    color: inherit;
+    text-decoration: none;
 }
