@@ -9,6 +9,7 @@ import '../css/Dashboard.css';
 import '../css/BuySellPopUp.css';
 import { Checkbox } from '@mui/material';
 import { addToWatchlist } from '../endpoints';
+import { Tradeable } from '../datamodels/Portfolio';
 
 /**
  * This is the Add To Watchlist Pop Up Code
@@ -17,11 +18,12 @@ import { addToWatchlist } from '../endpoints';
  * clicking Add will add the stock to the selected watchlist(s)
  * ***/
 
-type AddToWLProps = {
-	item: string;
+ type addWatchlistProps = {
+	item: Tradeable;
 } & WithUserProfileLoaderProps;
 
-function AddToWatchList(props: AddToWLProps): ReactElement {
+function AddToWatchList(props: addWatchlistProps): ReactElement {
+	console.log(props.userProfile);
 	const user = userPool.getCurrentUser();
 	const [submitted, setSubmitted] = useState(false);
 	const [WL, setWL] = useState(['']);
