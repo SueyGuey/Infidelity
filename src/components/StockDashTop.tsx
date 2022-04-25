@@ -36,7 +36,7 @@ function StockDashTop(props: StockDashTopProps): ReactElement {
 					<button className="x-button" onClick={() => setShowAddToWatchlist(false)}>
 						X
 					</button>
-					<AddToWatchList item={props.item} />
+					<AddToWatchList item={props.item.symbol}/>
 				</div>
 			)}
 			<div className="DashTopContain">

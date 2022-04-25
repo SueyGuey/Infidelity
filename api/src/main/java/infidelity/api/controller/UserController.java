@@ -80,13 +80,6 @@ public class UserController {
      */
     @PostMapping(path = "/addToWL")
     public ResponseEntity<Void> addToWatchlist(@RequestBody AddToWatchlistRequest request){
-        System.out.println("OK");
-        System.out.println(request.getSymbol());
-        System.out.println(request.getUsername());
-        System.out.println(request.getWatchlistNames().length);
-        for(String x: request.getWatchlistNames()){
-            System.out.println(x);
-        }
         userService.addToWatchlist(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }

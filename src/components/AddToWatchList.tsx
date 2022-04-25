@@ -19,7 +19,7 @@ import { Tradeable } from '../datamodels/Portfolio';
  * ***/
 
  type addWatchlistProps = {
-	item: Tradeable;
+	item: string;
 } & WithUserProfileLoaderProps;
 
 function AddToWatchList(props: addWatchlistProps): ReactElement {
