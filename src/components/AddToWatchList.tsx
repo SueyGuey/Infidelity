@@ -38,7 +38,7 @@ function AddToWatchList(props: AddToWLProps): ReactElement {
 		addToWatchlist({
 			username: props.userProfile.username,
 			symbol: props.item,
-			watchlistName: WL,
+			watchlistNames: WL,
 		});
 	}
 

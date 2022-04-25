@@ -101,5 +101,5 @@ export type WatchlistRequest = {
 export type AddToWatchlistRequest = {
 	username: string;
 	symbol: string;
-	watchlistName: string[];
+	watchlistNames: string[];
 };

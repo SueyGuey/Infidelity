@@ -11,6 +11,6 @@ import java.util.List;
 @Getter
 public class AddToWatchlistRequest {
     private String username;
-    private String watchlistNames[];
+    private String[] watchlistNames;
     private String symbol;
 }
