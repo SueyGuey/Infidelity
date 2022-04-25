@@ -25,6 +25,10 @@ type StockDashBottomProps = {
  */
 function StockDashBottom(props: StockDashBottomProps): ReactElement {
 	const companyInfo = isStock(props.item) ? props.item.company : null;
+	// check if item is a stock
+	if (!isStock(props.item)) {
+		return <div>Not a stock</div>;
+	}
 	return (
 		<div className="dashBottomContain">
 			<div className="dashBottom">
@@ -49,10 +53,10 @@ function StockDashBottom(props: StockDashBottomProps): ReactElement {
 						</span>
 						<span className="stockInfo-span">
 							<p>
-								Day-High: <p className="stockValue blue">$###.##</p>
+								Day-High: <p className="stockValue blue">${props.item.dayHigh}</p>
 							</p>
 							<p>
-								Day-Low: <p className="stockValue blue">$###.##</p>
+								Day-Low: <p className="stockValue blue">${props.item.dayLow}</p>
 							</p>
 							<p>
 								Market Cap: <p className="stockValue blue">$###.##</p>
