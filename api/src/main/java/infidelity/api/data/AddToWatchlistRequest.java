@@ -2,14 +2,15 @@ package infidelity.api.data;
 
 import lombok.Getter;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * Request for adding a tradeable to a watchlist
+ * @TODO Change list to set
  */
 @Getter
 public class AddToWatchlistRequest {
     private String username;
-    private Set<String> watchlistNames;
+    private String watchlistNames[];
     private String symbol;
 }

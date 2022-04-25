@@ -5,6 +5,7 @@
 
 import { ChangingNumber } from './datamodels/misc';
 import Portfolio, {
+	AddToWatchlistRequest,
 	PortfolioRequest,
 	Tradeable,
 	Transaction,
@@ -36,6 +37,7 @@ export const MAKE_TRADE_URL = `${BACKEND_URL}/user/portfolio/trade`;
 export const NEW_PORTFOLIO_URL = `${BACKEND_URL}/user/portfolio/create`;
 
 export const NEW_WATCHLIST_URL = `${BACKEND_URL}/user/addWL`;
+export const NEW_TO_WATCHLIST_URL = `${BACKEND_URL}/user/addToWL`;
 
 export const DEFUALT_PRICE_WINDOW = 1000 * 60 * 60 * 1; // 1 hour
 export const DEFAULT_PRICE_TIMEOUT = 1000 * 60 * 1; // 1 minute
@@ -110,14 +112,16 @@ export function newWatchlist(watchlist: WatchlistRequest) {
 	});
 }
 
-export function addToWatchlist(watchlist: WatchlistRequest) {
-	console.log('NEW WATCHLIST');
-	fetch(NEW_WATCHLIST_URL, {
+//adds tradeable to watchlist
+export function addToWatchlist(request: AddToWatchlistRequest) {
+	console.log('NEW TRADEABLE FOR WATCHLIST');
+	console.log(request);
+	fetch(NEW_TO_WATCHLIST_URL, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
 		},
-		body: JSON.stringify(watchlist),
+		body: JSON.stringify(request),
 	});
 }
 

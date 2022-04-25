@@ -153,10 +153,14 @@ public class UserService {
         Optional<Tradeable> tradeable = marketService.findInfo(request.getSymbol());
         if (tradeable.isPresent()) {
             for (Watchlist WL : user.getWatchlists()) {
-                if (request.getWatchlistNames().contains(WL.getName())) {
-                    WL.getItems().add(tradeable.get());
+                for(String wlName: request.getWatchlistNames()){
+                    if(WL.getName().equals(wlName)){
+                        WL.getItems().add(tradeable.get());
+                        break;
+                    }
                 }
             }
         }
+        saveUser(user);
     }
 }
