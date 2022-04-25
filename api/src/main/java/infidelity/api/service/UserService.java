@@ -129,4 +129,17 @@ public class UserService {
                         .username(username)
                         .build());
     }
+
+    /**
+     * Adds a new watchlist for a user
+     */
+    public void addWatchlist(WatchlistRequest request) {
+        Watchlist newWatchlist = Watchlist.builder()
+                .name(request.getWatchlistName())
+                .build();
+        newWatchlist = watchlistRepository.save(newWatchlist);
+        User user = getUserById(request.getUsername());
+        user.getWatchlists().add(newWatchlist);
+        saveUser(user);
+    }
 }

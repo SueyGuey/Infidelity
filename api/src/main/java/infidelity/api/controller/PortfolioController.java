@@ -24,9 +24,10 @@ public class PortfolioController {
     @Autowired
     PortfolioService portfolioService;
 
-    //TODO: implement function
-    public ResponseEntity<Portfolio> createPortfolio(PortfolioRequest request){
-        return null;
+    @PostMapping(path = "/create")
+    public ResponseEntity<Portfolio> createPortfolio(@RequestBody PortfolioRequest request){
+        Portfolio portfolio = portfolioService.createPortfolio(request);
+        return new ResponseEntity<>(portfolio, HttpStatus.OK);
     }
 
     //TODO: implement function

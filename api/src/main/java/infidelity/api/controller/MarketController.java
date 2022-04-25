@@ -42,11 +42,11 @@ public class MarketController {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY)
                 .create();
-        Optional<Tradeable> item = market.findInfo(symbol);
-        if (item.isPresent()) {
+        Optional<Tradeable> optItem = market.findInfo(symbol);
+        if (optItem.isPresent()) {
+            Tradeable item = market.updateOrCreateDBInfo(optItem.get().getSymbol());
             market.addPopularity(symbol);
-            market.subscribe(symbol);
-            return new ResponseEntity<>(item.get(), HttpStatus.OK);
+            return new ResponseEntity<>(item, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

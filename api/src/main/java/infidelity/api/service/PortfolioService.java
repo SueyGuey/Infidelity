@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.OptionalLong;
 import java.util.Set;
 
 /**
@@ -50,7 +51,15 @@ public class PortfolioService {
      * @see PortfolioRequest
      */
     public Portfolio createPortfolio(PortfolioRequest newPortfolio){
-        return null;
+        Portfolio portfolio = Portfolio.builder()
+                .name(newPortfolio.getPortfolioName())
+                .balance(newPortfolio.getAccountBalance())
+                .build();
+        portfolio = portfolioRepository.save(portfolio);
+        User user = userService.getUserById(newPortfolio.getUsername());
+        user.getPortfolios().add(portfolio);
+        userService.saveUser(user);
+        return portfolio;
     };
 
     /**
@@ -161,10 +170,10 @@ public class PortfolioService {
         double sum = portfolio.getAssets().stream()
                 .mapToDouble(asset -> asset.getValue().getValue())
                 .sum() + portfolio.getBalance();
-        long lastUpdated = portfolio.getAssets().stream()
+        OptionalLong optLastUpdated = portfolio.getAssets().stream()
                 .mapToLong(asset -> asset.getValue().getLastUpdated())
-                .min()
-                .getAsLong();
+                .min();
+        long lastUpdated = optLastUpdated.orElseGet(System::currentTimeMillis);
         if (portfolio.getTotalValue() == null) {
             portfolio.setTotalValue(ChangingNumber.builder()
                     .numberId(portfolio.getPortfolioId() + "_asset_value")

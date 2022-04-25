@@ -1,0 +1,78 @@
+.fullTradePortfolioHistory{
+    margin-top: 5vw;
+    position: absolute;
+    display: flex;
+    border: none;
+    height: 65%;
+    width: 90%;
+    top: 0;
+    right: -5%;
+    height: 70%;
+    /* backgroun*/
+}
+
+.historyContainer{
+    margin-left: 10%;
+    background-color: #e0e0e0;
+    width: 80%;
+    overflow-x: hidden; 
+    border-radius: 1vw;
+    overflow-y:auto;
+}
+
+.historyLabel{
+    position:sticky;
+    width: 40%;
+    height: 10%;
+    justify-content: center;
+    padding-left: 30%;
+    padding-right: 30%;
+    font-family: Arsenal-Bold;
+    font-size: 2vw;
+    padding-top: 1vw;
+    overflow-y: hidden;
+    background-color:#C9C9C9;
+}
+
+.dateTime{
+    position: inherit;
+    font-family: Arsenal-Bold;
+    display: inline;
+    margin-left: -3vw;
+    margin-right: 1.5vw;
+    overflow-x: hidden;
+    width: 10vw;
+    padding-left: 4vw;
+}
+.dateTime p{
+    display: inline;
+}
+.five-vw{
+    display:inline;
+}
+.five-vw + .five-vw{
+    margin-left: 5vw;
+}
+
+.date{
+    margin-left: 2vw;
+}
+
+.h + .h{
+    margin-left: 7vw;
+}
+
+.Bought{
+    color: green;
+}
+.Sold{
+    color: blue;
+    margin-right: 1.15vw;
+}
+
+.t{
+    font-family: Arsenal-Bold;
+}
+.recentTradeItem + .recentTradeItem{
+    margin-top: 0;
+}

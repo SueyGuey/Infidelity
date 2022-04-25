@@ -17,7 +17,7 @@ export default function TopNavBar(): ReactElement {
 					<p>Infidelity</p>
 				</div>
 				<ul className="nav">
-					<li onClick={() => navigate('/')}>Product</li>
+					<li onClick={() => navigate('/')}>Home</li>
 					<li onClick={() => navigate('/About')}>About</li>
 					<li onClick={() => navigate('/Features')}>Features</li>
 				</ul>

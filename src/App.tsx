@@ -18,6 +18,7 @@ import './App.css';
 import StockDash from './components/StockDash';
 import AboutPage from './components/InfoPages/AboutPage';
 import FeaturePage from './components/InfoPages/FeaturesPage';
+import TradeHistory from './components/tradeHistory';
 function App() {
 	//We have to logged in
 	const loggedIn = userPool.getCurrentUser() !== null;
@@ -46,7 +47,7 @@ function App() {
 						<Route path="/stockDash/:symbol" element={<StockDash />} />
 						<Route
 							path="/dashboard/tradeHistory"
-							element={<Dashboard item={item || 'tradeHistory'} />}
+							element={<TradeHistory item={item || 'tradeHistory'} />}
 						/>
 						<Route
 							path="/dashboard/summary"

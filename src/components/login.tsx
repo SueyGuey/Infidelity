@@ -29,6 +29,7 @@ function Login(): ReactElement {
 		authenticate(username, password)
 			.then((_data) => {
 				navigate('/dashboard');
+				location.reload();
 			})
 			.catch((err: Error) => {
 				const errorMessage = err.message;

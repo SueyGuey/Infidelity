@@ -17,14 +17,13 @@ import java.util.*;
 @Slf4j
 public class FinnHub {
     private final String[] FINNHUB_KEYS = {"c8kmugaad3ibbdm3vo8g", "c8oia22ad3iatn99l4u0"};
-    private final String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=";
-    private final String FINNHUB_ENDPOINT = "https://finnhub.io/api/v1/webhook/add?token=";
 
     private WebsocketClientEndpoint clientEndpoint;
     private final FHPriceDecoder decoder = new FHPriceDecoder();
     private final FHSymbolDecoder symbolDecoder = new FHSymbolDecoder();
     private final FHCompanyDecoder companyDecoder = new FHCompanyDecoder();
     private final FHSearchDecoder searchDecoder = new FHSearchDecoder();
+    private final FHQuoteDecoder quoteDecoder = new FHQuoteDecoder();
 
     private Map<String, Long> subscribedSymbols = new HashMap<>();
 
@@ -33,26 +32,28 @@ public class FinnHub {
     /**
      * Map of all most recently updated prices
      */
-    private Map<String, FHPriceMessage.PriceMessage> cache = new HashMap<>();
+    private final Map<String, FHPriceMessage.PriceMessage> cache = new HashMap<>();
 
     public FinnHub() {
         log.info("Initializing FinnHub");
-        // BELOW IS WEBSOCKET CODE
-        //*
-        try {
-            // open websocket
-            clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + FINNHUB_KEYS[0]));
-            clientEndpoint.addMessageHandler(this::handleMessage);
-        } catch (URISyntaxException e) {
-            log.error("URISyntaxException exception: " + e.getMessage());
-        } catch (Exception e) {
-            if (e instanceof DeploymentException) {
-                log.error("DeploymentException exception: " + e.getMessage());
-                try {
-                    clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_ENDPOINT + FINNHUB_KEYS[1]));
-                } catch (URISyntaxException ure) {
-                    ure.printStackTrace();
-                }
+        initWebsocket();
+    }
+
+    private void initWebsocket(String key) throws URISyntaxException, DeploymentException, IOException {
+        String FINNHUB_WS_ENDPOINT = "wss://ws.finnhub.io?token=";
+        clientEndpoint = new WebsocketClientEndpoint(new URI(FINNHUB_WS_ENDPOINT + key));
+        clientEndpoint.addMessageHandler(this::handleMessage);
+        clientEndpoint.addCloseHandler(this::handleClose);
+    }
+
+    private void initWebsocket() {
+        for (String key : FINNHUB_KEYS) {
+            try {
+                initWebsocket(key);
+                return;
+            } catch (URISyntaxException | DeploymentException | IOException e) {
+                clientEndpoint = null;
+                log.warn("FinnHub websocket initialization failed with key {}\nError: {}", key, e.getMessage());
             }
         }
     }
@@ -74,6 +75,10 @@ public class FinnHub {
         if (priceMessageHandler != null) {
             priceMessageHandler.handlePriceMessage(mostRecent);
         }
+    }
+
+    private void handleClose() {
+        initWebsocket();
     }
 
     /**
@@ -229,6 +234,30 @@ public class FinnHub {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public FHQuoteResponse getQuote(String symbol) {
+        try {
+            String url = String.format("https://finnhub.io/api/v1/quote?symbol=%s&token=%s", symbol, FINNHUB_KEYS[0]);
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
+            String body = response.body();
+            if (!quoteDecoder.willDecode(body)) {
+                log.error("Error parsing symbol {} /quote response {}", symbol, body);
+                return null;
+            } else {
+                FHQuoteResponse quote = quoteDecoder.decode(body);
+                return quote;
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addMessageHandler(PriceMessageHandler msgHandler) {

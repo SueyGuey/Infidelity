@@ -66,7 +66,7 @@ function DashTop(props: DashTopProps): ReactElement {
 				{/*The 3 - 4 portfolio value summary rectangles, displaying numerical values of interest*/}
 				<div className="portfolioValueContainer">
 					<span className="tradeValues">
-						Total Value<p className="worthValue">${portfolioValue}</p>
+						Total Value<p className="worthValue">${portfolioValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
 						Stock Value<p className="worthValue">${stockValue.toFixed(2)}</p>
@@ -76,6 +76,9 @@ function DashTop(props: DashTopProps): ReactElement {
 					</span>
 					<span className="tradeValues">
 						Crpyto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
+					</span>
+					<span className="tradeValues">
+						Balance<p className="worthValue">${props.portfolio.balance.toFixed(2)}</p>
 					</span>
 
 					{/* The porfolio value graph */}
