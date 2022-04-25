@@ -18,7 +18,7 @@ import { Tradeable } from '../datamodels/Portfolio';
  * clicking Add will add the stock to the selected watchlist(s)
  * ***/
 
- type addWatchlistProps = {
+type addWatchlistProps = {
 	item: string;
 } & WithUserProfileLoaderProps;
 
