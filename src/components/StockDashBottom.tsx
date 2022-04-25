@@ -24,6 +24,7 @@ type StockDashBottomProps = {
  * be able to purchase and sell stocks on completion of feature.
  */
 function StockDashBottom(props: StockDashBottomProps): ReactElement {
+	const companyInfo = isStock(props.item) ? props.item.company : null;
 	// check if item is a stock
 	if (!isStock(props.item)) {
 		return <div>Not a stock</div>;
@@ -62,6 +63,37 @@ function StockDashBottom(props: StockDashBottomProps): ReactElement {
 							</p>
 							<p>
 								Current Volume:<p className="stockValue blue">###.##</p>
+							</p>
+						</span>
+					</div>
+				</span>
+				<span className="bottomSpan companyInformation">
+					<div className="spanCap">
+						<p>Company Information</p>
+					</div>
+					<div className="stockInformationItems">
+						<span className="companyInfo-span">
+							<p className="companyInfo">
+								Company Name: <p className="infobit">{companyInfo?.name}</p>
+							</p>
+							<p className="companyInfo">
+								Industry: <p className="infobit">{companyInfo?.industry}</p>
+							</p>
+							<p className="companyInfo">
+								Site:
+								<p className="infobit">
+									<a href={companyInfo?.weburl} target="_blank" rel="noreferrer">
+										<p className="info-bit site">
+											{companyInfo?.name + "'s site"}
+										</p>
+									</a>
+								</p>
+							</p>
+							<p className="companyInfo">
+								Description:{' '}
+								<p className="infobit">
+									{companyInfo?.description ? companyInfo?.description : 'N/A'}
+								</p>
 							</p>
 						</span>
 					</div>

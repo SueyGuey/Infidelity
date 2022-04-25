@@ -62,7 +62,7 @@ export type Company = {
 
 export type PortfolioRequest = {
 	username: string;
-	name: string;
+	portfolioName: string;
 	accountBalance: number;
 };
 
@@ -98,3 +98,8 @@ export function getTotalStockValue(portfolio: Portfolio) {
 	}
 	return total;
 }
+
+export type WatchlistRequest = {
+	username: string;
+	watchlistName: string;
+};

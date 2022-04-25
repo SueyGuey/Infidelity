@@ -1,6 +1,7 @@
 package infidelity.api.controller;
 
 import infidelity.api.data.User;
+import infidelity.api.data.WatchlistRequest;
 import infidelity.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,12 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable("username") String username) {
         log.info("Request to delete user {}", username);
         userService.deleteUser(username);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/addWL")
+    public ResponseEntity<Void> addWatchlist(@RequestBody WatchlistRequest request){
+        userService.addWatchlist(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

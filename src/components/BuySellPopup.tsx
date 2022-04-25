@@ -8,6 +8,7 @@ import { Checkbox } from '@mui/material';
 import { makeTradeBackend } from '../endpoints';
 import { getActivePortfolio } from '../datamodels/User';
 import { Tradeable } from '../datamodels/Portfolio';
+import TransactionCompletePop from './TransactionCompletePop';
 
 type BuySellProps = {
 	item: Tradeable;
@@ -32,20 +33,62 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 	const price = props.item.currentPrice ? props.item.currentPrice.value : 0;
 	const estimatedTotal = quantity * price;
 	const displayTotal = hasPrice ? estimatedTotal.toFixed(2) : '##.##';
-
 	function handleSubmit() {
-		console.log('submitting transaction request');
-		setSubmitted(true);
-		makeTradeBackend({
-			username: props.userProfile.username,
-			itemSymbol: props.item.symbol,
-			portfolioName: portfolio.name,
-			quantity: props.type === 'buy' ? quantity : -quantity,
-			timestamp: Date.now(),
-		}).then((res) => {
-			console.log('trade result: ', res);
-			setCompleted(true);
-		});
+		let valid = false;
+		if (props.type == 'buy') {
+			valid = doPurchase(price, quantity);
+		} else {
+			valid = doSale(price, quantity);
+		}
+
+		if (valid === true) {
+			console.log('submitting transaction request');
+			setSubmitted(true);
+			makeTradeBackend({
+				username: props.userProfile.username,
+				itemSymbol: props.item.symbol,
+				portfolioName: portfolio.name,
+				quantity: props.type === 'buy' ? quantity : -quantity,
+				timestamp: Date.now(),
+			}).then((res) => {
+				console.log('trade result: ', res);
+				setCompleted(true);
+			});
+		}
+	}
+
+	function doSale(price: any, numStocks: number) {
+		const totalPrice = parseFloat(price) * numStocks;
+		const numSold = numStocks;
+		let totalOwned = Array.from(portfolio.assets).find(
+			(asset) => asset.item.symbol === props.item.symbol
+		)?.quantity;
+		if (totalOwned == undefined) {
+			totalOwned = 0;
+		}
+		//if you have the stock you're trying to sell, you can sell.
+		if (numSold > totalOwned && numSold > 0) {
+			alert('cannot do sale. Insufficient Quantity');
+			return false;
+		} else if (numSold <= 0) {
+			alert('cannot sell non-positive stocks!');
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	function doPurchase(price: any, numStocks: number) {
+		const totalPrice = parseFloat(price) * numStocks;
+		if (portfolio.balance >= totalPrice && numStocks > 0) {
+			return true;
+		} else if (numStocks <= 0) {
+			alert('cannot buy non-positive stocks!');
+			return false;
+		} else {
+			alert('Insuficient Funds.');
+			return false;
+		}
 	}
 
 	return (
@@ -57,6 +100,7 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 						<input
 							type="number"
 							className="toSellInput"
+							min="0"
 							value={quantity}
 							onChange={(e) => setQuantity(+e.target.value)}></input>
 					</p>
@@ -80,7 +124,12 @@ function BuySellPopup(props: BuySellProps): ReactElement<BuySellProps> {
 				</div>
 			) : (
 				<div>
-					<p>Congrats! The transaction is complete.</p>
+					<TransactionCompletePop
+						buy={props.type === 'buy' ? 1 : 0}
+						numStock={quantity}
+						stockPrice={price}
+						stockSymbol={props.item?.symbol}
+					/>
 				</div>
 			)}
 		</>

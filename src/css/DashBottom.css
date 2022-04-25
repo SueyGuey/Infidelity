@@ -64,7 +64,54 @@
 }
 
 .stockInformation{
-    width: 50vw;
+    margin-left: -2vw;
+    width: 34vw;
+    margin-right: -1vw;
+}
+.companyInformation{
+    width: 20vw;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.companyInfo-span{
+    position: inherit;
+    display: inline-block;
+    height: fit-content;
+    width: 99%;
+    background-color: #E9E9E9;
+    margin-right: -1.5vw;
+    border-radius: .3vw;
+}
+
+.companyInfo-span .companyInfo{
+    border-bottom: solid;
+    padding-bottom: .4vw;
+    margin-top: .4vw;
+    border-bottom-color: rgba(0, 0, 0, 0.20);  
+}
+
+.companyInfo{
+    padding-left: 1vw;
+    font-family: Arsenal-Bold;
+    font-size: 1.2vw;
+    border-bottom-color: rgba(0, 0, 0, 0.20);
+}
+
+.infobit{
+    display: inline;
+    font-family: Arsenal-Regular;
+    font-size: 1.2vw;
+    padding-bottom: .2vw;
+    border-radius: 1vw;
+}
+
+.site{
+    color:rgb(51, 101, 201);
+    display: inline;
+    margin-left: .4vw;
+    font-size: 1.2vw;
+    text-decoration:underline;
 }
 
 .spanCap{
@@ -105,18 +152,52 @@
 
 .positionsItems{
     position: inherit;
-    border: solid;
     bottom: 0;
-    height: 75%;
+    height: 80%;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .recentTradeItems{
     position: inherit;
-    border: solid;
     bottom: 0;
-    height: 75%;
+    height: 80%;
     width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.recentTradeItem{
+    display: flex;
+    margin-top: .1vw;
+    width: 100%;
+    height: 1.6vw;
+    background-color: #e5e5e5;
+    font-family: Arsenal-Regular;
+    border-bottom-left-radius: .3vw;
+    border-bottom: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.20);
+    justify-content: left;
+    padding-left: 5%;
+    height: 1.3vw;
+    font-size: 1vw;
+    overflow-x: auto;
+}
+.recentTradeText{
+    display: inline;
+    font-family: Arsenal-Regular
+}
+.recentTradeQuant{
+    display: inline;
+    font-family: Arsenal-Bold;
+}
+.recentTradeSymbol{
+    display: inline;
+}
+.recentTradeValue{
+    display: inline;
+    font-family: Arsenal-Bold;
 }
 
 .stockInformationItems{
@@ -135,17 +216,17 @@
     display: inline-block;
     height: 100%;
     width: 49%;
-    background-color: #E9E9E9;
     margin-right: -1.5vw;
 }
 
 .stockInfo-span p{
     font-family: Arsenal-Regular;
-    font-size: 1.5vw;
+    font-size: 1.2vw;
     padding-bottom: .5vw;
     padding-top: .5vw;
     padding-left: 1vw;
     border-bottom: solid;
+    background-color: #E9E9E9;
     border-bottom-color: rgba(0, 0, 0, 0.20);
     border-radius: .2vw;
 }
@@ -161,11 +242,35 @@
 
 .positionItem {
     display: flex;
+    margin-top: .1vw;
+    width: 100%;
+    height: 1.6vw;
+    background-color: #e5e5e5;
+    font-family: Arsenal-Regular;
+    border-bottom-left-radius: .3vw;
+    border-bottom: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.20);
     justify-content: space-evenly;
     align-items: center;
-    height: 30px;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.20);
-    background-color: #C9C9C9;
+    height: 1.3vw;
+    font-size: 1vw;
+}
+
+.positionItem + .positionItem{
+    margin-top: 0vw;
+}
+
+.position-symbol{
+    font-family: Arsenal-Regular;
+}
+
+.position-quantity{
+    font-family: Arsenal-Bold;
+}
+
+.position-value{
+    font-family: Arsenal-Bold;
+    color: rgb(51, 101, 201);
 }
 
 .watchListItems{

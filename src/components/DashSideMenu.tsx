@@ -94,10 +94,13 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								<li
 									id="summary"
 									className="menuItem"
-									onClick={() => navigate(`/dashboard/summary`)}>
+									// onClick={() => navigate(`/dashboard/summary`)}
+								>
 									{' '}
 									{/*Navigates to user summary (not promised)*/}
-									<p>Summary</p>
+									<p>
+										<br />
+									</p>
 								</li>
 							</ul>
 						</li>

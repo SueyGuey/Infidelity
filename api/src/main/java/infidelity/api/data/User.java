@@ -3,10 +3,7 @@ package infidelity.api.data;
 import infidelity.api.data.model.UserData;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,11 +29,11 @@ public class User {
     private String activePortfolio;
 
     @Builder.Default
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Portfolio> portfolios = new HashSet<>();
 
     @Builder.Default
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Watchlist> watchlists = new HashSet<>();
 
     /**
