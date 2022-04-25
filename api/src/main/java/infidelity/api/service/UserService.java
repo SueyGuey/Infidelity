@@ -25,6 +25,8 @@ public class UserService {
     private PortfolioRepository portfolioRepository;
     @Autowired
     private WatchlistRepository watchlistRepository;
+    @Autowired
+    private MarketService marketService;
 
     private CognitoIdentityProviderClient cognito;
 
@@ -140,6 +142,25 @@ public class UserService {
         newWatchlist = watchlistRepository.save(newWatchlist);
         User user = getUserById(request.getUsername());
         user.getWatchlists().add(newWatchlist);
+        saveUser(user);
+    }
+
+    /**
+     * Adds a tradeable to the user's watchlist
+     */
+    public void addToWatchlist(AddToWatchlistRequest request) {
+        User user = getUserById(request.getUsername());
+        Optional<Tradeable> tradeable = marketService.findInfo(request.getSymbol());
+        if (tradeable.isPresent()) {
+            for (Watchlist WL : user.getWatchlists()) {
+                for(String wlName: request.getWatchlistNames()){
+                    if(WL.getName().equals(wlName)){
+                        WL.getItems().add(tradeable.get());
+                        break;
+                    }
+                }
+            }
+        }
         saveUser(user);
     }
 }

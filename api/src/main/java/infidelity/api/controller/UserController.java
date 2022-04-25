@@ -1,5 +1,6 @@
 package infidelity.api.controller;
 
+import infidelity.api.data.AddToWatchlistRequest;
 import infidelity.api.data.User;
 import infidelity.api.data.WatchlistRequest;
 import infidelity.api.service.UserService;
@@ -65,9 +66,21 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * Adds a watchlist to the suer
+     */
     @PostMapping(path = "/addWL")
     public ResponseEntity<Void> addWatchlist(@RequestBody WatchlistRequest request){
         userService.addWatchlist(request);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Adds a tradeable to user's watchlists
+     */
+    @PostMapping(path = "/addToWL")
+    public ResponseEntity<Void> addToWatchlist(@RequestBody AddToWatchlistRequest request){
+        userService.addToWatchlist(request);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
