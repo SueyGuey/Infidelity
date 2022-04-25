@@ -69,17 +69,6 @@ function StockDashBottom(props: StockDashBottomProps): ReactElement {
 					</div>
 					<div className="stockInformationItems">
 						<span className="companyInfo-span">
-							{/* onClick={() =>
-									alert(
-										companyInfo?.name +
-											'\n' +
-											companyInfo?.industry +
-											'\n' +
-											companyInfo?.description +
-											'\n' +
-											companyInfo?.weburl
-									)
-								} */}
 							<p className="companyInfo">
 								Company Name: <p className="infobit">{companyInfo?.name}</p>
 							</p>
