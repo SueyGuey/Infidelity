@@ -103,3 +103,9 @@ export type WatchlistRequest = {
 	username: string;
 	watchlistName: string;
 };
+
+export type AddToWatchlistRequest = {
+	username: string;
+	symbol: string;
+	watchlistNames: string[];
+};
