@@ -84,7 +84,7 @@ function DashTop(props: DashTopProps): ReactElement {
 					{/* The porfolio value graph */}
 					<div className="portfolioGraph">
 						<div className="graph" id="graph-container">
-							<p className="portfolioName">Porfolio Value</p>
+							<p className="portfolioName">Portfolio Value</p>
 							<StockGraph symbol="MSFT" />
 						</div>
 					</div>

@@ -20,7 +20,7 @@ import AboutPage from './components/InfoPages/AboutPage';
 import FeaturePage from './components/InfoPages/FeaturesPage';
 import TradeHistory from './components/tradeHistory';
 function App() {
-	//We have to logged in
+	//We have to be logged in
 	const loggedIn = userPool.getCurrentUser() !== null;
 	const store = createStore(reducers, {}, applyMiddleware(ReduxThunkMiddleWare));
 	const { item } = useParams();

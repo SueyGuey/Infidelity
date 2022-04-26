@@ -1,306 +1,305 @@
 @font-face {
-    font-family: Arsenal-Bold;
-    src: url("../fonts/Arsenal-Bold.ttf");
-  }
-  @font-face {
-    font-family: Arsenal-Regular;
-    src: url("../fonts/Arsenal-Regular.ttf");
-  }
-
-
-.dashBottomContain{
-    font-family: Arsenal-Regular;  
-    position: absolute;
-    display: flex;
-    border: none;
-    height: 17vw;
-    width: 82%;
-    top: 31.5vw;
-    right: 0;
-    /* background-color: red; */
+	font-family: Arsenal-Bold;
+	src: url('../fonts/Arsenal-Bold.ttf');
+}
+@font-face {
+	font-family: Arsenal-Regular;
+	src: url('../fonts/Arsenal-Regular.ttf');
 }
 
-.dashBottom{
-    padding-left: 4vw;
-    position: inherit;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    /* background-color: blue; */
+.dashBottomContain {
+	font-family: Arsenal-Regular;
+	position: absolute;
+	display: flex;
+	border: none;
+	height: calc(100vh - 31.5vw);
+	width: 82%;
+	top: 31.5vw;
+	right: 0;
+	/* background-color: red; */
 }
 
-.bottomSpan{
-    display: inline-block;
-    top: 0;
-    left: 0;
-    height: 10vw;
-    width: 12vw;
-    height: calc(100% - 1vw);
-    border: none;
-    background-color: #D8D8D8;
-    border-radius: .3vw;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    font-family: Arsenal-Regular;
-
-    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.20);
-    border-radius: .4vw
+.dashBottom {
+	padding-left: 4vw;
+	position: inherit;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	/* background-color: blue; */
 }
 
-.watchLists{
-    width: 20vw;
+.bottomSpan {
+	display: inline-block;
+	top: 0;
+	left: 0;
+	height: 10vw;
+	width: 12vw;
+	height: calc(100% - 1vw);
+	border: none;
+	background-color: #d8d8d8;
+	border-radius: 0.3vw;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	font-family: Arsenal-Regular;
+
+	box-shadow: 0.5vw 0.2vw 0.5vw rgba(0, 0, 0, 0.2);
+	border-radius: 0.4vw;
 }
 
-.positions{
-    width: 35vw;
+.watchLists {
+	width: 20vw;
 }
 
-.recentTrade{
-    width: 17.26vw;
+.positions {
+	width: 35vw;
 }
 
-.stockInformation{
-    margin-left: -2vw;
-    width: 34vw;
-    margin-right: -1vw;
-}
-.companyInformation{
-    width: 20vw;
-    overflow-x: hidden;
-    overflow-y: auto;
+.recentTrade {
+	width: 17.26vw;
 }
 
-.companyInfo-span{
-    position: inherit;
-    display: inline-block;
-    height: fit-content;
-    width: 99%;
-    background-color: #E9E9E9;
-    margin-right: -1.5vw;
-    border-radius: .3vw;
+.stockInformation {
+	margin-left: -2vw;
+	width: 34vw;
+	margin-right: -1vw;
+}
+.companyInformation {
+	width: 20vw;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
-.companyInfo-span .companyInfo{
-    border-bottom: solid;
-    padding-bottom: .4vw;
-    margin-top: .4vw;
-    border-bottom-color: rgba(0, 0, 0, 0.20);  
+.companyInfo-span {
+	position: inherit;
+	display: inline-block;
+	height: fit-content;
+	width: 99%;
+	background-color: #e9e9e9;
+	margin-right: -1.5vw;
+	border-radius: 0.3vw;
 }
 
-.companyInfo{
-    padding-left: 1vw;
-    font-family: Arsenal-Bold;
-    font-size: 1.2vw;
-    border-bottom-color: rgba(0, 0, 0, 0.20);
+.companyInfo-span .companyInfo {
+	border-bottom: solid;
+	padding-bottom: 0.4vw;
+	margin-top: 0.4vw;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
 }
 
-.infobit{
-    display: inline;
-    font-family: Arsenal-Regular;
-    font-size: 1.2vw;
-    padding-bottom: .2vw;
-    border-radius: 1vw;
+.companyInfo {
+	padding-left: 1vw;
+	font-family: Arsenal-Bold;
+	font-size: 1.2vw;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
 }
 
-.site{
-    color:rgb(51, 101, 201);
-    display: inline;
-    margin-left: .4vw;
-    font-size: 1.2vw;
-    text-decoration:underline;
+.infobit {
+	display: inline;
+	font-family: Arsenal-Regular;
+	font-size: 1.2vw;
+	padding-bottom: 0.2vw;
+	border-radius: 1vw;
 }
 
-.spanCap{
-    width: 100%;
-    height: 20%;
-    border-top-left-radius: .4vw;
-    border-top-right-radius: .4vw;
-    background-color: #C9C9C9;
+.site {
+	color: rgb(51, 101, 201);
+	display: inline;
+	margin-left: 0.4vw;
+	font-size: 1.2vw;
+	text-decoration: underline;
 }
 
-.spanCap p{
-    margin-top: .75vw;
-    position: inherit;
-    padding-left: 1vw;
-    font-size: 1.3vw;
-}
-.spanCap select{
-    position: absolute;
-    display: inline;
-    left: 0vw;
-    margin-left: 11.5vw;
-    margin-top: .2vw;
-    font-family: Arsenal-Regular;   
-    font-size: 1.0vw;
-    border: none;
-    border-radius: .25vw;
-    background-color: rgba(240,240,240,1);
+.spanCap {
+	width: 100%;
+	height: 20%;
+	border-top-left-radius: 0.4vw;
+	border-top-right-radius: 0.4vw;
+	background-color: #c9c9c9;
 }
 
-.watchlistStocks{
-    position: inherit;
-    bottom: 0vw;
-    height: 79.9%;
-    width: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+.spanCap p {
+	margin-top: 0.75vw;
+	position: inherit;
+	padding-left: 1vw;
+	font-size: 1.3vw;
+}
+.spanCap select {
+	position: absolute;
+	display: inline;
+	left: 0vw;
+	margin-left: 11.5vw;
+	margin-top: 0.2vw;
+	font-family: Arsenal-Regular;
+	font-size: 1vw;
+	border: none;
+	border-radius: 0.25vw;
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.positionsItems{
-    position: inherit;
-    bottom: 0;
-    height: 80%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+.watchlistStocks {
+	position: inherit;
+	bottom: 0vw;
+	height: 79.9%;
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
-.recentTradeItems{
-    position: inherit;
-    bottom: 0;
-    height: 80%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+.positionsItems {
+	position: inherit;
+	bottom: 0;
+	height: 80%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
-.recentTradeItem{
-    display: flex;
-    margin-top: .1vw;
-    width: 100%;
-    height: 1.6vw;
-    background-color: #e5e5e5;
-    font-family: Arsenal-Regular;
-    border-bottom-left-radius: .3vw;
-    border-bottom: solid;
-    border-bottom-color: rgba(0, 0, 0, 0.20);
-    justify-content: left;
-    padding-left: 5%;
-    height: 1.3vw;
-    font-size: 1vw;
-    overflow-x: auto;
-}
-.recentTradeText{
-    display: inline;
-    font-family: Arsenal-Regular
-}
-.recentTradeQuant{
-    display: inline;
-    font-family: Arsenal-Bold;
-}
-.recentTradeSymbol{
-    display: inline;
-}
-.recentTradeValue{
-    display: inline;
-    font-family: Arsenal-Bold;
+.recentTradeItems {
+	position: inherit;
+	bottom: 0;
+	height: 80%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
-.stockInformationItems{
-    position: inherit;
-    padding-right:0.3vw;
-    padding-left: 0.7vw;
-    /*border: solid;*/
-    display: flex;
-    bottom: 0;
-    height: 75%;
-    width: 100%;
+.recentTradeItem {
+	display: flex;
+	margin-top: 0.1vw;
+	width: 100%;
+	height: 1.6vw;
+	background-color: #e5e5e5;
+	font-family: Arsenal-Regular;
+	border-bottom-left-radius: 0.3vw;
+	border-bottom: solid;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
+	justify-content: left;
+	padding-left: 5%;
+	height: 1.3vw;
+	font-size: 1vw;
+	overflow-x: auto;
+}
+.recentTradeText {
+	display: inline;
+	font-family: Arsenal-Regular;
+}
+.recentTradeQuant {
+	display: inline;
+	font-family: Arsenal-Bold;
+}
+.recentTradeSymbol {
+	display: inline;
+}
+.recentTradeValue {
+	display: inline;
+	font-family: Arsenal-Bold;
 }
 
-.stockInfo-span{
-    position: inherit;
-    display: inline-block;
-    height: 100%;
-    width: 49%;
-    margin-right: -1.5vw;
+.stockInformationItems {
+	position: inherit;
+	padding-right: 0.3vw;
+	padding-left: 0.7vw;
+	/*border: solid;*/
+	display: flex;
+	bottom: 0;
+	height: 75%;
+	width: 100%;
 }
 
-.stockInfo-span p{
-    font-family: Arsenal-Regular;
-    font-size: 1.2vw;
-    padding-bottom: .5vw;
-    padding-top: .5vw;
-    padding-left: 1vw;
-    border-bottom: solid;
-    background-color: #E9E9E9;
-    border-bottom-color: rgba(0, 0, 0, 0.20);
-    border-radius: .2vw;
+.stockInfo-span {
+	position: inherit;
+	display: inline-block;
+	height: 100%;
+	width: 49%;
+	margin-right: -1.5vw;
 }
 
-.stockInfo-span .stockValue{
-    border-style: none;
-    display: inline;
+.stockInfo-span p {
+	font-family: Arsenal-Regular;
+	font-size: 1.2vw;
+	padding-bottom: 0.5vw;
+	padding-top: 0.5vw;
+	padding-left: 1vw;
+	border-bottom: solid;
+	background-color: #e9e9e9;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
+	border-radius: 0.2vw;
 }
 
-.blue{
-    color: rgb(59, 42, 218);
+.stockInfo-span .stockValue {
+	border-style: none;
+	display: inline;
+}
+
+.blue {
+	color: rgb(59, 42, 218);
 }
 
 .positionItem {
-    display: flex;
-    margin-top: .1vw;
-    width: 100%;
-    height: 1.6vw;
-    background-color: #e5e5e5;
-    font-family: Arsenal-Regular;
-    border-bottom-left-radius: .3vw;
-    border-bottom: solid;
-    border-bottom-color: rgba(0, 0, 0, 0.20);
-    justify-content: space-evenly;
-    align-items: center;
-    height: 1.3vw;
-    font-size: 1vw;
+	display: flex;
+	margin-top: 0.1vw;
+	width: 100%;
+	height: 1.6vw;
+	background-color: #e5e5e5;
+	font-family: Arsenal-Regular;
+	border-bottom-left-radius: 0.3vw;
+	border-bottom: solid;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
+	justify-content: space-evenly;
+	align-items: center;
+	height: 1.3vw;
+	font-size: 1vw;
 }
 
-.positionItem + .positionItem{
-    margin-top: 0vw;
+.positionItem + .positionItem {
+	margin-top: 0vw;
 }
 
-.position-symbol{
-    font-family: Arsenal-Regular;
+.position-symbol {
+	font-family: Arsenal-Regular;
 }
 
-.position-quantity{
-    font-family: Arsenal-Bold;
+.position-quantity {
+	font-family: Arsenal-Bold;
 }
 
-.position-value{
-    font-family: Arsenal-Bold;
-    color: rgb(51, 101, 201);
+.position-value {
+	font-family: Arsenal-Bold;
+	color: rgb(51, 101, 201);
 }
 
-.watchListItems{
-    margin-top: .1vw;
-    width: 100%;
-    height: 1.6vw;
-    background-color: #e5e5e5;
-    font-family: Arsenal-Regular;
-    padding-left: 1vw;
-    border-bottom-left-radius: .3vw;
-    font-size: 1vw;
-    border-bottom: solid;
-    border-bottom-color: rgba(0, 0, 0, 0.20);
+.watchListItems {
+	margin-top: 0.1vw;
+	width: 100%;
+	height: 1.6vw;
+	background-color: #e5e5e5;
+	font-family: Arsenal-Regular;
+	padding-left: 1vw;
+	border-bottom-left-radius: 0.3vw;
+	font-size: 1vw;
+	border-bottom: solid;
+	border-bottom-color: rgba(0, 0, 0, 0.2);
 }
 
-.watchListItems + .watchListItems{
-    margin-top: 0vw;
+.watchListItems + .watchListItems {
+	margin-top: 0vw;
 }
-.watchlist-symbol{
-    display: inline;
-}
-
-.watchlist-sep{
-    display: inline;
-    font-family: Arsenal-Bold;
+.watchlist-symbol {
+	display: inline;
 }
 
-.watchlist-value{
-    display: inline;
-    margin-top: .25vw;
-    font-family: Arsenal-Bold;
-    color: rgb(43, 172, 43);
+.watchlist-sep {
+	display: inline;
+	font-family: Arsenal-Bold;
+}
+
+.watchlist-value {
+	display: inline;
+	margin-top: 0.25vw;
+	font-family: Arsenal-Bold;
+	color: rgb(43, 172, 43);
 }

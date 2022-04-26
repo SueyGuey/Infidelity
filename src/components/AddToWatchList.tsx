@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
-import DashSideMenu from './DashSideMenu';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';

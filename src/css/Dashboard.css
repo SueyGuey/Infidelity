@@ -1,9 +1,10 @@
-.Dashboard{
-    background-color: #75BCCC;
+.Dashboard {
+	background-color: #75bccc;
+	height: 100vh;
 }
 
-.dashInner{
-    width: 82%;
-    height: 100%;
-    left: 18%;
+.dashInner {
+	width: 82%;
+	height: 100%;
+	left: 18%;
 }
