@@ -119,6 +119,7 @@
 	border-top-left-radius: 0.4vw;
 	border-top-right-radius: 0.4vw;
 	background-color: #c9c9c9;
+	padding-bottom: .5vw;
 }
 
 .spanCap p {
@@ -161,7 +162,7 @@
 .recentTradeItems {
 	position: inherit;
 	bottom: 0;
-	height: 80%;
+	height: calc(80% - 1vw);
 	width: 100%;
 	overflow-x: hidden;
 	overflow-y: auto;
