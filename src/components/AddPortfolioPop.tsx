@@ -30,6 +30,7 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 			portfolioName: name,
 			accountBalance: startingBal,
 		});
+		location.reload();
 	}
 
 	return user ? (

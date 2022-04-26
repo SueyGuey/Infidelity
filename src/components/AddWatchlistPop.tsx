@@ -31,6 +31,7 @@ function AddWatchListPop(props: WithUserProfileLoaderProps): ReactElement {
 			username: props.userProfile.username,
 			watchlistName: name,
 		});
+		location.reload();
 	}
 
 	return user ? (
