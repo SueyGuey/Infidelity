@@ -75,7 +75,7 @@ function DashTop(props: DashTopProps): ReactElement {
 						Options Value<p className="worthValue">${optionsValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Crpyto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
+						Crypto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
 						Balance<p className="worthValue">${props.portfolio.balance.toFixed(2)}</p>
