@@ -26,7 +26,8 @@ function DashTop(props: DashTopProps): ReactElement {
 	const optionsValue = 0;
 	const cryptoValue = 0;
 
-	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
+	//handles pop up state for add new Porfolio pop up
+	const [popUpState, setPopUpState] = useState(-1);
 
 	//this function handles the display of the portfolio add pop up if conditions are met.
 	const popUpHandler = function popUpHandler(props: any) {
@@ -85,7 +86,7 @@ function DashTop(props: DashTopProps): ReactElement {
 					<div className="portfolioGraph">
 						<div className="graph" id="graph-container">
 							<p className="portfolioName">Portfolio Value</p>
-							<StockGraph symbol="MSFT" />
+							<StockGraph symbol="MSFT" days={3625} />
 						</div>
 					</div>
 				</div>

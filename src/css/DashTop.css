@@ -110,11 +110,20 @@
 	font-family: Arsenal-Bold;
 	color: rgb(43, 172, 43);
 }
+
 .stockValue {
 	font-family: Arsenal-Bold;
 	color: rgb(43, 172, 43);
 	display: inline;
 }
+
+.timespan {
+	margin-left: 1.5vw;
+	display: inline;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .searchSide {
 	position: inherit;
 	top: 0;

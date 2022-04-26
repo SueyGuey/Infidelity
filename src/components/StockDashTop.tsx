@@ -22,6 +22,9 @@ type StockDashTopProps = {
  * holds the search component so the user can resume searching through stocks.
  */
 function StockDashTop(props: StockDashTopProps): ReactElement {
+	//sets number of days the time span should be (default is 5 years)
+	const [Timespan, setTimespan] = useState(1826);
+
 	const displayPrice = props.item.currentPrice
 		? props.item.currentPrice.value.toFixed(2)
 		: '##.##';
@@ -57,11 +60,23 @@ function StockDashTop(props: StockDashTopProps): ReactElement {
 									</a>
 								</p>
 								: <p className="stockValue">${displayPrice}</p>
+								<p className="timespan" onClick={() => setTimespan(1826)}>
+									5Y
+								</p>
+								<p className="timespan" onClick={() => setTimespan(1095)}>
+									3Y
+								</p>
+								<p className="timespan" onClick={() => setTimespan(365)}>
+									1Y
+								</p>
+								<p className="timespan" onClick={() => setTimespan(92)}>
+									3M
+								</p>
 							</p>
 							<p className="industry">
 								Industry: <p className="industry-type">{companyInfo?.industry}</p>
 							</p>
-							<StockGraph symbol={props.item.symbol} />
+							<StockGraph symbol={props.item.symbol} days={Timespan} />
 							{/* Displays graph of stock. */}
 						</div>
 					</div>
