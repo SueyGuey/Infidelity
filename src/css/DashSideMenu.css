@@ -13,7 +13,7 @@
 .SideMenuContainer {
 	top: 0;
 	left: 0;
-	height: 100vh;
+	height: 48.5vw;
 	width: 18%;
 	background-color: #e4e4e4;
 	overflow-x: hidden;
@@ -85,7 +85,6 @@
 	margin-top: 0.5vw;
 	font-size: 1vw;
 	margin-left: -1vw;
-	cursor: pointer;
 }
 
 .activePage {
