@@ -60,7 +60,6 @@ class StockGraph extends React.Component<{ symbol: string; days: number }, any> 
 		if (this.state == null) {
 			return <div>Loading...</div>;
 		}
-		console.log(this.props.days);
 		return <Chart type={'svg'} data={this.state.data} days={this.props.days} />;
 	}
 }
