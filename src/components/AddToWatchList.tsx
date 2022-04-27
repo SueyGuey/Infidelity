@@ -35,12 +35,12 @@ function AddToWatchList(props: addWatchlistProps): ReactElement {
 
 	function handleSubmit() {
 		console.log('Adding a new watchlist: ', WL);
-		setSubmitted(true);
 		addToWatchlist({
 			username: props.userProfile.username,
 			symbol: props.item,
 			watchlistNames: WL,
 		});
+		setSubmitted(true);
 	}
 
 	return user ? (
