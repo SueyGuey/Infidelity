@@ -166,6 +166,7 @@
 	height: 2vw;
 	width: 2vw;
 	border-radius: 1vw;
+	cursor: pointer;
 }
 
 .newPortfolioButton p {
@@ -182,6 +183,7 @@
 	width: 1.5vw;
 	border-radius: 1vw;
 	aspect-ratio: 1/1;
+	cursor: pointer;
 }
 
 .industry {

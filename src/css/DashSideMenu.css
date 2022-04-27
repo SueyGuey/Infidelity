@@ -64,6 +64,7 @@
 	font-weight: normal;
 	margin-bottom: 0.2vw;
 	padding-left: 1.56vw;
+	cursor: pointer;
 }
 
 .menuTypeHeader + .bottomItem {
@@ -77,12 +78,14 @@
 	font-size: 1.6vw;
 	font-weight: normal;
 	padding-left: 1.56vw;
+	cursor: pointer;
 }
 
 .logout {
 	margin-top: 0.5vw;
 	font-size: 1vw;
 	margin-left: -1vw;
+	cursor: pointer;
 }
 
 .activePage {
@@ -94,6 +97,7 @@
 	margin-left: 1.5vw;
 	background-color: rgba(0, 0, 0, 0.15);
 	border-radius: 1vw;
+	cursor: pointer;
 }
 
 .addWatchlistButton p {
