@@ -76,6 +76,9 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 		) : (
 			<div>
 				<p>New portfolio has been added.</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (

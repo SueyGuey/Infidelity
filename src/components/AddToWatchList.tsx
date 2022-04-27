@@ -69,6 +69,9 @@ function AddToWatchList(props: addWatchlistProps): ReactElement {
 		) : (
 			<div>
 				<p>Stock added to watchlist</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (

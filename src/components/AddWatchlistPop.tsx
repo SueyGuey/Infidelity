@@ -62,6 +62,9 @@ function AddWatchListPop(props: WithUserProfileLoaderProps): ReactElement {
 		) : (
 			<div>
 				<p>New watchlist has been added.</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (

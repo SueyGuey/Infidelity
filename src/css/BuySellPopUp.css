@@ -183,6 +183,7 @@
 	border-radius: 4vw;
 	font-family: Arsenal-Regular;
 	font-size: 1.5vw;
+	cursor: pointer;
 }
 
 .selectWatchTxt {
