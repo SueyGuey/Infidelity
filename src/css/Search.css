@@ -1,81 +1,81 @@
 @font-face {
-    font-family: Arsenal-Bold;
-    src: url("../fonts/Arsenal-Bold.ttf");
-  }
-  @font-face {
-    font-family: Arsenal-Regular;
-    src: url("../fonts/Arsenal-Regular.ttf");
-  }
-
-
-.searchContainer{
-    position: inherit;
-    height:100%;
-    width: 100%;
-    background-color: #C4C4C4;
-    overflow-y: scroll;
+	font-family: Arsenal-Bold;
+	src: url('../fonts/Arsenal-Bold.ttf');
 }
-.searchBar{
-    position: sticky;
-    top:0;
-    left:0;
-    height: 8%;
-    width:100%;
-    background-color: #D8D8D8;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    box-shadow: .1vw .3vw 1vw rgba(0, 0, 0, 0.1);
+@font-face {
+	font-family: Arsenal-Regular;
+	src: url('../fonts/Arsenal-Regular.ttf');
 }
 
-.searchInput{
-    position: inherit;
-    padding-left: 2vw;
-    width: 70%;
-    height: 80%;
-    margin-top: 0vw;
-    font-family: Arsenal-Regular;   
-    font-size: 1.3vw;
-    border: none;
-    border-radius: 1vw;
-    box-shadow: inset .1vw .1vw .1vw rgba(0, 0, 0, 0.25);
-    background-color: rgba(240,240,240,1);
+.searchContainer {
+	position: inherit;
+	height: 100%;
+	width: 100%;
+	background-color: #c4c4c4;
+	overflow-y: scroll;
+}
+.searchBar {
+	position: sticky;
+	top: 0;
+	left: 0;
+	height: 8%;
+	width: 100%;
+	background-color: #d8d8d8;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0.1vw 0.3vw 1vw rgba(0, 0, 0, 0.1);
 }
 
-.searchIcon{
-    position: absolute;
-    margin-left: .5vw;
-    margin-top: .2vw;
-    z-index: 2;
-    height: 1vw;
-    width: auto;
-    left: 2vw;
+.searchInput {
+	position: inherit;
+	padding-left: 2vw;
+	width: 70%;
+	height: 80%;
+	margin-top: 0vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.3vw;
+	border: none;
+	border-radius: 1vw;
+	box-shadow: inset 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.25);
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.searchResult{
-    margin-top: .75vw;
-    margin-left: 1.5vw;
-    width: 80%;
-    height: 4vw;
-    background-color: #e0e0e0;
-    font-family: Arsenal-Regular;
-    padding-left: 1vw;
-    border-radius: .5vw;
-    font-size: 1vw;
+.searchIcon {
+	position: absolute;
+	margin-left: 0.5vw;
+	margin-top: 0.2vw;
+	z-index: 2;
+	height: 1vw;
+	width: auto;
+	left: 2vw;
 }
 
-.searchResult + .searchResult{
-    margin-top: .5vw;
+.searchResult {
+	margin-top: 0.75vw;
+	margin-left: 1.5vw;
+	width: 80%;
+	height: 4vw;
+	background-color: #e0e0e0;
+	font-family: Arsenal-Regular;
+	padding-left: 1vw;
+	border-radius: 0.5vw;
+	font-size: 1vw;
+	cursor: pointer;
 }
 
-.searchResultSymbol{
-    font-family: Arsenal-Bold;
-    padding-top: .1vw;
+.searchResult + .searchResult {
+	margin-top: 0.5vw;
 }
 
-.searchResultPrice{
-    font-family: Arsenal-Bold;
-    color: #4da755;/*#2c50b4*/
+.searchResultSymbol {
+	font-family: Arsenal-Bold;
+	padding-top: 0.1vw;
+}
+
+.searchResultPrice {
+	font-family: Arsenal-Bold;
+	color: #4da755; /*#2c50b4*/
 }

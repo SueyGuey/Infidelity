@@ -49,7 +49,7 @@ function getData(symbol: string) {
 	return promise;
 }
 
-class StockGraph extends React.Component<{ symbol: string }, any> {
+class StockGraph extends React.Component<{ symbol: string; days: number }, any> {
 	componentDidMount() {
 		getData(this.props.symbol).then((data) => {
 			this.setState({ data });
@@ -60,9 +60,7 @@ class StockGraph extends React.Component<{ symbol: string }, any> {
 		if (this.state == null) {
 			return <div>Loading...</div>;
 		}
-
-		//graph of svg type and passing in data
-		return <Chart type={'svg'} data={this.state.data} />;
+		return <Chart type={'svg'} data={this.state.data} days={this.props.days} />;
 	}
 }
 

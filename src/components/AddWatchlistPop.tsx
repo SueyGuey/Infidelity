@@ -26,11 +26,11 @@ function AddWatchListPop(props: WithUserProfileLoaderProps): ReactElement {
 
 	function handleSubmit() {
 		console.log('Adding a new watchlist: ', name);
-		setSubmitted(true);
 		newWatchlist({
 			username: props.userProfile.username,
 			watchlistName: name,
 		});
+		setSubmitted(true);
 	}
 
 	return user ? (
@@ -62,6 +62,9 @@ function AddWatchListPop(props: WithUserProfileLoaderProps): ReactElement {
 		) : (
 			<div>
 				<p>New watchlist has been added.</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (

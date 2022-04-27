@@ -26,7 +26,8 @@ function DashTop(props: DashTopProps): ReactElement {
 	const optionsValue = 0;
 	const cryptoValue = 0;
 
-	const [popUpState, setPopUpState] = useState(-1); //handles pop up state for add new Porfolio pop up
+	//handles pop up state for add new Porfolio pop up
+	const [popUpState, setPopUpState] = useState(-1);
 
 	//this function handles the display of the portfolio add pop up if conditions are met.
 	const popUpHandler = function popUpHandler(props: any) {
@@ -75,7 +76,7 @@ function DashTop(props: DashTopProps): ReactElement {
 						Options Value<p className="worthValue">${optionsValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
-						Crpyto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
+						Crypto Value<p className="worthValue">${cryptoValue.toFixed(2)}</p>
 					</span>
 					<span className="tradeValues">
 						Balance<p className="worthValue">${props.portfolio.balance.toFixed(2)}</p>
@@ -84,8 +85,8 @@ function DashTop(props: DashTopProps): ReactElement {
 					{/* The porfolio value graph */}
 					<div className="portfolioGraph">
 						<div className="graph" id="graph-container">
-							<p className="portfolioName">Porfolio Value</p>
-							<StockGraph symbol="MSFT" />
+							<p className="portfolioName">Portfolio Value</p>
+							<StockGraph symbol="MSFT" days={3625} />
 						</div>
 					</div>
 				</div>

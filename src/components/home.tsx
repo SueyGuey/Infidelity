@@ -24,7 +24,7 @@ export default function Home(): ReactElement {
 					<div className="graph" id="graph-container">
 						<p className="stockName"> S&P 500</p>
 						{/* the 'example' graph shown on the front page */}
-						<StockGraph symbol="SPY" />
+						<StockGraph symbol="SPY" days={1826} />
 					</div>
 				</span>
 			</div>

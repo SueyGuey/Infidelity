@@ -1,7 +1,6 @@
 import React, { ReactElement, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import userPool from '../authentication/userPool';
-import DashSideMenu from './DashSideMenu';
 import withUserProfileLoader, {
 	WithUserProfileLoaderProps,
 } from '../redux/loaders/withUserProfileLoader';
@@ -36,12 +35,12 @@ function AddToWatchList(props: addWatchlistProps): ReactElement {
 
 	function handleSubmit() {
 		console.log('Adding a new watchlist: ', WL);
-		setSubmitted(true);
 		addToWatchlist({
 			username: props.userProfile.username,
 			symbol: props.item,
 			watchlistNames: WL,
 		});
+		setSubmitted(true);
 	}
 
 	return user ? (
@@ -70,6 +69,9 @@ function AddToWatchList(props: addWatchlistProps): ReactElement {
 		) : (
 			<div>
 				<p>Stock added to watchlist</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (
