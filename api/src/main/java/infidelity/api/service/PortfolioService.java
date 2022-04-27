@@ -8,9 +8,8 @@ import infidelity.api.data.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.OptionalLong;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service for portfolio management. Responsible for creating, updating and deleting portfolios.
@@ -52,6 +51,7 @@ public class PortfolioService {
      */
     public Portfolio createPortfolio(PortfolioRequest newPortfolio){
         Portfolio portfolio = Portfolio.builder()
+                .username(newPortfolio.getUsername())
                 .name(newPortfolio.getPortfolioName())
                 .balance(newPortfolio.getAccountBalance())
                 .build();
@@ -146,7 +146,15 @@ public class PortfolioService {
         return null;
     };
 
-    public Portfolio updatePortfolioValue(Portfolio portfolio){
+    public Portfolio updatePortfolioValue(Portfolio portfolio) {
+        if (portfolio.getValueHistory() == null) {
+            portfolio.setValueHistory(new NumberHistory(portfolio.getPortfolioId() + "_history"));
+            if (portfolio.getTotalValue() != null) {
+                portfolio.getValueHistory().add(
+                        portfolio.getTotalValue().getValue(),
+                        portfolio.getTotalValue().getLastUpdated());
+            }
+        }
         // update values of all assets
         portfolio.getAssets().forEach(asset -> {
             Optional<ChangingNumber> price = marketService.getCurrentPrice(asset.getItem().getSymbol(),
@@ -186,6 +194,18 @@ public class PortfolioService {
         return portfolioRepository.save(portfolio);
     }
 
+    public List<LeaderboardPortfolio> getLeaderboard() {
+        List<Portfolio> lb = portfolioRepository.findAll();
+        // filter out portfolios with no assets
+        lb = lb.stream().filter(p -> p != null && p.getAssets().size() > 0 && p.getTotalValue() != null).collect(Collectors.toList());
+        lb.sort(Comparator.comparing(Portfolio::getWeekChange).reversed());
+        // limit to 100 results
+        if (lb.size() > 100) {
+            lb = lb.subList(0, 100);
+        }
+        return lb.stream().map(LeaderboardPortfolio::new).collect(Collectors.toList());
+    }
+
     /**
      * TODO: implement function
      * Uses a list of Transaction objects to calculate the total value of the portfolio
@@ -194,6 +214,10 @@ public class PortfolioService {
      * @param portfolio The portfolio to calculate the value of
      */
     public void updateHistory(Portfolio portfolio){
-        return;
+        // calculate the week, month, year, and all time values of the portfolio
     };
+
+    public Portfolio save(Portfolio portfolio) {
+        return portfolioRepository.save(portfolio);
+    }
 }

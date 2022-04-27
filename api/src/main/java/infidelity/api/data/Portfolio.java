@@ -1,6 +1,7 @@
 package infidelity.api.data;
 
 import lombok.*;
+import org.springframework.data.util.Pair;
 
 import javax.persistence.*;
 import java.util.*;
@@ -23,6 +24,8 @@ public class Portfolio {
     @Builder.Default
     private String portfolioId = UUID.randomUUID().toString();
 
+    private String username;
+
     /**
      * The name of the Portfolio as given by the user when creating the Portfolio.
      */
@@ -35,8 +38,15 @@ public class Portfolio {
     @Builder.Default
     private double balance = 100000;
 
+    private double weekChange;
+    private double monthChange;
+    private double yearChange;
+    private double allTimeChange;
+
     @OneToOne(cascade = CascadeType.ALL)
     private ChangingNumber totalValue;
+    @OneToOne(cascade = CascadeType.ALL)
+    private NumberHistory valueHistory;
 
     /**
      * The history of transactions that have occurred on this Portfolio.
@@ -53,4 +63,28 @@ public class Portfolio {
     @Builder.Default
     @OneToMany
     private Set<Asset> assets = new HashSet<>();
+
+    public LeaderboardPortfolio toLeaderboardPortfolio() {
+        // update the necessary fields if null
+        long now = System.currentTimeMillis();
+        if (weekChange == 0) {
+            // approximate the change in value over the past week
+            long oneWeekAgo = now - (7 * 24 * 60 * 60 * 1000);
+            Pair<Long, Double> initialValue = valueHistory.findValueAt(oneWeekAgo);
+            this.weekChange = 100 * ((this.totalValue.getValue() / initialValue.getSecond()) - 1);
+        }
+        if (monthChange == 0) {
+            // approximate the change in value over the past month
+            long oneMonthAgo = now - (30L * 24 * 60 * 60 * 1000);
+            Pair<Long, Double> initialValue = valueHistory.findValueAt(oneMonthAgo);
+            this.monthChange = 100 * ((this.totalValue.getValue() / initialValue.getSecond()) - 1);
+        }
+        if (yearChange == 0) {
+            // approximate the change in value over the past year
+            long oneYearAgo = now - (365L * 24 * 60 * 60 * 1000);
+            Pair<Long, Double> initialValue = valueHistory.findValueAt(oneYearAgo);
+            this.yearChange = 100 * ((this.totalValue.getValue() / initialValue.getSecond()) - 1);
+        }
+        return new LeaderboardPortfolio(this);
+    }
 }

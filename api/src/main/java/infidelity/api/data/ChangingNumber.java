@@ -22,7 +22,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangingNumber {
+public class ChangingNumber implements Comparable<ChangingNumber> {
     @Id
     @Column
     private String numberId;
@@ -69,5 +69,10 @@ public class ChangingNumber {
     public boolean update(double newValue) {
         long now = DateTime.now().getMillis();
         return update(newValue, now);
+    }
+
+    @Override
+    public int compareTo(ChangingNumber o) {
+        return Double.compare(value, o.value);
     }
 }

@@ -11,6 +11,7 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminDeleteUserRequest;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -60,6 +61,7 @@ public class UserService {
     public User saveUser(User user) {
         if (user.getPortfolios().isEmpty()) {
             Portfolio firstPortfolio = Portfolio.builder()
+                    .username(user.getUsername())
                     .name("My Portfolio")
                     .balance(100000)
                     .build();
@@ -80,6 +82,7 @@ public class UserService {
     public User createUser(User newUser) {
         if (newUser.getPortfolios().isEmpty()) {
             Portfolio firstPortfolio = Portfolio.builder()
+                    .username(newUser.getUsername())
                     .name("My Portfolio")
                     .balance(100000)
                     .build();
@@ -162,5 +165,9 @@ public class UserService {
             }
         }
         saveUser(user);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 }

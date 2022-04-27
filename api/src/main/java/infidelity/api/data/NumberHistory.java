@@ -46,6 +46,9 @@ public class NumberHistory {
      * @return the closest timestamp to the given timestamp, and the value at that timestamp
      */
     public Pair<Long, Double> findValueAt(long timestamp) {
+        if (data.isEmpty()) {
+            return null;
+        }
         NavigableMap<Long, Double> orderedData;
         if (data instanceof NavigableMap) {
             System.out.println("data is a NavigableMap");
