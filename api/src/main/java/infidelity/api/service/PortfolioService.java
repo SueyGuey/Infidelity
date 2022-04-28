@@ -122,7 +122,7 @@ public class PortfolioService {
             // Update portfolio
             userPortfolio.setBalance(userPortfolio.getBalance()
                      - transaction.getQuantity() * transaction.getPrice());
-            userPortfolio.getTransactions().add(transaction);;
+            userPortfolio.getTransactions().add(transaction);
 
             Set<Asset> assets = userPortfolio.getAssets();
             // checks if the tradeable is already owned in the portfolio
