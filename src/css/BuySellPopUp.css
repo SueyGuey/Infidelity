@@ -1,194 +1,197 @@
 @font-face {
-    font-family: Arsenal-Regular;
-    src: url("../fonts/Arsenal-Regular.ttf");
-  }
-  @font-face {
-    font-family: Arsenal-Bold;
-    src: url("../fonts/Arsenal-Bold.ttf");
-  }
-  
-
-.buySellPopUp, .buySellConfirmationPopUp{
-    position: fixed;
-    top: calc(50% - 7.55vw);
-    left: calc(50% - 15vw);
-    height: 100%;
-    width: 100%;
-    /* filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.25)); */
-    font-family: Arsenal-Regular;
-    font-size: 1.5vw;
-    /* background-color: #e0e0e0; */
-    border-radius: .5vw;
+	font-family: Arsenal-Regular;
+	src: url('../fonts/Arsenal-Regular.ttf');
+}
+@font-face {
+	font-family: Arsenal-Bold;
+	src: url('../fonts/Arsenal-Bold.ttf');
 }
 
-.sharePrompt{
-    font-family: Arsenal-Bold;
-    margin-top: 1vw;
+.buySellPopUp,
+.buySellConfirmationPopUp {
+	position: fixed;
+	top: calc(50% - 7.55vw);
+	left: calc(50% - 15vw);
+	height: 100%;
+	width: 100%;
+	/* filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.25)); */
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	/* background-color: #e0e0e0; */
+	border-radius: 0.5vw;
 }
 
-.confirmText{
-    display: inline;
+.sharePrompt {
+	font-family: Arsenal-Bold;
+	margin-top: 1vw;
 }
 
-.estValue{
-    display: inline;
-    color: #2b9e3e;
+.confirmText {
+	display: inline;
 }
 
-.totalEst{
-    margin-top: .5vw;
-    margin-bottom: 1.5vw;
+.estValue {
+	display: inline;
+	color: #2b9e3e;
 }
 
-.confirmContain{
-    position: inherit;
-    margin-left: -.6vw;
-    height: 1vw;
-    width: 8vw;
-    margin-bottom: 1vw;
+.totalEst {
+	margin-top: 0.5vw;
+	margin-bottom: 1.5vw;
 }
 
-.doSell{
-    margin-top: 1vw;
-    margin-left: 6.5vw;
-    background-color: #5B80DF;
-    width: 10vw;
-    height: 2vw;
-    border-radius: 4vw;
-    font-family: Arsenal-Regular;
-    font-size: 1.5vw;
-}   
-
-.doBuy{
-    margin-top: 1vw;
-    margin-left: 6.5vw;
-    position: absolute;
-    background-color: #36CD4E;
-    width: 10vw;
-    height: 2vw;
-    border-radius: 4vw;
-    font-family: Arsenal-Regular;
-    font-size: 1.5vw;
+.confirmContain {
+	position: inherit;
+	margin-left: -0.6vw;
+	height: 1vw;
+	width: 8vw;
+	margin-bottom: 1vw;
 }
 
-.doClose{
-    margin-top: 1vw;
-    margin-left: 6.5vw;
-    background-color: #FFF7D5;
-    width: 10vw;
-    height: 2vw;
-    border-radius: 4vw;
-    font-family: Arsenal-Regular;
-    font-size: 1.5vw;
-}   
-
-.toSellInput{
-    position: absolute;
-    margin-left: .5vw;
-    margin-top: .1vw;
-    height: 1.5vw;
-    font-family: Arsenal-Regular;   
-    font-size: 1.3vw;
-    padding-left: .3vw;
+.doSell {
+	margin-top: 1vw;
+	margin-left: 6.5vw;
+	background-color: #5b80df;
+	width: 10vw;
+	height: 2vw;
+	border-radius: 4vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	cursor: pointer;
 }
 
-
-.sellContainer{
-    margin-left: 3.5vw;
-    border-radius: .5vw;
-    padding-top: 1vw;
+.doBuy {
+	margin-top: 1vw;
+	margin-left: 6.5vw;
+	position: absolute;
+	background-color: #36cd4e;
+	width: 10vw;
+	height: 2vw;
+	border-radius: 4vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	cursor: pointer;
 }
 
-.watchNamePrompt{
-    font-family: Arsenal-Bold;
-    margin-top: 2.1vw;
-    margin-left: -1vw;
-    margin-bottom: 1vw;
+.doClose {
+	margin-top: 1vw;
+	margin-left: 6.5vw;
+	background-color: #fff7d5;
+	width: 10vw;
+	height: 2vw;
+	border-radius: 4vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	cursor: pointer;
 }
 
-.watchNamePrompt + .confirmContain{
-    margin-left: -1.5vw;
+.toSellInput {
+	position: absolute;
+	margin-left: 0.5vw;
+	margin-top: 0.1vw;
+	height: 1.5vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.3vw;
+	padding-left: 0.3vw;
 }
 
-.portNamePrompt{
-    margin-top: 1vw;
-    margin-left: 1.62vw;
-    font-family: Arsenal-Bold;
-    margin-bottom: 0.5vw;
+.sellContainer {
+	margin-left: 3.5vw;
+	border-radius: 0.5vw;
+	padding-top: 1vw;
 }
 
-.balanceStartPrompt{
-    font-family: Arsenal-Bold;
-    margin-bottom: 1vw;
+.watchNamePrompt {
+	font-family: Arsenal-Bold;
+	margin-top: 2.1vw;
+	margin-left: -1vw;
+	margin-bottom: 1vw;
 }
 
-.sharePrompt input{
-    border-radius: 1vw;
-    border-style: double;
-    border-color: rgba(140,140,140,.5);
-    margin-top: .25vw;
-    width: 10vw;
-    background-color: rgba(240,240,240,1);
+.watchNamePrompt + .confirmContain {
+	margin-left: -1.5vw;
 }
 
-.watchNamePrompt input{
-    border-radius: 1vw;
-    border-style: double;
-    border-color: rgba(140,140,140,.5);
-    margin-top: .25vw;
-    width: 10vw;
-    background-color: rgba(240,240,240,1);
+.portNamePrompt {
+	margin-top: 1vw;
+	margin-left: 1.62vw;
+	font-family: Arsenal-Bold;
+	margin-bottom: 0.5vw;
 }
 
-.portNamePrompt input{
-    border-radius: 1vw;
-    border-style: double;
-    border-color: rgba(140,140,140,.5);
-    margin-top: .25vw;
-    width: 10vw;
-    background-color: rgba(240,240,240,1);
+.balanceStartPrompt {
+	font-family: Arsenal-Bold;
+	margin-bottom: 1vw;
 }
 
-.balanceStartPrompt input{
-    border-radius: 1vw;
-    border-style: double;
-    border-color: rgba(140,140,140,.5);
-    margin-top: .25vw;
-    width: 10vw;
-    background-color: rgba(240,240,240,1);
+.sharePrompt input {
+	border-radius: 1vw;
+	border-style: double;
+	border-color: rgba(140, 140, 140, 0.5);
+	margin-top: 0.25vw;
+	width: 10vw;
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.watchNamePrompt .watchSelect{
-    position: absolute;
-    margin-left: 1vw;
-    border-radius: .2vw;
-    border-color: rgba(140,140,140,.5);
-    margin-top: -.25vw;
-    height: 8vw;
-    font-size: 1vw;
-    font-family: Arsenal-Regular;
-    width: 12vw;
-    background-color: rgba(240,240,240,1);
+.watchNamePrompt input {
+	border-radius: 1vw;
+	border-style: double;
+	border-color: rgba(140, 140, 140, 0.5);
+	margin-top: 0.25vw;
+	width: 10vw;
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.watchAdj{
-    margin-top: 6vw;
-    margin-left: 6.5vw;
-    position: absolute;
-    background-color: #36CD4E;
-    width: 10vw;
-    height: 2vw;
-    border-radius: 4vw;
-    font-family: Arsenal-Regular;
-    font-size: 1.5vw;
+.portNamePrompt input {
+	border-radius: 1vw;
+	border-style: double;
+	border-color: rgba(140, 140, 140, 0.5);
+	margin-top: 0.25vw;
+	width: 10vw;
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.selectWatchTxt{
-    font-size: .6vw;
-    margin-top: -1vw;
-    margin-left: -1vw;
+.balanceStartPrompt input {
+	border-radius: 1vw;
+	border-style: double;
+	border-color: rgba(140, 140, 140, 0.5);
+	margin-top: 0.25vw;
+	width: 10vw;
+	background-color: rgba(240, 240, 240, 1);
 }
 
-.watchSelect{
-    overflow-y: auto;
+.watchNamePrompt .watchSelect {
+	position: absolute;
+	margin-left: 1vw;
+	border-radius: 0.2vw;
+	border-color: rgba(140, 140, 140, 0.5);
+	margin-top: -0.25vw;
+	height: 8vw;
+	font-size: 1vw;
+	font-family: Arsenal-Regular;
+	width: 12vw;
+	background-color: rgba(240, 240, 240, 1);
+}
+
+.watchAdj {
+	margin-top: 6vw;
+	margin-left: 6.5vw;
+	position: absolute;
+	background-color: #36cd4e;
+	width: 10vw;
+	height: 2vw;
+	border-radius: 4vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	cursor: pointer;
+}
+
+.selectWatchTxt {
+	font-size: 0.6vw;
+	margin-top: -1vw;
+	margin-left: -1vw;
+}
+
+.watchSelect {
+	overflow-y: auto;
 }

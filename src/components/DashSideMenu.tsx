@@ -86,7 +86,10 @@ function DashSideMenu(props: WithUserProfileLoaderProps & { active: string }): R
 								<li
 									id="tradeHistory"
 									className="menuItem"
-									onClick={() => navigate(`/dashboard/tradeHistory`)}>
+									onClick={() => {
+										navigate(`/dashboard/tradeHistory`);
+										location.reload();
+									}}>
 									{' '}
 									{/*Navigates to user trade history (not promised)*/}
 									<p>Trade History</p>

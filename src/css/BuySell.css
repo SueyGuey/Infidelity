@@ -1,85 +1,87 @@
 @font-face {
-  font-family: Arsenal-Regular;
-  src: url("../fonts/Arsenal-Regular.ttf");
+	font-family: Arsenal-Regular;
+	src: url('../fonts/Arsenal-Regular.ttf');
 }
 
-.buySell{
-  width: 21.9vw;
-  margin-left: 1vw;
+.buySell {
+	width: 21.9vw;
+	margin-left: 1vw;
 }
 
-.buySellContainer{
-  position: inherit;
-  margin-left: 5vw;
-  margin-right: 5vw;
-  margin-top: 1.5vw;
-  height: 80%;
-  width: 20vw;
+.buySellContainer {
+	position: inherit;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	margin-top: 1.5vw;
+	height: 80%;
+	width: 20vw;
 }
 
-.labelSB + .labelSB{
-  margin-top: 0vw !important; /*need this or else overlap*/
+.labelSB + .labelSB {
+	margin-top: 0vw !important; /*need this or else overlap*/
 }
 
-.labelSB{
-  width: 20vw;
-  position: inherit;
-  margin-top: -1vw;
-  font-size: 1.5vw;
-  margin-bottom: .5vw;
+.labelSB {
+	width: 20vw;
+	position: inherit;
+	margin-top: -1vw;
+	font-size: 1.5vw;
+	margin-bottom: 0.5vw;
 }
 
-.labelSB p{
-  display: inline;
-  font-size: 1.5vw;
+.labelSB p {
+	display: inline;
+	font-size: 1.5vw;
 }
 
-.buySellContainer button{
-  margin-left: 4vw;
-  font-size: 1.4vw;
-  font-family: Arsenal-Regular;
+.buySellContainer button {
+	margin-left: 4vw;
+	font-size: 1.4vw;
+	font-family: Arsenal-Regular;
 }
-.buyButton{
-  position: absolute;
-  margin-top: 1vw;
-  background-color: #36CD4E;
-  width: 13vw;
-  height: 2vw;
-  border-radius: 4vw;
+.buyButton {
+	cursor: pointer;
+	position: absolute;
+	margin-top: 1vw;
+	background-color: #36cd4e;
+	width: 13vw;
+	height: 2vw;
+	border-radius: 4vw;
 }
-.sellButton{
-  margin-top: 3.8vw;
-  background-color: #5B80DF;
-  width: 13vw;
-  height: 2vw;
-  border-radius: 4vw;
-}   
-
-.buySellPopUp{
-  position: fixed;
+.sellButton {
+	cursor: pointer;
+	margin-top: 3.8vw;
+	background-color: #5b80df;
+	width: 13vw;
+	height: 2vw;
+	border-radius: 4vw;
 }
 
-.x-button{
-  position: inherit;
-  top: .5vw;
-  right: .5vw;
-  z-index: 1000;
-  width: 1.5vw;
-  height: 1.5vw;
-  border-radius: 1vw;
-  background-color: #d0d0d0;
-  color: black;
+.buySellPopUp {
+	position: fixed;
 }
 
-.popUpContainer{
-  position: fixed;
-  top: calc(50% - 7.55vw);
-  left: calc(50% - 15vw);
-  height: 15vw;
-  width: 30vw;
-  filter: drop-shadow(0px .60vw 1vw rgba(0, 0, 0, 0.25));
-  font-family: Arsenal-Regular;
-  font-size: 1.5vw;
-  background-color: #e0e0e0;
-  border-radius: .5vw;
+.x-button {
+	position: inherit;
+	top: 0.5vw;
+	right: 0.5vw;
+	z-index: 1000;
+	width: 1.5vw;
+	height: 1.5vw;
+	border-radius: 1vw;
+	background-color: #d0d0d0;
+	color: black;
+}
+
+.popUpContainer {
+	position: fixed;
+	top: calc(50% - 7.55vw);
+	left: calc(50% - 15vw);
+	height: 15vw;
+	width: 30vw;
+	filter: drop-shadow(0px 0.6vw 1vw rgba(0, 0, 0, 0.25));
+	font-family: Arsenal-Regular;
+	font-size: 1.5vw;
+	background-color: #e0e0e0;
+	border-radius: 0.5vw;
 }

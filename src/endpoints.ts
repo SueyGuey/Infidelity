@@ -39,7 +39,7 @@ export const NEW_PORTFOLIO_URL = `${BACKEND_URL}/user/portfolio/create`;
 export const NEW_WATCHLIST_URL = `${BACKEND_URL}/user/addWL`;
 export const NEW_TO_WATCHLIST_URL = `${BACKEND_URL}/user/addToWL`;
 
-export const DEFUALT_PRICE_WINDOW = 1000 * 60 * 60 * 1; // 1 hour
+export const DEFUALT_PRICE_WINDOW = 1000 * 60 * 60 * 12; // 12 hours
 export const DEFAULT_PRICE_TIMEOUT = 1000 * 60 * 1; // 1 minute
 
 //User creation
@@ -79,6 +79,7 @@ export async function searchMarketBackend(query: string): Promise<Tradeable[]> {
 //For performing trades
 export async function makeTradeBackend(trade: TransactionRequest): Promise<Transaction> {
 	console.log('MAKE TRADE');
+	fetch(`${BACKEND_URL}/market/info/${trade.itemSymbol}`);
 	return await fetch(MAKE_TRADE_URL, {
 		method: 'POST',
 		headers: {
@@ -128,7 +129,7 @@ export function addToWatchlist(request: AddToWatchlistRequest) {
 export function setActivePortfolioBackend(username: string, porfolioName: string) {
 	console.log('SET ACTIVE PORTFOLIO');
 	fetch(
-		`${BACKEND_URL}/user/portfolio/set-active?username=${username}?portfolioName=${porfolioName}`,
+		`${BACKEND_URL}/user/portfolio/set-active?username=${username}&portfolioName=${porfolioName}`,
 		{
 			method: 'PUT',
 		}

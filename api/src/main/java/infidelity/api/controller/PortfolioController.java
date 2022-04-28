@@ -37,6 +37,7 @@ public class PortfolioController {
 
     @PutMapping(path = "/set-active")
     public ResponseEntity setActivePortfolio(@RequestParam String username, @RequestParam String portfolioName) {
+        log.info("PUT /user/portfolio/set-active, username: " + username + ", portfolioName: " + portfolioName);
         portfolioService.setActivePortfolio(username, portfolioName);
         return new ResponseEntity(HttpStatus.OK);
     }

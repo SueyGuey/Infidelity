@@ -1,204 +1,214 @@
 @font-face {
-    font-family: Arsenal-Bold;
-    src: url("../fonts/Arsenal-Bold.ttf");
-  }
-  @font-face {
-    font-family: Arsenal-Regular;
-    src: url("../fonts/Arsenal-Regular.ttf");
-  }
-
-.DashTopContain{
-    position: absolute;
-    display: flex;
-    border: none;
-    height: 65%;
-    width: 82%;
-    top: 0;
-    right: 0;
-    /* background-color: bisque; */
+	font-family: Arsenal-Bold;
+	src: url('../fonts/Arsenal-Bold.ttf');
+}
+@font-face {
+	font-family: Arsenal-Regular;
+	src: url('../fonts/Arsenal-Regular.ttf');
 }
 
-.ActivePortfolio{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    position: inherit;
-    width: 100%;
-    height: 8%;
-    margin-top: .5vw;
-    font-family: Arsenal-Bold;
+.DashTopContain {
+	position: absolute;
+	display: flex;
+	border: none;
+	height: 65%;
+	width: 82%;
+	top: 0;
+	right: 0;
 }
 
-.ActivePortfolio p{
-    font-size: 1.7vw;
-    margin-right: 21vw;
+.ActivePortfolio {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	position: inherit;
+	width: 100%;
+	height: 8%;
+	margin-top: 0.5vw;
+	font-family: Arsenal-Bold;
 }
 
-.ActivePortfolio select{
-    position: absolute;
-    margin-top: -.18vw;
-    font-family: Arsenal-Regular;   
-    font-size: 1.6vw;
-    border: none;
-    border-radius: .25vw;
-    box-shadow: inset .1vw .1vw .1vw rgba(0, 0, 0, 0.25);
-    background-color: rgba(240,240,240,1);
-    margin-left: 1vw;
-    margin-top: .05vw;
+.ActivePortfolio p {
+	font-size: 1.7vw;
+	margin-right: 21vw;
 }
 
-.portfolioValueContainer{
-    padding-left: 4vw;
-    position: inherit;
-    top:3.5vw;
-    display: flex;
-    width: fit-content;
-    height: 27vw;
-    /* background-color: red; */
+.ActivePortfolio select {
+	position: absolute;
+	margin-top: -0.18vw;
+	font-family: Arsenal-Regular;
+	font-size: 1.6vw;
+	border: none;
+	border-radius: 0.25vw;
+	box-shadow: inset 0.1vw 0.1vw 0.1vw rgba(0, 0, 0, 0.25);
+	background-color: rgba(240, 240, 240, 1);
+	margin-left: 1vw;
+	margin-top: 0.05vw;
 }
 
-.tradeValues{
-    display: inline-block;
-    top: 0;
-    left: 0;
-    height: 10vw;
-    width: 9.85vw;
-    height: 5vw;
-    border: none;
-    background-color: #e0e0e0;
-    border-radius: .3vw;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    font-family: Arsenal-Regular;
-
-    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.20);
-    font-size: 1.5vw;
+.portfolioValueContainer {
+	padding-left: 4vw;
+	position: inherit;
+	top: 3.5vw;
+	display: flex;
+	width: fit-content;
+	height: 27vw;
+	/* background-color: red; */
 }
 
-.tradeValues p{
-    font-size: 1.5vw;
+.tradeValues {
+	display: inline-block;
+	top: 0;
+	left: 0;
+	height: 10vw;
+	width: 9.85vw;
+	height: 5vw;
+	border: none;
+	background-color: #e0e0e0;
+	border-radius: 0.3vw;
+
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	font-family: Arsenal-Regular;
+
+	box-shadow: 0.5vw 0.2vw 0.5vw rgba(0, 0, 0, 0.2);
+	font-size: 1.5vw;
 }
 
-.tradeValues + .tradeValues{
-    margin-left: 1vw;
+.tradeValues p {
+	font-size: 1.5vw;
 }
 
-.portfolioGraph{
-    position: inherit;
-    top: 6vw;
-    left: 2.1vw;
-    height: calc(100% - 6vw);
-    width: calc(100% - 4vw);
-    /* background-color: #f0f0f0; */
+.tradeValues + .tradeValues {
+	margin-left: 1vw;
 }
 
-.portfolioName{
-    padding-left: 1vw;
-    padding-top: .5vw;
-    font-size: 1.2vw;
-    font-family: Arsenal-Regular;
+.portfolioGraph {
+	position: inherit;
+	top: 6vw;
+	left: 2.1vw;
+	height: calc(100% - 6vw);
+	width: calc(100% - 4vw);
+	/* background-color: #f0f0f0; */
 }
 
-.worthValue{
-    position: absolute;
-    top: 1.5vw;
-    margin-top: .25vw;
-    font-family: Arsenal-Bold;
-    color: rgb(43, 172, 43);
-}
-.stockValue{
-    font-family: Arsenal-Bold;
-    color: rgb(43, 172, 43);
-    display: inline;
-}
-.searchSide{
-    position: inherit;
-    top: 0;
-    right: 0;
-    margin-top: 1.5vw;
-    margin-right:1vw;
-    height: 28.75vw;
-    width: 21vw;
-    border-radius: .5vw;
-    overflow: hidden;
-    box-shadow: .5vw .2vw .5vw rgba(0, 0, 0, 0.15);
+.portfolioName {
+	padding-left: 1vw;
+	padding-top: 0.5vw;
+	font-size: 1.2vw;
+	font-family: Arsenal-Regular;
 }
 
-.stockValueContainer{
-    padding-left: 4vw;
-    position: inherit;
-    top:-5vw;
-    display: flex;
-    width: 52.7vw;
-    height: 36vw;
-    /* background-color: red; */
+.worthValue {
+	position: absolute;
+	top: 1.5vw;
+	margin-top: 0.25vw;
+	font-family: Arsenal-Bold;
+	color: rgb(43, 172, 43);
 }
 
-.stockGraph{
-    position: inherit;
-    top: 6vw;
-    left: .1vw;
-    height: calc(100% - 6vw);
-    width: calc(100% - 2vw);
+.stockValue {
+	font-family: Arsenal-Bold;
+	color: rgb(43, 172, 43);
+	display: inline;
 }
 
-.newPortfolioButton{
-    position: inherit;
-    font-family: Arsenal-Regular;
-    background-color: rgba(0, 0, 0, 0.15);
-    font-size: 2vw;
-    margin-right: .5vw;
-    left: 21.5vw;
-    top: .1vw;
-    height: 2vw;
-    width: 2vw;
-    border-radius: 1vw;
+.timespan {
+	margin-left: 1.5vw;
+	display: inline;
+	text-decoration: underline;
+	cursor: pointer;
 }
 
-.newPortfolioButton p{
-    position: absolute;
-    font-family: Arsenal-Bold;
-    margin-left: .6vw;
-    margin-top: -1.2vw;
+.searchSide {
+	position: inherit;
+	top: 0;
+	right: 0;
+	margin-top: 1.5vw;
+	margin-right: 1vw;
+	height: 28.75vw;
+	width: 21vw;
+	border-radius: 0.5vw;
+	overflow: hidden;
+	box-shadow: 0.5vw 0.2vw 0.5vw rgba(0, 0, 0, 0.15);
 }
 
-.addToWatchlistButton{
-    background-color: #e0e0e0;
-    margin-left: 0.3vw;
-    margin-right: 0.4vw;
-    width: 1.5vw;
-    border-radius: 1vw;
-    aspect-ratio: 1/1;
-
+.stockValueContainer {
+	padding-left: 4vw;
+	position: inherit;
+	top: -5vw;
+	display: flex;
+	width: 52.7vw;
+	height: 36vw;
+	/* background-color: red; */
 }
 
-.industry{
-    position: absolute;
-    display: inline;
-    right:1vw;
-    align-content: right;
-    font-family: Arsenal-Regular;
-    font-weight: 500;
-    font-size: 1.2vw;
-    top: .5vw;
+.stockGraph {
+	position: inherit;
+	top: 6vw;
+	left: 0.1vw;
+	height: calc(100% - 6vw);
+	width: calc(100% - 2vw);
 }
 
-.industry-type{
-    display: inline;
-    color:rgb(131, 43, 172);
-    text-decoration: none;
+.newPortfolioButton {
+	position: inherit;
+	font-family: Arsenal-Regular;
+	background-color: rgba(0, 0, 0, 0.15);
+	font-size: 2vw;
+	margin-right: 0.5vw;
+	left: 21.5vw;
+	top: 0.1vw;
+	height: 2vw;
+	width: 2vw;
+	border-radius: 1vw;
+	cursor: pointer;
 }
 
-.StockTicker{
-    display: inline;
+.newPortfolioButton p {
+	position: absolute;
+	font-family: Arsenal-Bold;
+	margin-left: 0.6vw;
+	margin-top: -1.2vw;
 }
 
-a,a:visited{
-    color: inherit;
-    text-decoration: none;
+.addToWatchlistButton {
+	background-color: #e0e0e0;
+	margin-left: 0.3vw;
+	margin-right: 0.4vw;
+	width: 1.5vw;
+	border-radius: 1vw;
+	aspect-ratio: 1/1;
+	cursor: pointer;
+}
+
+.industry {
+	position: absolute;
+	display: inline;
+	right: 1vw;
+	align-content: right;
+	font-family: Arsenal-Regular;
+	font-weight: 500;
+	font-size: 1.2vw;
+	top: 0.5vw;
+}
+
+.industry-type {
+	display: inline;
+	color: rgb(131, 43, 172);
+	text-decoration: none;
+}
+
+.StockTicker {
+	display: inline;
+}
+
+a,
+a:visited {
+	color: inherit;
+	text-decoration: none;
 }

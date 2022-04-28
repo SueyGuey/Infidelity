@@ -46,7 +46,7 @@ function Dashboard(props: WithUserProfileLoaderProps & { item: string }): ReactE
 	return (
 		<div className="Dashboard">
 			<DashSideMenu active={active || props.item} />
-			<DashTop portfolio={portfolio} />
+			<DashTop portfolio={portfolio} setPortfolio={setPortfolio} />
 			<DashBottom portfolio={portfolio} />
 		</div>
 	);

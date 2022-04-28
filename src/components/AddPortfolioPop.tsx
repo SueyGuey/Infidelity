@@ -24,12 +24,12 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 	const [startingBal, setStartBalance] = useState(10000.0); //for input numbers , starting balance
 
 	function createPortfolio(username: string, name: string, startingBal: number) {
-		setSubmitted(true);
 		newPortfolioBackend({
 			username: username,
 			portfolioName: name,
 			accountBalance: startingBal,
 		});
+		setSubmitted(true);
 	}
 
 	return user ? (
@@ -76,6 +76,9 @@ function AddPortfolioPop(props: WithUserProfileLoaderProps): ReactElement {
 		) : (
 			<div>
 				<p>New portfolio has been added.</p>
+				<button onClick={() => location.reload()} className="doClose">
+					Continue
+				</button>
 			</div>
 		)
 	) : (
