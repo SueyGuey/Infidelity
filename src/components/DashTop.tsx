@@ -75,7 +75,10 @@ function DashTop(props: DashTopProps): ReactElement {
 						className="selectPortfolio"
 						onChange={(event) => handleChange(event.target.value)}>
 						{portfolios.map((portfolio) => (
-							<option value={portfolio.name} key={portfolio.portfolioId}>
+							<option
+								value={portfolio.name}
+								key={portfolio.portfolioId}
+								selected={props.portfolio.name === portfolio.name}>
 								{portfolio.name}
 							</option>
 						))}
