@@ -129,7 +129,7 @@ export function addToWatchlist(request: AddToWatchlistRequest) {
 export function setActivePortfolioBackend(username: string, porfolioName: string) {
 	console.log('SET ACTIVE PORTFOLIO');
 	fetch(
-		`${BACKEND_URL}/user/portfolio/set-active?username=${username}?portfolioName=${porfolioName}`,
+		`${BACKEND_URL}/user/portfolio/set-active?username=${username}&portfolioName=${porfolioName}`,
 		{
 			method: 'PUT',
 		}
