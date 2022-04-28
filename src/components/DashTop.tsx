@@ -50,11 +50,11 @@ function DashTop(props: DashTopProps): ReactElement {
 	};
 
 	const handleChange = function handleChange(e: any) {
-		alert(e);
+		//alert(e);
 		const selectedPortfolio = Array.from(portfolios).find((portfolio) => portfolio.name === e);
 		if (selectedPortfolio) {
 			props.setPortfolio(selectedPortfolio);
-			alert('set');
+			//alert('set');
 			setActivePortfolioBackend(props.userProfile.username, e);
 		}
 		//location.reload();
