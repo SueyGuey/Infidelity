@@ -9,6 +9,7 @@ import withUserProfileLoader, {
 import AddPortfolioPop from './AddPortfolioPop';
 import { getActivePortfolio } from '../datamodels/User';
 import Portfolio, { getTotalStockValue } from '../datamodels/Portfolio';
+import { setActivePortfolioBackend } from '../endpoints';
 
 type DashTopProps = WithUserProfileLoaderProps & {
 	portfolio: Portfolio;
@@ -24,7 +25,7 @@ function DashTop(props: DashTopProps): ReactElement {
 	const portfolios = Array.from(props.userProfile.portfolios);
 	const portfolioValue = props.portfolio.totalValue
 		? props.portfolio.totalValue.value
-		: props.portfolio.balance + 1.93;
+		: props.portfolio.balance;
 	const stockValue = getTotalStockValue(props.portfolio);
 	const optionsValue = 0;
 	const cryptoValue = 0;
@@ -48,6 +49,17 @@ function DashTop(props: DashTopProps): ReactElement {
 		}
 	};
 
+	const handleChange = function handleChange(e: any) {
+		alert(e);
+		const selectedPortfolio = Array.from(portfolios).find((portfolio) => portfolio.name === e);
+		if (selectedPortfolio) {
+			props.setPortfolio(selectedPortfolio);
+			alert('set');
+			setActivePortfolioBackend(props.userProfile.username, e);
+		}
+		//location.reload();
+	};
+
 	return (
 		<div>
 			{popUpHandler(popUpState)}{' '}
@@ -59,7 +71,9 @@ function DashTop(props: DashTopProps): ReactElement {
 						<p>+</p>
 					</button>
 					<p>Active Portfolio:</p>
-					<select className="selectPortfolio">
+					<select
+						className="selectPortfolio"
+						onChange={(event) => handleChange(event.target.value)}>
 						{portfolios.map((portfolio) => (
 							<option value={portfolio.name} key={portfolio.portfolioId}>
 								{portfolio.name}
