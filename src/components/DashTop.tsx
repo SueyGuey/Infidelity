@@ -10,7 +10,10 @@ import AddPortfolioPop from './AddPortfolioPop';
 import { getActivePortfolio } from '../datamodels/User';
 import Portfolio, { getTotalStockValue } from '../datamodels/Portfolio';
 
-type DashTopProps = WithUserProfileLoaderProps & { portfolio: Portfolio };
+type DashTopProps = WithUserProfileLoaderProps & {
+	portfolio: Portfolio;
+	setPortfolio: React.Dispatch<React.SetStateAction<Portfolio>>;
+};
 
 /**
  * This is the Top Portion of the user Dashboard. It contains the portfolio value graph,
